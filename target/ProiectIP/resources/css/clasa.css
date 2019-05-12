@@ -1,0 +1,158 @@
+html,body{
+    width: 100%;
+    height: 100%;
+}
+body {
+  background-color:white;
+}
+.div1 {
+    position: absolute;
+    width: 671px;
+    height: 480px;
+    left: 415px;
+    top: 228px;
+    border: 1px solid #C4C4C4;
+    box-sizing: border-box;
+}
+.p1, .p2, .p3, .p4, .p5, .p6, .p7, .p8, .p9{
+    position: absolute;
+    width: 1140px;
+    height: 36px;
+    left: 156px;
+    top: 104px;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 25px;
+    line-height: 51px;
+    text-align: center;
+    color: #000000;
+}
+.p2 {
+    width: 263px;
+    height: 28px;
+    left: 0px;
+    top: 0px;
+    font-size: 20px;
+    line-height: 40px;
+}
+.p3 { 
+    width: 263px;
+    height: 28px;
+    left: 0px;
+    top: 60px;
+    font-size: 20px;
+    line-height: 40px;
+}
+.p4 {
+    width: 263px;
+    height: 28px;
+    left: 0px;
+    top: 120px;
+    font-size: 20px;
+    line-height: 40px;
+}
+.p5 {
+    width: 263px;
+    height: 28px;
+    left: 0px;
+    top: 180px;
+    font-size: 20px;
+    line-height: 40px;
+}
+.p6 {
+    width: 263px;
+    height: 28px;
+    left: 0px;
+    top: 240px;
+    font-size: 20px;
+    line-height: 40px;
+}
+.p7 {
+    width: 263px;
+    height: 28px;
+    left: 0px;
+    top: 300px;
+    font-size: 20px;
+    line-height: 40px;
+}
+.p8 {
+    width: 263px;
+    height: 28px;
+    left: 0px;
+    top: 360px;
+    font-size: 20px;
+    line-height: 40px;
+}
+.p9 {
+    width: 263px;
+    height: 28px;
+    left: 0px;
+    top: 420px;
+    font-size: 20px;
+    line-height: 40px;
+}
+.hr1, .hr2, .hr3, .hr4, .hr5, .hr6, .hr7 {
+    position: absolute;
+    top:60px;
+    color: black;
+    width: 668px;
+
+}
+.hr2 {
+    top:120px;
+}
+.hr3 {
+    top:180px;
+}
+.hr4 {
+    top:240px;
+}
+.hr5 {
+    top:300px;
+}
+.hr6 {
+    top:360px;
+}
+.hr7 {
+    top:420px;
+}
+.button1,
+.button2,
+.button3,
+.button4,
+.button5,
+.button6,
+.button7,
+.button8
+{
+    position: absolute;
+    width: 124px;
+    height: 50px;
+    left: 420px;
+    top: 8px;
+    background: #FF685A;
+    border-radius: 4px;
+    color:white;
+}
+.button2 {
+    top: 73px;
+}
+.button3 {
+    top: 133px;
+}
+.button4 {
+    top: 193px;
+}
+.button5 {
+    top: 253px;
+}
+.button6 {
+    top: 313px;
+}
+.button7 {
+    top: 373px;
+}
+.button8 {
+    top: 430px;
+}
