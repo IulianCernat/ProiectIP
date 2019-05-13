@@ -3,10 +3,11 @@ import org.w3c.dom.Document;
 
 import java.io.File;
 import java.io.*;
+import java.sql.SQLException;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         Problem pr = new Problem();
         //pr.testIfFunctioning();
         //System.out.println(pr.getEnuntProblema(1));
@@ -17,6 +18,7 @@ public class Main {
         //System.out.println(pr.serialize(doc));
         //File xmlFile = new File("e:\\problem.xml");
         //pr.addProblem(xmlFile);
+        //System.out.println(pr.getLastProblemId());
     }
 
 }

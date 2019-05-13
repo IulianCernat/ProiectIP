@@ -138,65 +138,47 @@ public class Problem {
         return -1; // nu avem punctaj pentru problema data
     }
 
-    int getAvailableIdForInsertion(PreparedStatement stmt) {
-        //depinde daca o sa reciclam id-urile nefolosite sau vom folose autoincrement
-        //momentan se gaseste cel mai mai mare id disponibil
-        int availableId;
-        try {
-            ResultSet rs = stmt.executeQuery("select max(id) + 1 as maxId from enunturi_probleme");
-            if (rs.next()) {
-                if (rs.getString("maxId") == null)
-                    return 1;
-                else
-                    availableId = Integer.parseInt(rs.getString("maxId"));
-                return availableId;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+    public int getLastProblemId() throws SQLException {
+        int id = 0;
+        Statement stmt = myConn.createStatement();
+        String query = "select max(id) as maxId from enunturi_probleme";
+        ResultSet rs = stmt.executeQuery(query);
+        if (rs.next()) {
+            if (rs.getString("maxId") != null)
+                id = Integer.parseInt(rs.getString("maxId"));
         }
-        return 0;
-
+        return id;
     }
 
-    public void addProblem(Document problemXML) {
+    public void addProblem(Document problemXML) throws ParserConfigurationException, SQLException {
 
-        try {
-            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+        //Insert Problem
+        String problemInsertion = "insert into enunturi_probleme (titlu, enunt, rezolvare, categorie) values (?, ?, ?, ?)";
+        PreparedStatement psmt = myConn.prepareStatement(problemInsertion);
+        psmt.setString(1, problemXML.getElementsByTagName("titlu").item(0).getTextContent());
+        psmt.setString(2, problemXML.getElementsByTagName("enunt").item(0).getTextContent());
+        psmt.setString(3, problemXML.getElementsByTagName("rezolvare").item(0).getTextContent());
+        psmt.setInt(4, Integer.parseInt(problemXML.getElementsByTagName("categorie").item(0).getTextContent()));
+        psmt.executeUpdate();
+
+        //Insert tests
+        int problemId = getLastProblemId();
+        System.out.println("Problem Id" + problemId);
+        String testsIsertion = "insert into teste_probleme " +
+                "(id_problema, test1_in, test1_out, test2_in, test2_out, test3_in, test3_out)" +
+                " values(?, ?, ?, ?, ?, ?, ?)";
+        psmt = myConn.prepareStatement(testsIsertion);
+        psmt.setInt(1, problemId);
+        psmt.setString(2, problemXML.getElementsByTagName("test1_in").item(0).getTextContent());
+        psmt.setString(3, problemXML.getElementsByTagName("test1_out").item(0).getTextContent());
+        psmt.setString(4, problemXML.getElementsByTagName("test2_in").item(0).getTextContent());
+        psmt.setString(5, problemXML.getElementsByTagName("test2_out").item(0).getTextContent());
+        psmt.setString(6, problemXML.getElementsByTagName("test3_in").item(0).getTextContent());
+        psmt.setString(7, problemXML.getElementsByTagName("test3_out").item(0).getTextContent());
+        psmt.executeUpdate();
 
 
-            //Get available id for problem
-            PreparedStatement stmt = myConn.prepareStatement("select max(id) + 1 as maxId  from enunturi_probleme");
-            int problemAvailableId = getAvailableIdForInsertion(stmt);
-
-            //Get available id for test
-            stmt = myConn.prepareStatement("select max(id) + 1 as maxId  from teste_probleme");
-            int testAvailableId = getAvailableIdForInsertion(stmt);
-
-
-            stmt = myConn.prepareStatement("insert into enunturi_probleme values(" +
-                    Integer.toString(problemAvailableId) + ",'" +
-                    problemXML.getElementsByTagName("titlu").item(0).getTextContent() + "','" +
-                    problemXML.getElementsByTagName("enunt").item(0).getTextContent() + " ',' " +
-                    problemXML.getElementsByTagName("rezolvare").item(0).getTextContent() + "'," +
-                    Integer.parseInt(problemXML.getElementsByTagName("categorie").item(0).getTextContent()) + ")");
-            stmt.executeUpdate();
-
-            stmt = myConn.prepareStatement("insert into teste_probleme values(" +
-                    Integer.toString(testAvailableId) + "," +
-                    Integer.toString(problemAvailableId) + ",'" +
-                    problemXML.getElementsByTagName("test1_in").item(0).getTextContent() + "','" +
-                    problemXML.getElementsByTagName("test1_out").item(0).getTextContent() + "','" +
-                    problemXML.getElementsByTagName("test2_in").item(0).getTextContent() + "','" +
-                    problemXML.getElementsByTagName("test2_out").item(0).getTextContent() + "','" +
-                    problemXML.getElementsByTagName("test3_in").item(0).getTextContent() + "','" +
-                    problemXML.getElementsByTagName("test3_out").item(0).getTextContent() + "',)");
-                   // problemXML.getElementsByTagName("test4_in").item(0).getTextContent() + "','" +
-                    //problemXML.getElementsByTagName("test4_out").item(0).getTextContent() + "')");
-            stmt.executeUpdate();
-
-        } catch (ParserConfigurationException | SQLException e) {
-            e.printStackTrace();
-        }
     }
 }

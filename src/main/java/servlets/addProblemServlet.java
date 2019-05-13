@@ -14,12 +14,13 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 
 @WebServlet(name = "addProblemServlet")
 public class addProblemServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        try  {
+        PrintWriter out = response.getWriter();
+        try {
             // Set the MIME type for the response message
             response.setContentType("text/html");
             // Get a output writer to write the response message into the network socket
@@ -79,12 +80,15 @@ public class addProblemServlet extends HttpServlet {
             test3_out.appendChild(doc.createTextNode(request.getParameter("input3")));
             teste.appendChild(test3_out);
             problem.addProblem(doc);
+            out.println("<p>success<p>");
 
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
+
+        } catch (ParserConfigurationException | SQLException e) {
+           out.println(e);
+           e.printStackTrace();
         }
-        PrintWriter out = response.getWriter();
-        out.println("<p>success<p>");
+
+
     }
 
 }
