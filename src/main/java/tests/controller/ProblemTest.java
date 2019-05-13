@@ -2,6 +2,8 @@ package controller;
 
 import org.junit.Test;
 
+import java.sql.SQLException;
+
 import static org.junit.Assert.*;
 
 public class ProblemTest {
@@ -15,18 +17,28 @@ public class ProblemTest {
     @Test
     public void getEnuntProblemaNull() {
         Problem pr = new Problem();
-        assertEquals(null ,pr.getEnuntProblema(223));
+        assertNull(pr.getEnuntProblema(223));
     }
 
     @Test
     public void getPunctaj() {
         Problem pr = new Problem();
-        assertEquals(3, pr.getPunctaj(1,5));
+        assertEquals(3, pr.getPunctaj(1,5)); //trebuie adaugate punctaje in tabela pentru a putea testa
     }
 
     @Test
     public void getPunctajNull() {
         Problem pr = new Problem();
         assertEquals(-1,pr.getPunctaj(2,3));
+    }
+
+    @Test
+    public void getLastProblemIdTest() {
+        Problem pr = new Problem();
+        try {
+            assertNotNull(pr.getLastProblemId());
+        } catch (SQLException e) {
+            assertNull(e);
+        }
     }
 }
