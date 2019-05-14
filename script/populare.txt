@@ -1,10 +1,11 @@
-INSERT INTO `proiect_ip`.`enunturi_probleme`
+INSERT INTO `proiect_ip`.`problem`
 	(`id`,
-	`titlu`,
-	`enunt`,
-	`rezolvare`,
-	`categorie`,
-	`data_introducere`)
+	`title`,
+	`statement`,
+	`solution`,
+	`category`,
+	`introduction_date`,
+	`difficulty`)
 VALUES
 	(1 ,
 	'Numere consecutive',
@@ -19,17 +20,19 @@ VALUES
 	 else cout<<"nu";
 	 }', 
 	 9 ,
-	 '2019-05-14');
+	 '2019-05-14',
+	 'mediu');
 	 
 	 
 	 
-INSERT INTO `proiect_ip`.`enunturi_probleme`
+INSERT INTO `proiect_ip`.`problem`
 	(`id`,
-	`titlu`,
-	`enunt`,
-	`rezolvare`,
-	`categorie`,
-	`data_introducere`)
+	`title`,
+	`statement`,
+	`solution`,
+	`category`,
+	`introduction_date`,
+	`difficulty`)
 VALUES
 	(2 ,
 	'Numar maxim',
@@ -48,16 +51,18 @@ VALUES
 			 else cout<<c1<<c2;  
 	 }', 
 	 9,
-	 '2019-05-14');
+	 '2019-05-14',
+	 'usor');
 
 	 
-INSERT INTO `proiect_ip`.`enunturi_probleme`
+INSERT INTO `proiect_ip`.`problem`
 	(`id`,
-	`titlu`,
-	`enunt`,
-	`rezolvare`,
-	`categorie`,
-	`data_introducere`)
+	`title`,
+	`statement`,
+	`solution`,
+	`category`,
+	`introduction_date`,
+	`difficulty`)
 VALUES
 	(3 ,
 	'Majuscule-minuscule',
@@ -77,114 +82,114 @@ VALUES
 	 }
 	 ', 
 	 11,
-	'2019-05-14');	
+	'2019-05-14',
+	'avansat');	
 
 
-INSERT INTO `proiect_ip`.`teste_probleme`
-	(`id_problema`,
+INSERT INTO `proiect_ip`.`problem_test`
+	(`id_problem`,
 	`test_in`,
 	`test_out`,
-	`pondere`)
+	`percentage`)
 VALUES
 	(1,
 	"2,3",
 	"da",
-	5.6);
+	56);
 	
-INSERT INTO `proiect_ip`.`teste_probleme`
-	(`id_problema`,
+INSERT INTO `proiect_ip`.`problem_test`
+	(`id_problem`,
 	`test_in`,
 	`test_out`,
-	`pondere`)
+	`percentage`)
 VALUES
 	(1,
 	"2,5",
 	"nu",
-	6.6);
+	66.9);
 		
-INSERT INTO `proiect_ip`.`teste_probleme`
-	(`id_problema`,
+INSERT INTO `proiect_ip`.`problem_test`
+	(`id_problem`,
 	`test_in`,
 	`test_out`,
-	`pondere`)
+	`percentage`)
 VALUES
 	(1,
 	"5,6",
 	"da",
-	8.6);
+	86);
 	
 	
-INSERT INTO `proiect_ip`.`teste_probleme`
-	(`id_problema`,
+INSERT INTO `proiect_ip`.`problem_test`
+	(`id_problem`,
 	`test_in`,
 	`test_out`,
-	`pondere`)
+	`percentage`)
 VALUES
 	(1,
 	"7,2",
 	"nu",
-	8.6);
+	80);
 	
 
-
-INSERT INTO `proiect_ip`.`teste_probleme`
-	(`id_problema`,
+INSERT INTO `proiect_ip`.`problem_test`
+	(`id_problem`,
 	`test_in`,
 	`test_out`,
-	`pondere`)
+	`percentage`)
 VALUES
 	(2,
 	"123",
 	"23",
-	8.6);
+	86);
 	
-INSERT INTO `proiect_ip`.`teste_probleme`
-	(`id_problema`,
+INSERT INTO `proiect_ip`.`problem_test`
+	(`id_problem`,
 	`test_in`,
 	`test_out`,
-	`pondere`)
+	`percentage`)
 VALUES
 	(2,
 	"321",
 	"32",
-	8.6);
+	88);
 	
 	
-INSERT INTO `proiect_ip`.`teste_probleme`
-	(`id_problema`,
+INSERT INTO `proiect_ip`.`problem_test`
+	(`id_problem`,
 	`test_in`,
 	`test_out`,
-	`pondere`)
+	`percentage`)
 VALUES
 	(2,
 	"754",
 	"75",
-	8.6);
+	96);
 
 
 	
 	
-INSERT INTO `proiect_ip`.`teste_probleme`
-	(`id_problema`,
+INSERT INTO `proiect_ip`.`problem_test`
+	(`id_problem`,
 	`test_in`,
 	`test_out`,
-	`pondere`)
+	`percentage`)
 VALUES
 	(3,
 	"Afara este frumos.",
 	"AFARA ESTE FRUMOS.",
-	8.6);
+	97);
 
 	
-INSERT INTO `proiect_ip`.`teste_probleme`
-	(`id_problema`,
+INSERT INTO `proiect_ip`.`problem_test`
+	(`id_problem`,
 	`test_in`,
 	`test_out`,
-	`pondere`)
+	`percentage`)
 VALUES
 	(3,
 	"IASI.",
 	"IASI.",
-	8.6);
+	71);
 
 			 
