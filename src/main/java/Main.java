@@ -19,6 +19,7 @@ public class Main {
         //File xmlFile = new File("e:\\problem.xml");
         //pr.addProblem(xmlFile);
         //System.out.println(pr.getLastProblemId());
+        //System.out.println(pr.getProblemTests(1));
     }
 
 }

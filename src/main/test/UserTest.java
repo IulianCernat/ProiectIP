@@ -1,5 +1,4 @@
-package controller;
-
+import controller.User;
 import org.junit.After;
 import org.junit.Test;
 import storage.Database;
