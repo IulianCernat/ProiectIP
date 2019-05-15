@@ -26,10 +26,10 @@ public class Database {
             exc.printStackTrace();
 
         } if(connection!=null){
-            System.out.println("Conexiunea a avut succes");
+            System.out.println("Conexiunea a avut succes!");
             return connection;
         }else {
-            System.out.println("Conexiunea NU a avut succes");
+            System.out.println("Conexiunea NU a avut succes!");
             return null;
         }
 
