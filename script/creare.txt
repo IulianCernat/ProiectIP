@@ -1,0 +1,53 @@
+CREATE DATABASE `proiect_ip` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */;
+
+
+CREATE TABLE `problem` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` text NOT NULL,
+  `statement` text NOT NULL,
+  `solution` text NOT NULL,
+  `category` int(11) NOT NULL,
+  `introduction_date` date NOT NULL,
+  `difficulty` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+CREATE TABLE `problem_test` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_problem` int(11) NOT NULL,
+  `test_in` text NOT NULL,
+  `test_out` text NOT NULL,
+  `percentage` float NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_problem_test_idx` (`id_problem`),
+  CONSTRAINT `id_problem_test` FOREIGN KEY (`id_problem`) REFERENCES `problem` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+
+CREATE TABLE `points` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_user` int(11) NOT NULL,
+  `id_problem` int(11) NOT NULL,
+  `points` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_utilizator_idx` (`id_user`),
+  KEY `id_problema_punctaj_idx` (`id_problem`),
+  CONSTRAINT `id_problem_points` FOREIGN KEY (`id_problem`) REFERENCES `problem` (`id`),
+  CONSTRAINT `id_user_points` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(45) NOT NULL,
+  `password` varchar(45) NOT NULL,
+  `email` varchar(45) NOT NULL,
+  `solved_problems_no` int(11) DEFAULT NULL,
+  `uploaded_problems_no` int(11) DEFAULT NULL,
+  `points_no` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
