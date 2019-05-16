@@ -63,6 +63,7 @@ public class Problem {
     
        public int getTestPercentage(int testId) {
         try {
+            Connection myConn = Database.getConnection();
             PreparedStatement statement = myConn.prepareStatement("select percentage as percent from problem_test WHERE id = ? ");
             statement.setInt(1, testId);
             
