@@ -15,7 +15,6 @@ import storage.Database;
 
 public class Problem {
 
-
     /**
      * Aceasta functie obtine scorul unui utilizator pentru o anumita problema
      * @param userId Id-ul utilizatorului care se cauta in baza de date
@@ -62,14 +61,14 @@ public class Problem {
         }
         return tests;
     }
-    
-    
+
+
        public int getTestPercentage(int testId) {
         try {
             Connection myConn = Database.getConnection();
             PreparedStatement statement = myConn.prepareStatement("select percentage as percent from problem_test WHERE id = ? ");
             statement.setInt(1, testId);
-            
+
             ResultSet rs = statement.executeQuery();
             if (rs.next()) {
                 return rs.getInt("percent");
@@ -79,9 +78,6 @@ public class Problem {
         }
         return -1; // nu avem procent (nu exista testul)
     }
-}  
-
-
 
      /**
      * Aceasta functie este folosita pentru a adauga teste la o anumita problema
@@ -112,3 +108,48 @@ public class Problem {
 
     }
 
+    public void addProblem(JSONObject problem, JSONObject tests) {
+        int idProblema = 0;
+        String query = "INSERT INTO `problem`(`title`, `requirement`, `solution`, `category`, `created_at`, `difficulty`) VALUES (?,?,?,?,?,?)";
+
+        try (Connection myConn = Database.getConnection();
+             PreparedStatement statement = myConn.prepareStatement(query)) {
+
+            statement.setString(1, problem.getString("tilte"));
+            statement.setString(2, problem.getString("requiremets"));
+            statement.setString(3, problem.getString("solution"));
+            statement.setString(4, problem.getString("category"));
+            statement.setString(5, "sysdate()");
+            statement.setString(6, problem.getString("difficulty"));
+
+            statement.executeUpdate();
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+
+        query = "SELECT `id` FROM `problem` WHERE `title` = ?, `requirement` = ?, `solution` = ?, `category` = ?, `difficulty` = ?";
+        try (Connection myConn = Database.getConnection();
+             PreparedStatement statement = myConn.prepareStatement(query)) {
+            statement.setString(1, problem.getString("tilte"));
+            statement.setString(2, problem.getString("requiremets"));
+            statement.setString(3, problem.getString("solution"));
+            statement.setString(4, problem.getString("category"));
+            statement.setString(5, problem.getString("difficulty"));
+
+            ResultSet resultSet = statement.executeQuery();
+
+            if(resultSet.next()) idProblema = resultSet.getInt("id");
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+
+        JSONArray testsArray = tests.getJSONArray("test");
+        JSONObject test;
+
+        if(idProblema > 0) // daca am gasit problema incepem sa punem testele
+            for(int i = 0; i < testsArray.length(); i++){
+                test = testsArray.getJSONObject(i);
+                addTestToProblem(test, idProblema);
+            } else System.out.println("Eroare la inserarea problemei in tabela");
+    }
+}
