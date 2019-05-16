@@ -30,13 +30,13 @@ public class User {
         return exist;
     }
 
-    public int addUtilizator(String username, String password, String email) {
+    public int addUser(String username, String password, String email) {
         //returneaza 1 daca username-ul nu exista in baza de date. Adauga utilizatorul
         //returneza -1 daca username-ul exista in baza de date. Nu adauga utilizatorul
 
         try {
 
-            PreparedStatement statement = myConn.prepareStatement("select * from utilizatori where username=? ");
+            PreparedStatement statement = myConn.prepareStatement("select * from users where username=? ");
             statement.setString(1, username);
             statement.executeQuery();
             ResultSet rs = statement.executeQuery();
@@ -45,7 +45,7 @@ public class User {
                 return -1; //inserare nereusita.
             }
 
-            statement = myConn.prepareStatement("insert into utilizatori (username,password,email) values (?,?,?)");
+            statement = myConn.prepareStatement("insert into users (username,password,email) values (?,?,?)");
             statement.setString(1, username);
             statement.setString(2, password);
             statement.setString(3, email);
@@ -57,12 +57,12 @@ public class User {
         return 1; //inserare reusita
     }
 
-    public int verificaUserParola(String username, String password) {
+    public int verifyUserPassword(String username, String password) {
         //returneaza 1 daca username-ul si parola exista in baza de date
         //returneaza -1 daca cele doua nu exista.
         try {
             int availableId = 0;
-            PreparedStatement statement = myConn.prepareStatement("select count(id) as valid from utilizatori WHERE username= ?  and password = ?");
+            PreparedStatement statement = myConn.prepareStatement("select count(id) as valid from users WHERE username= ?  and password = ?");
             statement.setString(1, username);
             statement.setString(2, password);
             ResultSet rs = statement.executeQuery();
