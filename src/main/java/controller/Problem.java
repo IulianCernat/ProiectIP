@@ -48,4 +48,21 @@ public class Problem {
         }
         return tests;
     }
+    
+    
+      public int getTestPercentage(int testId) {
+        try {
+            Connection myConn = Database.getConnection();
+            PreparedStatement statement = myConn.prepareStatement("select percentage as percent from problem_test WHERE id = ? ");
+            statement.setInt(1, testId);
+            
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("percent");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1; // nu avem procent (nu exista testul)
+    }
 }
