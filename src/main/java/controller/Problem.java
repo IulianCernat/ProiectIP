@@ -13,6 +13,12 @@ import storage.Database;
 public class Problem {
 
 
+    /**
+     * Aceasta functie obtine scorul unui utilizator pentru o anumita problema
+     * @param userId Id-ul utilizatorului care se cauta in baza de date
+     * @param problemId Id-ul problemei care se cauta in baza de date
+     * @return int Numarul de puncte ale utilizatorului pentru problema
+     */
     public int getUserProblemScore(int userId, int problemId) {
         String query = "select score from points WHERE id_user = ? and id_problem = ?";
         try (Connection myConn = Database.getConnection();
@@ -20,7 +26,7 @@ public class Problem {
             statement.setInt(1, userId);
             statement.setInt(2, problemId);
             try (ResultSet rs = statement.executeQuery();) {
-                if (rs.next()) return rs.getInt("punctaj");
+                if (rs.next()) return rs.getInt("score");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -28,6 +34,11 @@ public class Problem {
         return -1; // nu avem punctaj pentru problema data
     }
 
+    /**
+     * Aceasta functie este folosita pentru a obtine testele unei anumite probleme cu un anumit id
+     * @param problemId Id-ul problemei dupa care se cauta in baza de date
+     * @return HashMap Acest obiect contine toate testele problemei sub forma de Map : [id_test, [input[value], output[value]]
+     */
     public HashMap<Integer, HashMap<String, String>> getProblemTests(int problemId) {
         String query = "select id, test_in as input, test_out as output from problem_test where id_problem = ?";
         HashMap<Integer, HashMap<String, String>> tests = new HashMap<>();
