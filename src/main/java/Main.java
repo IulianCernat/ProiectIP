@@ -1,4 +1,5 @@
 import controller.Problem;
+import org.json.JSONObject;
 import org.w3c.dom.Document;
 
 import java.io.File;
@@ -13,13 +14,21 @@ public class Main {
         //System.out.println(pr.getEnuntProblema(1));
        // Document doc    = pr.getTeste(1);
 
-        //Apelez metoda serialize care afiseaza pe ercan continutul documentului insa trebuie  sa adaugati jar urile pentru parserul xml
-        //File->ProjectStructure->Libraries-> semnul "+" din stanga si adaugati jar urile puse in folderul proiect
-        //System.out.println(pr.serialize(doc));
         //File xmlFile = new File("e:\\problem.xml");
         //pr.addProblem(xmlFile);
         //System.out.println(pr.getLastProblemId());
         //System.out.println(pr.getProblemTests(1));
+
+        String message;
+        JSONObject json = new JSONObject();
+
+        json.put("test_in", "Alfabet");
+        json.put("test_out", "ALFABET");
+        json.put("percentage", 10.0 );
+
+        message = json.toString();
+        System.out.println(message);
+       // pr.addTestToProblem(json,3);
     }
 
 }
