@@ -152,4 +152,48 @@ public class Problem {
                 addTestToProblem(test, idProblema);
             } else System.out.println("Eroare la inserarea problemei in tabela");
     }
+
+    /**
+     * Aceasta functie este folosita pentru a adauga punctajul unui utilizator la o anumita problema
+     * @param userId utilizatorul care a rezolvat problema
+     * @param problemId Id-ul problemei la care se va adauga punctajul
+     * @param points punctajul obtinut de utilizator
+     * @return
+     */
+      public void setPoints(int userId, int problemId, int points) {
+
+        try {
+
+            Connection myConn=Database.getConnection();
+            PreparedStatement statement = myConn.prepareStatement("insert into points (id_user,id_problem,points) values (?,?,?)");
+            statement.setInt(1, userId);
+            statement.setInt(2, problemId);
+            statement.setInt(3, points);
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /**
+     * Aceasta functie este folosita pentru a cauta id-ul unei probleme cu un anumit titlu
+     * @param title este titlul problemei pentru care se va cauta id-ul
+     * @return problemId . Acesta este id-ul problemei
+     */
+    public int getProblemId(String title){
+        int problemId=-1;
+        String query = "select id from problem where title=? ";
+        try (Connection myConn = Database.getConnection();
+             PreparedStatement statement = myConn.prepareStatement(query);) {
+            statement.setString(1,title);
+            try (ResultSet rs = statement.executeQuery();) {
+                if (rs.next()) problemId =rs.getInt("id");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return problemId;
+    }
 }
