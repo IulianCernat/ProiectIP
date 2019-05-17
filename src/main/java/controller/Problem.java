@@ -196,4 +196,37 @@ public class Problem {
         }
         return problemId;
     }
+
+    /**
+     * Aceasta functie returneaza un JSONArray cu toate problemele in functie de clasa
+     * @param grade este clasa dupa care se face filtrarea problemelor
+     * @return JSONArray - Fiecare element din array are 2 chei: 'id' (id-ul problemei din baza de date) si 'problem' (care contine informatiile concrete despre fiecare problema: titlu,dataintroducerii,dificultate si categorie)
+     */
+    public JSONArray getProblemsByGrade(int grade){
+        JSONArray jsonArray = new JSONArray();
+
+        String query = "select id,title,introduction_date,difficulty,category from problem where category=? ";
+        try (Connection myConn = Database.getConnection();
+             PreparedStatement statement = myConn.prepareStatement(query);) {
+            statement.setInt(1,grade);
+
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                int total_rows = resultSet.getMetaData().getColumnCount();
+
+                JSONObject mainObj = new JSONObject();
+                JSONObject obj = new JSONObject();
+                mainObj.put(resultSet.getMetaData().getColumnLabel(1).toLowerCase(), resultSet.getObject(1));
+                for (int i = 1; i < total_rows; i++) {
+                    obj.put(resultSet.getMetaData().getColumnLabel(i + 1).toLowerCase(), resultSet.getObject(i + 1));
+                }
+                mainObj.put("problem",obj);
+                jsonArray.put(mainObj);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return jsonArray;
+    }
 }

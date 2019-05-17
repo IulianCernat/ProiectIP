@@ -1,3 +1,4 @@
+import com.mysql.cj.xdevapi.JsonArray;
 import controller.Problem;
 import org.json.JSONObject;
 import org.w3c.dom.Document;
@@ -13,7 +14,7 @@ public class Main {
 
         //pr.testIfFunctioning();
         //System.out.println(pr.getEnuntProblema(1));
-       // Document doc    = pr.getTeste(1);
+        //Document doc    = pr.getTeste(1);
 
         //File xmlFile = new File("e:\\problem.xml");
         //pr.addProblem(xmlFile);
@@ -29,7 +30,10 @@ public class Main {
 
         message = json.toString();
         System.out.println(message);
-       // pr.addTestToProblem(json,3);
+        // pr.addTestToProblem(json,3);
+        //System.out.println((pr.getProblemsByGrade(9)).toString());
+        //System.out.println(pr.getTestPercentage(1));
+
     }
 
 }
