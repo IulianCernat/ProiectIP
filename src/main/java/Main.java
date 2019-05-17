@@ -10,6 +10,7 @@ public class Main {
 
     public static void main(String[] args) throws SQLException {
         Problem pr = new Problem();
+
         //pr.testIfFunctioning();
         //System.out.println(pr.getEnuntProblema(1));
        // Document doc    = pr.getTeste(1);
