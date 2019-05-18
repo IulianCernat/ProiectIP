@@ -52,7 +52,7 @@ public class User {
         return true; //inserare reusita
 
 }
-*/
+
 
     //Vine modificata mai tarziua
     /*

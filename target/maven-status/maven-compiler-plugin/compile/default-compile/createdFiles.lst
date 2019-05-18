@@ -1,2 +1,7 @@
-servlets\ServletTest.class
-servlets\addProblemServlet.class
+Model\dao\Problem.class
+Model\dao\Test.class
+Main.class
+Model\dao\storage\Database.class
+Model\dao\User.class
+controller\servlets\ServletTest.class
+controller\servlets\GetProblems.class

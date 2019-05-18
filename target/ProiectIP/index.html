@@ -19,9 +19,9 @@
         <i class="fa fa-caret-down"></i>
       </button>
       <div class="dropdown-content">
-        <a href="problema.html">Clasa a IX-a</a>
-        <a href="problema.html">Clasa a X-a</a>
-        <a href="problema.html">Clasa a XI-a</a>
+        <a href="GetProblems?grade=9">Clasa a IX-a</a>
+        <a href="GetProblems?grade=10">Clasa a X-a</a>
+        <a href="GetProblems?grade=11">Clasa a XI-a</a>
       </div>
     </div>
     <div class="dropdown">
@@ -41,5 +41,15 @@
   </div>
     <p>pagina de profil - trebuie sa afiseze nr de puncte, solutii trimise, rata succes</p>
 </body>
+<!--
+<script>
+  function getCategoryProblems(category) {
+  var xmhr = new XMLHttpRequest();
+  xmhr.onreadystatechange = function() {
 
+  }
+  xhr.open('GET', 'GetProblems', true);
+  xhr.send("grade=" + category);}
+</script>
+-->
 </html>
