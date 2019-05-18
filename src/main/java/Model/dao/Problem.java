@@ -10,7 +10,7 @@ import Model.dao.storage.Database;
 
 public class Problem {
 
-    public  void addProblem(JSONObject problem, JSONObject tests) {
+    public static void addProblem(JSONObject problem, JSONObject tests) {
         int idProblema = 0;
         String query = "INSERT INTO `problem`(`title`, `requirement`, `solution`, `category`, `created_at`, `difficulty`) VALUES (?,?,?,?,?,?)";
 
@@ -29,7 +29,7 @@ public class Problem {
             e.printStackTrace();
         }
 
-        query = "SELECT `id` FROM `problem` WHERE `title` = ?, `requirement` = ?, `solution` = ?, `category` = ?, `difficulty` = ?";
+        query = "SELECT `id` FROM `problem` WHERE `title` = ? AND `requirement` = ? AND `solution` = ? AND `category` = ? AND `difficulty` = ?";
         try (Connection myConn = Database.getConnection();
              PreparedStatement statement = myConn.prepareStatement(query)) {
             statement.setString(1, problem.getString("tilte"));
@@ -45,15 +45,15 @@ public class Problem {
             e.printStackTrace();
         }
 
-        JSONArray testsArray = tests.getJSONArray("test");
-        JSONObject test;
+        if (idProblema > 0) {// daca am gasit problema incepem sa punem testele
+            JSONArray testsArray = tests.getJSONArray("test");
+            JSONObject test;
 
-        if (idProblema > 0) // daca am gasit problema incepem sa punem testele
-            for (int i = 0; i < testsArray.length(); i++) {
-                test = testsArray.getJSONObject(i);
-                //addTestToProblem(test, idProblema);
+            for (int testNr = 0; testNr < testsArray.length(); testNr++) {
+                test = testsArray.getJSONObject(testNr);
+                Test.addTestToProblem(test, idProblema);
             }
-        else System.out.println("Eroare la inserarea problemei in tabela");
+        } else System.out.println("Eroare la inserarea problemei in tabela");
     }
 
 
