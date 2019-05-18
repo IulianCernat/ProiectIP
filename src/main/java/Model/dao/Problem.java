@@ -108,4 +108,36 @@ public class Problem {
         }
         return jsonArray;
     }
+
+    /**
+     * Aceasta functie returneaza un JSONObject care contine toate detaliile despre problema si un set de input-output
+     * @param title este numele problemei
+     * @return JSONObject ce reprezinta problema si contine(id, titlu, categorie, dificultate si un set de teste)
+     */
+    public JSONObject getProblem (String title){
+        JSONObject problem = new JSONObject();
+        String query="select p.id, p.title,p.statement,p.category,p.difficulty,t.test_in,t.test_out from problem p inner join problem_test t on p.id = t.id_problem where p.title=? limit 1";
+
+        try (Connection myConn = Database.getConnection();
+             PreparedStatement statement = myConn.prepareStatement(query);) {
+            statement.setString(1, title);
+
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                problem.put("id",resultSet.getInt("id"));
+                problem.put("title",resultSet.getString("title"));
+                problem.put("statement",resultSet.getString("statement"));
+                problem.put("category",resultSet.getInt("category"));
+                problem.put("difficulty",resultSet.getString("difficulty"));
+                problem.put("test_in",resultSet.getString("test_in"));
+                problem.put("test_out",resultSet.getString("test_out"));
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return problem;
+    }
 }
