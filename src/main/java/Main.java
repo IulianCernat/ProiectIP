@@ -1,10 +1,6 @@
-import com.mysql.cj.xdevapi.JsonArray;
-import controller.Problem;
+import Model.dao.Problem;
 import org.json.JSONObject;
-import org.w3c.dom.Document;
 
-import java.io.File;
-import java.io.*;
 import java.sql.SQLException;
 
 public class Main {

@@ -1,20 +1,22 @@
-import controller.User;
+import Model.dao.User;
 import org.junit.After;
 import org.junit.Test;
-import storage.Database;
+import Model.dao.storage.Database;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import static org.junit.Assert.*;
+import static Model.dao.User.*;
 
 public class UserTest {
+    /*
     private User user = new User();
 
     @Test
     public void addUtilizator(){
-        user.addUtilizator("maria","mypass","maria@yahoo.com");
+        addUser("maria","mypass","maria@yahoo.com");
 
         assertTrue("The user should exist in the database",user.utilizatorulExista("maria"));
 
@@ -41,5 +43,5 @@ public class UserTest {
         }
 
 
-    }
+    }*/
 }

@@ -1,4 +1,4 @@
-package storage;
+package Model.dao.storage;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
