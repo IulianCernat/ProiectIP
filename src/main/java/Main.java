@@ -8,7 +8,7 @@ public class Main {
 
     public static void main(String[] args) throws SQLException {
         Problem pr = new Problem();
-        System.out.println(pr.getProblem("Numar maxim"));
+        //System.out.println(pr.getProblem("Numar maxim"));
 
         //pr.testIfFunctioning();
         //System.out.println(pr.getEnuntProblema(1));
@@ -29,7 +29,7 @@ public class Main {
         message = json.toString();
         System.out.println(message);
         // pr.addTestToProblem(json,3);
-        //System.out.println((prgetProblemsByGrade(9)).toString());
+        System.out.println((pr.getProblemsByGrade(9)).toString());
         //System.out.println(pr.getTestPercentage(1));
 
     }

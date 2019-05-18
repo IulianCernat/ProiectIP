@@ -87,7 +87,7 @@ public class Problem {
         String query = "select id,title,created_at,difficulty,category from problem where category=? ";
         try {
             Connection myConn = Database.getConnection();
-             PreparedStatement statement = myConn.prepareStatement(query);
+            PreparedStatement statement = myConn.prepareStatement(query);
             statement.setInt(1, grade);
 
             ResultSet resultSet = statement.executeQuery();
@@ -96,8 +96,7 @@ public class Problem {
 
                 JSONObject mainObj = new JSONObject();
                 JSONObject obj = new JSONObject();
-                mainObj.put(resultSet.getMetaData().getColumnLabel(1).toLowerCase(), resultSet.getObject(1));
-                for (int i = 1; i < total_rows; i++) {
+                for (int i = 0; i < total_rows; i++) {
                     obj.put(resultSet.getMetaData().getColumnLabel(i + 1).toLowerCase(), resultSet.getObject(i + 1));
                 }
                 mainObj.put("problem", obj);
