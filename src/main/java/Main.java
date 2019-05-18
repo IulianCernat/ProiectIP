@@ -8,6 +8,7 @@ public class Main {
 
     public static void main(String[] args) throws SQLException {
         Problem pr = new Problem();
+        System.out.println(pr.getProblem("Numar maxim"));
 
         //pr.testIfFunctioning();
         //System.out.println(pr.getEnuntProblema(1));
