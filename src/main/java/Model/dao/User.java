@@ -9,11 +9,11 @@ import java.sql.SQLException;
 
 public class User {
 
-    public static boolean checkIfUserExists(String username){
+    public static boolean checkIfUserExists(String username) {
         boolean exist = false;
         String query = "select * from utilizatori where username=? ";
-        try( Connection myConn = Database.getConnection();
-             PreparedStatement statement = myConn.prepareStatement(query);){
+        try (Connection myConn = Database.getConnection();
+             PreparedStatement statement = myConn.prepareStatement(query);) {
             statement.setString(1, username);
             statement.executeQuery();
             ResultSet rs = statement.executeQuery();
@@ -85,7 +85,8 @@ public class User {
 
     /**
      * Aceasta functie obtine scorul unui utilizator pentru o anumita problema
-     * @param userId Id-ul utilizatorului care se cauta in baza de date
+     *
+     * @param userId    Id-ul utilizatorului care se cauta in baza de date
      * @param problemId Id-ul problemei care se cauta in baza de date
      * @return int Numarul de puncte ale utilizatorului pentru problema
      */
@@ -106,16 +107,17 @@ public class User {
 
     /**
      * Aceasta functie este folosita pentru a adauga punctajul unui utilizator la o anumita problema
-     * @param userId utilizatorul care a rezolvat problema
+     *
+     * @param userId    utilizatorul care a rezolvat problema
      * @param problemId Id-ul problemei la care se va adauga punctajul
-     * @param points punctajul obtinut de utilizator
+     * @param points    punctajul obtinut de utilizator
      * @return
      */
     public static void setPoints(int userId, int problemId, int points) {
 
         try {
 
-            Connection myConn=Database.getConnection();
+            Connection myConn = Database.getConnection();
             PreparedStatement statement = myConn.prepareStatement("insert into points (id_user,id_problem,points) values (?,?,?)");
             statement.setInt(1, userId);
             statement.setInt(2, problemId);
@@ -127,5 +129,31 @@ public class User {
         }
 
     }
+
+
+    /**
+     * Aceasta functie este folosita pentru a cauta email-ul unui user pe baza id-ului acestuia
+     *
+     * @param userId este id-ul user-ului pentru care se va cauta email-ul
+     * @return email Acesta este email-ul user-ului.    Returneaza null in cazul in care id-ul nu exista in baza de date
+     */
+    public String getEmail(int userId) {
+        String email = null;
+        String query = "select email from users where id=? ";
+        try (Connection myConn = Database.getConnection();
+             PreparedStatement statement = myConn.prepareStatement(query)) {
+            statement.setInt(1, userId);
+            try (ResultSet rs = statement.executeQuery()) {
+                if (rs.next()) email = rs.getString("email");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return email;
+    }
+
+
+ 
+
 
 }
