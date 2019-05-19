@@ -152,7 +152,6 @@ public class User {
         return  email;
     }
 
-
     /**
      * Aceasta functie este folosita pentru a cauta parola unui user pe baza id-ului acestuia
      *
@@ -175,7 +174,26 @@ public class User {
     }
 
 
-
+    /**
+     * Aceasta functie este folosita pentru a cauta punctajul unui user pe baza id-ului acestuia
+     *
+     * @param userId este id-ul user-ului pentru care se va cauta punctajul
+     * @return points Acesta este punctajul user-ului.   Returneaza -1 in cazul in care id-ul nu exista in baza de date
+     */
+    public int getPoints(int userId) {
+        int points = -1;
+        String query = "select points_no from users where id=? ";
+        try (Connection myConn = Database.getConnection();
+             PreparedStatement statement = myConn.prepareStatement(query)) {
+            statement.setInt(1, userId);
+            try (ResultSet rs = statement.executeQuery()) {
+                if (rs.next()) points = rs.getInt("points_no");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return points;
+    }
 
 
 
