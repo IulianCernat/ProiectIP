@@ -1,6 +1,7 @@
 package Model.dao;
 
 import Model.dao.storage.Database;
+import org.json.JSONObject;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -235,6 +236,35 @@ public class User {
         return count;
 
     }
+
+    /**
+     * Aceasta functie returneaza un JSONObject care contine toate detaliile despre user
+     * @param userId este id-ul utilizatorului
+     * @return JSONObject ce reprezinta user-ul si contine(id, username, email, nr. de probleme rezolvate, nr. de probleme incarcate si numarul de puncte)
+     */
+    public JSONObject getUserPublicData(int userId){
+        JSONObject user = new JSONObject();
+        String query ="SELECT id,username,email,solved_problems_no,uploaded_problems_no,points_no from users where id=?";
+        try (Connection myConn = Database.getConnection();
+             PreparedStatement statement = myConn.prepareStatement(query)) {
+            statement.setInt(1, userId);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                user.put("id", resultSet.getInt("id"));
+                user.put("username", resultSet.getString("username"));
+                user.put("email", resultSet.getString("email"));
+                user.put("solved_problems_no", resultSet.getInt("solved_problems_no"));
+                user.put("uploaded_problems_no", resultSet.getInt("uploaded_problems_no"));
+                user.put("points_no", resultSet.getInt("points_no"));
+
+            }
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return user;
+    }
+
 
 
 }
