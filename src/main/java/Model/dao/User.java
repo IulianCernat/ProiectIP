@@ -215,6 +215,26 @@ public class User {
         return id;
     }
 
+    /**
+     * Aceasta functie este folosita pentru a returna numarul de probleme incarcate de utilizator
+     * @param userId este id-ul user-ului pentru care se va cauta numarul de probleme incarcate
+     * @return count Acesta este numarul de probleme incarcate.    Returneaza 0 in cazul in care user-ul nu are nicio problema incarcata
+     */
+    public int getNrOfUploadedProblems(int userId){
+        int count = 0;
+        String query="select uploaded_problems_no from users where id = ?";
+        try (Connection myConn = Database.getConnection();
+             PreparedStatement statement = myConn.prepareStatement(query)){
+            statement.setInt(1,userId);
+            try (ResultSet rs = statement.executeQuery()){
+                if(rs.next())  count= rs.getInt("uploaded_problems_no");
+            }
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return count;
+
+    }
 
 
 }
