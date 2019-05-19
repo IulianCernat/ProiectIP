@@ -15,8 +15,8 @@ public class Main {
 
 
         User pr2 = new User();
-        System.out.println(pr2.getEmail(1));
-        System.out.println(pr2.getId("ion"));
+        //System.out.println(pr2.getEmail(1));
+
         
 
         //pr.testIfFunctioning();
