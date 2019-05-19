@@ -195,6 +195,26 @@ public class User {
         return points;
     }
 
+    /**
+     * Aceasta functie este folosita pentru a returna id-ul unui utilizator
+     * @param username este username-ul user-ului pentru care se va cauta id-ul
+     * @return id Acesta este id-ul user-ului.    Returneaza -1 in cazul in care username-ul nu exista in baza de date
+     */
+    public int getId(String username){
+        int id = -1 ;
+        String query="select id from users where username=?";
+        try (Connection myConn = Database.getConnection();
+             PreparedStatement statement = myConn.prepareStatement(query)){
+            statement.setString(1,username);
+            try (ResultSet rs = statement.executeQuery()){
+                if(rs.next())  id= rs.getInt("id");
+            }
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return id;
+    }
+
 
 
 }
