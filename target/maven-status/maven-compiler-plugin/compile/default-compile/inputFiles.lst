@@ -1,6 +1,7 @@
-E:\Proiecte\ProiectIP\src\main\java\storage\Database.java
-E:\Proiecte\ProiectIP\src\main\java\servlets\addProblemServlet.java
-E:\Proiecte\ProiectIP\src\main\java\servlets\ServletTest.java
-E:\Proiecte\ProiectIP\src\main\java\controller\User.java
-E:\Proiecte\ProiectIP\src\main\java\controller\Problem.java
-E:\Proiecte\ProiectIP\src\main\java\Main.java
+E:\ProiectIPmain\ProiectIP\src\main\java\controller\servlets\GetProblems.java
+E:\ProiectIPmain\ProiectIP\src\main\java\Model\dao\User.java
+E:\ProiectIPmain\ProiectIP\src\main\java\Main.java
+E:\ProiectIPmain\ProiectIP\src\main\java\controller\servlets\ServletTest.java
+E:\ProiectIPmain\ProiectIP\src\main\java\Model\dao\storage\Database.java
+E:\ProiectIPmain\ProiectIP\src\main\java\Model\dao\Test.java
+E:\ProiectIPmain\ProiectIP\src\main\java\Model\dao\Problem.java
