@@ -4,6 +4,7 @@ import Model.dao.Problem;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,7 +19,7 @@ import java.sql.SQLException;
 public class GetProblems extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        PrintWriter out = response.getWriter();
+       /* PrintWriter out = response.getWriter();
         JSONArray problems = null;
         Problem pr = new Problem();
         out.println("<html><head></head><body><ul><li>");
@@ -40,7 +41,13 @@ public class GetProblems extends HttpServlet {
             }
 
 
-        out.println("</li></ul></body></html>");
+        out.println("</li></ul></body></html>");*/
+        Problem pr = new Problem();
+        JSONArray problemList =  pr.getProblemsByGrade(Integer.parseInt(request.getParameter("grade")));
+        request.setAttribute("problemList", problemList);
+        RequestDispatcher rd = request.getRequestDispatcher("jsp/problemeAfisate");
+        rd.forward(request, response);
+
     }
 
 }
