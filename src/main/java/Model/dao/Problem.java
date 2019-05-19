@@ -10,7 +10,7 @@ import Model.dao.storage.Database;
 
 public class Problem {
 
-    public  void addProblem(JSONObject problem, JSONObject tests) {
+    public static void addProblem(JSONObject problem, JSONObject tests) {
         int idProblema = 0;
         String query = "INSERT INTO `problem`(`title`, `requirement`, `solution`, `category`, `created_at`, `difficulty`) VALUES (?,?,?,?,?,?)";
 
@@ -29,7 +29,7 @@ public class Problem {
             e.printStackTrace();
         }
 
-        query = "SELECT `id` FROM `problem` WHERE `title` = ?, `requirement` = ?, `solution` = ?, `category` = ?, `difficulty` = ?";
+        query = "SELECT `id` FROM `problem` WHERE `title` = ? AND `requirement` = ? AND `solution` = ? AND `category` = ? AND `difficulty` = ?";
         try (Connection myConn = Database.getConnection();
              PreparedStatement statement = myConn.prepareStatement(query)) {
             statement.setString(1, problem.getString("tilte"));
@@ -45,15 +45,15 @@ public class Problem {
             e.printStackTrace();
         }
 
-        JSONArray testsArray = tests.getJSONArray("test");
-        JSONObject test;
+        if (idProblema > 0) {// daca am gasit problema incepem sa punem testele
+            JSONArray testsArray = tests.getJSONArray("test");
+            JSONObject test;
 
-        if (idProblema > 0) // daca am gasit problema incepem sa punem testele
-            for (int i = 0; i < testsArray.length(); i++) {
-                test = testsArray.getJSONObject(i);
-                //addTestToProblem(test, idProblema);
+            for (int testNr = 0; testNr < testsArray.length(); testNr++) {
+                test = testsArray.getJSONObject(testNr);
+                Test.addTestToProblem(test, idProblema);
             }
-        else System.out.println("Eroare la inserarea problemei in tabela");
+        } else System.out.println("Eroare la inserarea problemei in tabela");
     }
 
 
@@ -87,7 +87,7 @@ public class Problem {
         String query = "select id,title,created_at,difficulty,category from problem where category=? ";
         try {
             Connection myConn = Database.getConnection();
-             PreparedStatement statement = myConn.prepareStatement(query);
+            PreparedStatement statement = myConn.prepareStatement(query);
             statement.setInt(1, grade);
 
             ResultSet resultSet = statement.executeQuery();
@@ -96,8 +96,7 @@ public class Problem {
 
                 JSONObject mainObj = new JSONObject();
                 JSONObject obj = new JSONObject();
-                mainObj.put(resultSet.getMetaData().getColumnLabel(1).toLowerCase(), resultSet.getObject(1));
-                for (int i = 1; i < total_rows; i++) {
+                for (int i = 0; i < total_rows; i++) {
                     obj.put(resultSet.getMetaData().getColumnLabel(i + 1).toLowerCase(), resultSet.getObject(i + 1));
                 }
                 mainObj.put("problem", obj);
@@ -107,5 +106,37 @@ public class Problem {
             e.printStackTrace();
         }
         return jsonArray;
+    }
+
+    /**
+     * Aceasta functie returneaza un JSONObject care contine toate detaliile despre problema si un set de input-output
+     * @param title este numele problemei
+     * @return JSONObject ce reprezinta problema si contine(id, titlu, categorie, dificultate si un set de teste)
+     */
+    public JSONObject getProblem (String title){
+        JSONObject problem = new JSONObject();
+        String query="select p.id, p.title,p.statement,p.category,p.difficulty,t.test_in,t.test_out from problem p inner join problem_test t on p.id = t.id_problem where p.title=? limit 1";
+
+        try (Connection myConn = Database.getConnection();
+             PreparedStatement statement = myConn.prepareStatement(query);) {
+            statement.setString(1, title);
+
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                problem.put("id",resultSet.getInt("id"));
+                problem.put("title",resultSet.getString("title"));
+                problem.put("statement",resultSet.getString("statement"));
+                problem.put("category",resultSet.getInt("category"));
+                problem.put("difficulty",resultSet.getString("difficulty"));
+                problem.put("test_in",resultSet.getString("test_in"));
+                problem.put("test_out",resultSet.getString("test_out"));
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return problem;
     }
 }
