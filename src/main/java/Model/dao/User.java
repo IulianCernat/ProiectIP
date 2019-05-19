@@ -1,6 +1,7 @@
 package Model.dao;
 
 import Model.dao.storage.Database;
+import org.json.JSONObject;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -193,6 +194,75 @@ public class User {
             e.printStackTrace();
         }
         return points;
+    }
+
+    /**
+     * Aceasta functie este folosita pentru a returna id-ul unui utilizator
+     * @param username este username-ul user-ului pentru care se va cauta id-ul
+     * @return id Acesta este id-ul user-ului.    Returneaza -1 in cazul in care username-ul nu exista in baza de date
+     */
+    public int getId(String username){
+        int id = -1 ;
+        String query="select id from users where username=?";
+        try (Connection myConn = Database.getConnection();
+             PreparedStatement statement = myConn.prepareStatement(query)){
+            statement.setString(1,username);
+            try (ResultSet rs = statement.executeQuery()){
+                if(rs.next())  id= rs.getInt("id");
+            }
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return id;
+    }
+
+    /**
+     * Aceasta functie este folosita pentru a returna numarul de probleme incarcate de utilizator
+     * @param userId este id-ul user-ului pentru care se va cauta numarul de probleme incarcate
+     * @return count Acesta este numarul de probleme incarcate.    Returneaza 0 in cazul in care user-ul nu are nicio problema incarcata
+     */
+    public int getNrOfUploadedProblems(int userId){
+        int count = 0;
+        String query="select uploaded_problems_no from users where id = ?";
+        try (Connection myConn = Database.getConnection();
+             PreparedStatement statement = myConn.prepareStatement(query)){
+            statement.setInt(1,userId);
+            try (ResultSet rs = statement.executeQuery()){
+                if(rs.next())  count= rs.getInt("uploaded_problems_no");
+            }
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return count;
+
+    }
+
+    /**
+     * Aceasta functie returneaza un JSONObject care contine toate detaliile despre user
+     * @param userId este id-ul utilizatorului
+     * @return JSONObject ce reprezinta user-ul si contine(id, username, email, nr. de probleme rezolvate, nr. de probleme incarcate si numarul de puncte)
+     */
+    public JSONObject getUserPublicData(int userId){
+        JSONObject user = new JSONObject();
+        String query ="SELECT id,username,email,solved_problems_no,uploaded_problems_no,points_no from users where id=?";
+        try (Connection myConn = Database.getConnection();
+             PreparedStatement statement = myConn.prepareStatement(query)) {
+            statement.setInt(1, userId);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                user.put("id", resultSet.getInt("id"));
+                user.put("username", resultSet.getString("username"));
+                user.put("email", resultSet.getString("email"));
+                user.put("solved_problems_no", resultSet.getInt("solved_problems_no"));
+                user.put("uploaded_problems_no", resultSet.getInt("uploaded_problems_no"));
+                user.put("points_no", resultSet.getInt("points_no"));
+
+            }
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return user;
     }
 
 

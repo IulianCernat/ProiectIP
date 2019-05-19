@@ -14,8 +14,13 @@ public class Main {
 
 
 
-        User pr2 = new User();
-        System.out.println(pr2.getEmail(1));
+       // User pr2 = new User();
+
+       //System.out.println(pr2.getEmail(1));
+
+        System.out.println(pr2.getUserPublicData(1));
+
+        
 
 
         //pr.testIfFunctioning();
