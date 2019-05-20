@@ -20,22 +20,22 @@ public class Main {
         //System.out.println(pr.getLastProblemId());
         //System.out.println(pr.getProblemTests(1));
 
-        String message;
-        JSONObject json = new JSONObject();
+        //String message;
+        //JSONObject json = new JSONObject();
 
-        json.put("test_in", "Alfabet");
-        json.put("test_out", "ALFABET");
-        json.put("percentage", 10.0 );
+        //json.put("test_in", "Alfabet");
+        //json.put("test_out", "ALFABET");
+       // json.put("percentage", 10.0 );
 
-        message = json.toString();
-        System.out.println(message);
+        //message = json.toString();
+        //System.out.println(message);
         // pr.addTestToProblem(json,3);
         //System.out.println((pr.getProblemsByGrade(9)).toString());
         //System.out.println(pr.getTestPercentage(1));
         //JSONObject obj  = pr.getProblem("Numar maxim");
         //System.out.println(obj.getInt("id"));
-        //Test t = new Test();
-        //System.out.println(t.getProblemTests(1).toString());
+        Test t = new Test();
+        System.out.println(t.getProblemTests(2).toString());
 
     }
 
