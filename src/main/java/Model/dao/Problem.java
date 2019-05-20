@@ -19,7 +19,7 @@ public class Problem {
 
     public static void addProblem(JSONObject problem, JSONObject tests) {
         int idProblema = 0;
-        String query = "INSERT INTO `problem`(`title`, `statement`, `solution`, `category`, `created_at`, `difficulty`) VALUES (?,?,?,?,?,?)";
+        String query = "INSERT INTO problem(title, statement, solution, category, created_at, difficulty) VALUES (?,?,?,?,?,?)";
 
         try (Connection myConn = Database.getConnection();
              PreparedStatement statement = myConn.prepareStatement(query)) {
