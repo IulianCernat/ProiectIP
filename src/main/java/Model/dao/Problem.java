@@ -117,8 +117,9 @@ public class Problem {
         JSONObject problem = new JSONObject();
         String query="select p.id, p.title,p.statement,p.category,p.difficulty,t.test_in,t.test_out from problem p inner join problem_test t on p.id = t.id_problem where p.title=? limit 1";
 
-        try (Connection myConn = Database.getConnection();
-             PreparedStatement statement = myConn.prepareStatement(query);) {
+        try {
+            Connection myConn = Database.getConnection();
+            PreparedStatement statement = myConn.prepareStatement(query);
             statement.setString(1, title);
 
             ResultSet resultSet = statement.executeQuery();

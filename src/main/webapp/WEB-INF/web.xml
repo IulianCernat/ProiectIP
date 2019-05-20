@@ -12,6 +12,11 @@
         <servlet-name>GetProblems</servlet-name>
         <servlet-class>controller.servlets.GetProblems</servlet-class>
     </servlet>
+    
+    <servlet>
+        <servlet-name>GetProblem</servlet-name>
+        <servlet-class>controller.servlets.GetProblem</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>ServletTest</servlet-name>
@@ -21,6 +26,11 @@
     <servlet-mapping>
         <servlet-name>GetProblems</servlet-name>
         <url-pattern>/GetProblems</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>GetProblem</servlet-name>
+        <url-pattern>/GetProblem</url-pattern>
     </servlet-mapping>
 
 </web-app>

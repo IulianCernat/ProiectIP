@@ -11,21 +11,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.SQLException;
 
-
-@WebServlet(name = "GetProblems")
-public class GetProblems extends HttpServlet {
-
+@WebServlet(name = "GetProblem")
+public class GetProblem extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         Problem pr = new Problem();
-        JSONArray problemList =  pr.getProblemsByGrade(Integer.parseInt(request.getParameter("grade")));
-        request.setAttribute("problemList", problemList);
-        RequestDispatcher rd = request.getRequestDispatcher("jsp/problemeAfisate.jsp");
+        String title = request.getParameter("title");
+        System.out.println("titlue problema" + title);
+        JSONObject problem = pr.getProblem(title);
+        request.setAttribute("problem", problem);
+        RequestDispatcher rd = request.getRequestDispatcher("jsp/problema.jsp");
         rd.forward(request, response);
 
     }
-
 }
