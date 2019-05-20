@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.SecretKeyFactory;
+import java.util.ArrayList;
 
 import static com.sun.org.apache.bcel.internal.classfile.Utility.toHexString;
 
@@ -27,7 +28,7 @@ public class User {
 
     public static boolean checkIfUserExists(String username) {
         boolean exist = false;
-        String query = "select * from utilizatori where username=? ";
+        String query = "select * from users where username=? ";
         try (Connection myConn = Database.getConnection();
              PreparedStatement statement = myConn.prepareStatement(query);) {
             statement.setString(1, username);
@@ -50,7 +51,7 @@ public class User {
      */
 
     public static void addUser(String username, String password, String email) {
-        String query = "INSERT INTO `users`(username`, `password`, `email`, `salt`, `solved_problems_no`, `uploaded_problems_no`, `points_no`) VALUES (?,?,?,?,0,0,0) ";
+        String query = "INSERT INTO users(username, password, email, salt, solved_problems_no, uploaded_problems_no, points_no) VALUES (?,?,?,?,0,0,0) ";
         try (Connection myConn = Database.getConnection();
              PreparedStatement statement = myConn.prepareStatement(query);) {
 
@@ -371,6 +372,33 @@ public class User {
         return userSalt;
 
     }
+    /**
+     * Aceasta functie este folosita pentru a returna id ul problemelor care
+     * au fost rezolvate de catre un utilizator primind puntaj maxim
+     * @param userId este  id-ul utilizatorului
+     * @return salt
+     */
+    public JSONArray getSolvedProblems(int userId){
+        ArrayList<Integer> arr = new ArrayList<Integer>();
+        String query="select id_problem from points where id_user = ? and points=?";
+        try (Connection myConn = Database.getConnection();
+             PreparedStatement statement = myConn.prepareStatement(query)){
+            statement.setInt(1,userId);
+            statement.setInt(2,100);
+            try (ResultSet rs = statement.executeQuery()){
+                while(rs.next()){
+                    arr.add(rs.getInt("id_problem"));
+                }
+            }
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
 
-
+        JSONArray jsArray = new JSONArray(arr);
+        return jsArray;
+    }
 }
+
+
+
+
