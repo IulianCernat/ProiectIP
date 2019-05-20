@@ -1,4 +1,5 @@
 import Model.dao.Problem;
+import Model.dao.Test;
 import org.json.JSONObject;
 
 import java.sql.SQLException;
@@ -31,8 +32,10 @@ public class Main {
         // pr.addTestToProblem(json,3);
         //System.out.println((pr.getProblemsByGrade(9)).toString());
         //System.out.println(pr.getTestPercentage(1));
-        JSONObject obj  = pr.getProblem("Numar maxim");
-        System.out.println(obj.getInt("id"));
+        //JSONObject obj  = pr.getProblem("Numar maxim");
+        //System.out.println(obj.getInt("id"));
+        //Test t = new Test();
+        //System.out.println(t.getProblemTests(1).toString());
 
     }
 

@@ -70,7 +70,7 @@ public  class Test {
             try (ResultSet rs = statement.executeQuery();) {
 
                 HashMap<String, String> inputOutputValues = new HashMap<>();
-                if (rs.next()) {
+                while (rs.next()) {
                     inputOutputValues.put("input", rs.getString("input"));
                     inputOutputValues.put("output", rs.getString("output"));
                     tests.put(rs.getInt("id"), inputOutputValues);
