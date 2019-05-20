@@ -98,35 +98,6 @@ public class User {
         return skf.generateSecret(spec).getEncoded();
     }
 
-    //Vine modificata mai tarziua
-    /*
-    public boolean verifyUserPassword(String username, String password) {
-        //returneaza 1 daca username-ul si parola exista in baza de date
-        //returneaza -1 daca cele doua nu exista.
-        String query = "select count(id) as valid from users WHERE username= ?  and password = ?";
-        try(Connection myConn = Database.getConnection();
-            PreparedStatement statement = myConn.prepareStatement(query);) {
-            int availableId = 0;
-
-            statement.setString(1, username);
-            statement.setString(2, password);
-            ResultSet rs = statement.executeQuery();
-            if (rs.next()) {
-                availableId = Integer.parseInt(rs.getString("valid"));
-            }
-
-            if (availableId == 1) {
-                return true;
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return -1; // nu avem in db userul si parola dorita
-
-    }*/
-
     /**
      * Aceasta functie obtine scorul unui utilizator pentru o anumita problema
      *
@@ -352,7 +323,7 @@ public class User {
     }
 
     /**
-     * Aceasta functie este folosita pentru criptarea parolei
+     * Aceasta functie este folosita pentru obtinerea salt-ului unui utilizator
      * @param userName este numele de utilizator al user-ului
      * @return salt
      */
@@ -376,7 +347,7 @@ public class User {
      * Aceasta functie este folosita pentru a returna id ul problemelor care
      * au fost rezolvate de catre un utilizator primind puntaj maxim
      * @param userId este  id-ul utilizatorului
-     * @return salt
+     * @return JSONArray [{id}]
      */
     public JSONArray getSolvedProblems(int userId){
         ArrayList<Integer> arr = new ArrayList<Integer>();
