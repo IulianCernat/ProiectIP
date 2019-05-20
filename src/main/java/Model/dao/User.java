@@ -5,12 +5,25 @@ import com.mysql.cj.xdevapi.JsonArray;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.security.spec.InvalidKeySpecException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.crypto.spec.PBEKeySpec;
+import javax.crypto.SecretKeyFactory;
+
+import static com.sun.org.apache.bcel.internal.classfile.Utility.toHexString;
+
 
 public class User {
+
+    private static final int SALT_BYTES = 24;
+    private static final int HASH_BYTES = 24;
+    private static final int PBKDF2_ITERATIONS = 1000;
+    private static final String PBKDF2_ALGORITHM = "PBKDF2WithHmacSHA1";
 
     public static boolean checkIfUserExists(String username) {
         boolean exist = false;
@@ -29,33 +42,60 @@ public class User {
         return exist;
     }
 
+    /**
+     * Aceasta funtie adauga in baza de date utilizatorul inregistrat
+     * @param username sub forma de string
+     * @param password sub forma de string
+     * @param email sub forma de string
+     */
 
-    //Trebuie modificata. In baza de date oricum username-ul are constrangere de unicitate
-    /*
-    public static boolean addUser(String username, String password, String email) {
-        String query = "select * from users where username=? ";
-        try(Connection myConn = Database.getConnection();
-            PreparedStatement statement = myConn.prepareStatement(query);){
-            statement.setString(1, username);
-            statement.executeQuery();
-            ResultSet rs = statement.executeQuery();
+    public static void addUser(String username, String password, String email) {
+        String query = "INSERT INTO `users`(username`, `password`, `email`, `salt`, `solved_problems_no`, `uploaded_problems_no`, `points_no`) VALUES (?,?,?,?,0,0,0) ";
+       try (Connection myConn = Database.getConnection();
+            PreparedStatement statement = myConn.prepareStatement(query);) {
 
-            if (rs.next())
-                return false; //inserare nereusita.
+           SecureRandom random = new SecureRandom();
+           byte[] salt = new byte[SALT_BYTES];
+           random.nextBytes(salt);
+           byte[] hash = pbkdf2(password.toCharArray(), salt, PBKDF2_ITERATIONS, HASH_BYTES);
 
-            statement = myConn.prepareStatement("insert into users (username,password,email) values (?,?,?)");
-            statement.setString(1, username);
-            statement.setString(2, password);
-            statement.setString(3, email);
-            statement.executeUpdate();
+           String stringSalt = toHexString(salt);
+           String passwordHash = toHexString(hash);
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return true; //inserare reusita
+           statement.setString(1, username);
+           statement.setString(2, passwordHash);
+           statement.setString(3, email);
+           statement.setString(4, stringSalt);
 
-}
+           statement.executeUpdate();
 
+       } catch (SQLException e) {
+           e.printStackTrace();
+       } catch (NoSuchAlgorithmException e) {
+           e.printStackTrace();
+       } catch (InvalidKeySpecException e) {
+           e.printStackTrace();
+       }
+    }
+
+    /**
+     * Aceasta functie genereaza un hash pe baza parolei si a saltului (este apelata de addUser)
+     * @param password parola sub forma de char[]
+     * @param salt un sir de biti pentru criptare
+     * @param iterations
+     * @param bytes numarul de biti al hashului final
+     * @return
+     * @throws NoSuchAlgorithmException
+     * @throws InvalidKeySpecException
+     */
+
+    private static byte[] pbkdf2(char[] password, byte[] salt, int iterations, int bytes)
+            throws NoSuchAlgorithmException, InvalidKeySpecException
+    {
+        PBEKeySpec spec = new PBEKeySpec(password, salt, iterations, bytes * 8);
+        SecretKeyFactory skf = SecretKeyFactory.getInstance(PBKDF2_ALGORITHM);
+        return skf.generateSecret(spec).getEncoded();
+    }
 
     //Vine modificata mai tarziua
     /*
