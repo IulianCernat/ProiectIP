@@ -329,5 +329,48 @@ public class User {
         }
         return array;
     }
+    /**
+     * Aceasta functie este folosita pentru a returna numarul de probleme rezolvate de un anumit utilizator
+     * @param userId este id-ul user-ului pentru care se va cauta numarul de probleme rezolvate
+     * @return count Acesta este numarul de probleme rezolvate.    Returneaza 0 in cazul in care user-ul nu are nicio problema rezolvata
+     */
+    public int getSolvedProblemsNr(int userId){
+        int count = 0;
+        String query="select solved_problems_no from users where id = ?";
+        try (Connection myConn = Database.getConnection();
+             PreparedStatement statement = myConn.prepareStatement(query)){
+            statement.setInt(1,userId);
+            try (ResultSet rs = statement.executeQuery()){
+                if(rs.next())  count= rs.getInt("solved_problems_no ");
+            }
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return count;
+
+    }
+
+    /**
+     * Aceasta functie este folosita pentru criptarea parolei
+     * @param userName este numele de utilizator al user-ului
+     * @return salt
+     */
+    public String getUserSalt(String userName)
+    {
+        String userSalt = null;
+        String query="select salt from users where username = ?";
+        try (Connection myConn = Database.getConnection();
+             PreparedStatement statement = myConn.prepareStatement(query)){
+            statement.setString(1,userName);
+            try (ResultSet rs = statement.executeQuery()){
+                if(rs.next())  userSalt= rs.getString("salt");
+            }
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return userSalt;
+
+    }
+
 
 }
