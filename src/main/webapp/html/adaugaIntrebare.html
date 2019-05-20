@@ -8,6 +8,13 @@
     <link rel="stylesheet" href="../resources/css/navbar.css">
     <link rel="stylesheet" href="../resources/css/adaugaIntrebare.css">
     <title>PbInfo</title>
+
+    <!--
+        <script src="js/adaugaIntrebare.js"></script>
+    -->
+
+    <script src="/home/eludium/Faculty/Programming Engineering/Project/ProiectIP-master/src/main/webapp/js/adaugaInput.js" language="Javascript" type="text/javascript"></script>
+
 </head>
 
 <body>
@@ -44,30 +51,57 @@
                 <h3 class="title">Adauga o problema: </h3>
                 <div class=area>
                     <h3 class="text">Nume enunt: </h3>
-                    <textarea placeholder="Nume cerinta" name="titlu" id="enunt" cols="50" rows="1"></textarea>
+                    <textarea placeholder="Nume cerinta" name="titlu" id="enunt" cols="50" rows="1" required></textarea>
                     <h3 class="text">Text enunt: </h3>
-                    <textarea placeholder="Cerinta" name="enunt" id="enunt" cols="50" rows="5"></textarea>
+                    <textarea placeholder="Cerinta" name="enunt" id="enunt" cols="50" rows="5" required></textarea>
                     <h3 class="text">Text solutie: </h3>
                     <div class="midleSide">
-                        <textarea placeholder="Cod" name="rezolvare" id="solutie" cols="50" rows="5"></textarea>
+                        <textarea placeholder="Cod" name="rezolvare" id="solutie" cols="50" rows="5" required></textarea>
+
+                            <h3 class="text">Input 1:</h3>
+                            <textarea placeholder="Input 1" name="input1" id="solutie" cols="50" rows="10" required></textarea>
+                            <h3 class="text">Output 1:</h3>
+                            <textarea placeholder="Output 1" name="output1" id="solutie" cols="50" rows="3" required></textarea>
+
+                            <h3 class="text">Input 2:</h3>
+                            <textarea placeholder="Input 2" name="input2" id="solutie" cols="50" rows="10" required></textarea>
+                            <h3 class="text">Output 2:</h3>
+                            <textarea placeholder="Output 2" name="output2" id="solutie" cols="50" rows="3" required></textarea>
+
+                        <div id="Input/Output pair">
+                            <h3 class="text">Input 3:</h3>
+                            <textarea placeholder="Input 3" name="input3" id="solutie" cols="50" rows="10" required></textarea>
+                            <h3 class="text">Output 3:</h3>
+                            <textarea placeholder="Output 3" name="output3" id="solutie" cols="50" rows="3" required></textarea>
+                        </div> <br>
+
+                        
+                    <!--                        
                         <h3 class="text">Input 1: </h3>
-                        <textarea placeholder="Input 1" name="input1" id="solutie" cols="50" rows="1"></textarea>
+                        <textarea placeholder="Input 1" name="input1" id="solutie" cols="50" rows="1" required></textarea>
                         <h3 class="text">Output 1: </h3>
-                        <textarea placeholder="Output 1" name="output1" id="solutie" cols="50" rows="1"></textarea>
+                        <textarea placeholder="Output 1" name="output1" id="solutie" cols="50" rows="1" required></textarea>
                         <h3 class="text">Input 2: </h3>
-                        <textarea placeholder="Input 2" name="input2" id="solutie" cols="50" rows="1"></textarea>
+                        <textarea placeholder="Input 2" name="input2" id="solutie" cols="50" rows="1" required></textarea>
                         <h3 class="text">Output 2: </h3>
-                        <textarea placeholder="Output 2" name="output2" id="solutie" cols="50" rows="1"></textarea>
+                        <textarea placeholder="Output 2" name="output2" id="solutie" cols="50" rows="1" required></textarea>
                         <h3 class="text">Input 3: </h3>
-                        <textarea placeholder="Input 3" name="input3" id="solutie" cols="50" rows="1"></textarea>
+                        <textarea placeholder="Input 3" name="input3" id="solutie" cols="50" rows="1" required></textarea>
                         <h3 class="text">Output 3: </h3>
-                        <textarea placeholder="Output 3" name="output3" id="solutie" cols="50" rows="1"></textarea>
+                        <textarea placeholder="Output 3" name="output3" id="solutie" cols="50" rows="1" required></textarea>
+                    -->
+
+                        <input type="button" value="Adauga inca o pereche input/output" onClick="addInput('Input/Output pair');">
+
+                    <!--
                         <h3 class="text">Restrictii 1: </h3>
                         <textarea placeholder="Restrictii 1" name="restrictie1" id="solutie" cols="50"
                             rows="1"></textarea>
                         <h3 class="text">Restrictii 2: </h3>
                         <textarea placeholder="Restrictii 2" name="restrictie" id="solutie" cols="50"
                             rows="1"></textarea>
+                    -->
+
                     </div>
                 </div>
             </div>
@@ -84,7 +118,7 @@
                     <label class="text">Fisier solutie:</label><br><br>
                     <input class="codeUpload" type="file" id="addCode" name="addCode">
                 </div>
-                <input class="send" type="submit" value="Send">
+                <input class="send" type="submit" onclick="sendAjax()" value="Send">
             </div>
         </div>
     </form>
