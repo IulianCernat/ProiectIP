@@ -17,7 +17,6 @@ public class GetProblem extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Problem pr = new Problem();
         String title = request.getParameter("title");
-        System.out.println("titlue problema" + title);
         JSONObject problem = pr.getProblem(title);
         request.setAttribute("problem", problem);
         RequestDispatcher rd = request.getRequestDispatcher("jsp/problema.jsp");
