@@ -1,6 +1,8 @@
 package Model.dao;
 
 import Model.dao.storage.Database;
+import com.mysql.cj.xdevapi.JsonArray;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.sql.Connection;
@@ -156,15 +158,15 @@ public class User {
     /**
      * Aceasta functie este folosita pentru a cauta parola unui user pe baza id-ului acestuia
      *
-     * @param userId este id-ul user-ului pentru care se va cauta parola
+     * @param username este username-ul user-ului pentru care se va cauta parola
      * @return password Aceasta este parola user-ului.    Returneaza null in cazul in care id-ul nu exista in baza de date
      */
-    public String getPassword(int userId) {
+    public String getPassword(String username) {
         String password = null;
-        String query = "select password from users where id=? ";
+        String query = "select password from users where username=? ";
         try (Connection myConn = Database.getConnection();
              PreparedStatement statement = myConn.prepareStatement(query)) {
-            statement.setInt(1, userId);
+            statement.setString(1, username);
             try (ResultSet rs = statement.executeQuery()) {
                 if (rs.next()) password = rs.getString("password");
             }
@@ -265,6 +267,27 @@ public class User {
         return user;
     }
 
-
+    /**
+     * Aceasta functie returneaza un JSONArray cu toti utilizatorii in ordinea punctajelor
+     * @return JSONArray ce contine utilizatorii fiecare element dinarray avand id-ul, username-ul si numarul de puncte al fiecarui utilizator
+     */
+    public JSONArray getUsersOrderedByScore(){
+        JSONArray array = new JSONArray();
+        String query ="SELECT id,username,points_no from users order by points_no desc";
+        try (Connection myConn = Database.getConnection();
+             PreparedStatement statement = myConn.prepareStatement(query)) {
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                JSONObject user = new JSONObject();
+                user.put("id", resultSet.getInt("id"));
+                user.put("username", resultSet.getString("username"));
+                user.put("points_no", resultSet.getInt("points_no"));
+                array.put(user);
+            }
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return array;
+    }
 
 }

@@ -1,5 +1,7 @@
 import Model.dao.Problem;
 import Model.dao.User;
+import com.mysql.cj.xdevapi.JsonArray;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.sql.SQLException;
@@ -18,7 +20,7 @@ public class Main {
 
        //System.out.println(pr2.getEmail(1));
 
-        System.out.println(pr2.getUserPublicData(1));
+        //System.out.println(pr2.getUserPublicData(1));
 
         
 
@@ -45,6 +47,10 @@ public class Main {
         //System.out.println((pr.getProblemsByGrade(9)).toString());
         //System.out.println(pr.getTestPercentage(1));
 
+        //User user = new User();
+        //JSONArray arr = user.getUsersOrderedByScore();
+        //System.out.println(arr.toString());
+        //System.out.println(user.getPassword("ion"));
     }
 
 }
