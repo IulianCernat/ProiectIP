@@ -5,12 +5,26 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 
 
 public class Main {
 
     public static void main(String[] args) throws SQLException {
+
+        /* HashMap<Integer, Boolean> map;
+        {
+            map = new HashMap<>();
+            map.put(1, false);
+            map.put(2, false);
+            map.put(3, false);
+            map.put(4, false);
+        }
+
+        Problem pr= new Problem();
+        System.out.println(pr.calculateScore(map));
         
+         */
     }
 
 }
