@@ -48,15 +48,17 @@
 <c:forEach var="i" begin="0" end="${problemList.length() - 1}">
     <div class="problemStyle" style="margin: auto;width: 60%;border: 3px solid #73AD21;padding: 10px;">
         Problema numarul : ${i} este :
-            Id-ul : #${problemList.getJSONObject(i).getJSONObject("problem").getInt("id")}
+        Id-ul : #${problemList.getJSONObject(i).getJSONObject("problem").getInt("id")}
         <br>
+        <a href="GetProblem?title=${problemList.getJSONObject(i).getJSONObject("problem").getString("title")}">
             Titlu : ${problemList.getJSONObject(i).getJSONObject("problem").getString("title")}
+        </a>
         <br>
-            Categorie: ${problemList.getJSONObject(i).getJSONObject("problem").getInt("category")}
+        Categorie: ${problemList.getJSONObject(i).getJSONObject("problem").getInt("category")}
         <br>
-            Dificultate : ${problemList.getJSONObject(i).getJSONObject("problem").getString("difficulty")}
+        Dificultate : ${problemList.getJSONObject(i).getJSONObject("problem").getString("difficulty")}
         <br>
-            Data adaugarii: ${problemList.getJSONObject(i).getJSONObject("problem").get("created_at").toString()}
+        Data adaugarii: ${problemList.getJSONObject(i).getJSONObject("problem").get("created_at").toString()}
     </div>
     <br><br>
 </c:forEach>

@@ -19,29 +19,7 @@ import java.sql.SQLException;
 public class GetProblems extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-       /* PrintWriter out = response.getWriter();
-        JSONArray problems = null;
-        Problem pr = new Problem();
-        out.println("<html><head></head><body><ul><li>");
-            problems = pr.getProblemsByGrade(Integer.parseInt(request.getParameter("grade")));
-            for (int i = 0; i < problems.length(); i++) {
-                JSONObject jsonobject = problems.getJSONObject(i);
-                int id = jsonobject.getInt("id");
-                JSONObject problem = jsonobject.getJSONObject("problem");
-                out.println(problem.length());
-                out.println("</li><li>");
-                out.println(problem.getString("title"));
-                out.println("</li><li>");
-                out.println(problem.getString("difficulty"));
-                out.println("</li><li>");
-                out.println(problem.getInt("category"));
-                out.println("</li><li>");
-                out.println(problem.get("created_at"));
 
-            }
-
-
-        out.println("</li></ul></body></html>");*/
         Problem pr = new Problem();
         JSONArray problemList =  pr.getProblemsByGrade(Integer.parseInt(request.getParameter("grade")));
         request.setAttribute("problemList", problemList);

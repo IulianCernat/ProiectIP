@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../resources/css/navbar.css">
+    <link rel="stylesheet" href="../resources/css/adaugaIntrebare.css">
+    <title>PbInfo</title>
+
+    <!--
+        <script src="js/adaugaIntrebare.js"></script>
+    -->
+
+    <script src="/home/eludium/Faculty/Programming Engineering/Project/ProiectIP-master/src/main/webapp/js/adaugaInput.js" language="Javascript" type="text/javascript"></script>
+
+</head>
+
+<body>
+    <div class="navbar">
+        <a href="../index.html" id="logo">LOGO</a>
+        <div class="dropdown">
+            <button class="dropbtn" onclick="#">PROBLEME
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+                <a href="problema.html">Clasa a IX-a</a>
+                <a href="problema.html">Clasa a X-a</a>
+                <a href="problema.html">Clasa a XI-a</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">RESURSE
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+                <a href="ResurseIX.html">Clasa a IX-a</a>
+                <a href="ResurseX.html">Clasa a X-a</a>
+                <a href="ResurseXI.html">Clasa a XI-a</a>
+
+            </div>
+        </div>
+        <a href="adaugaIntrebare.html" id="logo">Adauga Problema</a>
+        <a href="../index.html" id="logo">My Account</a>
+        <a href="login.html" id="logo">Log Out</a>
+    </div>
+    <form action="HelloWorld?a=1" method="post">
+        <div class="container">
+            <div class="leftSide">
+                <h3 class="title">Adauga o problema: </h3>
+                <div class=area>
+                    <h3 class="text">Nume enunt: </h3>
+                    <textarea placeholder="Nume cerinta" name="titlu" id="enunt" cols="50" rows="1" required></textarea>
+                    <h3 class="text">Text enunt: </h3>
+                    <textarea placeholder="Cerinta" name="enunt" id="enunt" cols="50" rows="5" required></textarea>
+                    <h3 class="text">Text solutie: </h3>
+                    <div class="midleSide">
+                        <textarea placeholder="Cod" name="rezolvare" id="solutie" cols="50" rows="5" required></textarea>
+
+                            <h3 class="text">Input 1:</h3>
+                            <textarea placeholder="Input 1" name="input1" id="solutie" cols="50" rows="10" required></textarea>
+                            <h3 class="text">Output 1:</h3>
+                            <textarea placeholder="Output 1" name="output1" id="solutie" cols="50" rows="3" required></textarea>
+
+                            <h3 class="text">Input 2:</h3>
+                            <textarea placeholder="Input 2" name="input2" id="solutie" cols="50" rows="10" required></textarea>
+                            <h3 class="text">Output 2:</h3>
+                            <textarea placeholder="Output 2" name="output2" id="solutie" cols="50" rows="3" required></textarea>
+
+                        <div id="Input/Output pair">
+                            <h3 class="text">Input 3:</h3>
+                            <textarea placeholder="Input 3" name="input3" id="solutie" cols="50" rows="10" required></textarea>
+                            <h3 class="text">Output 3:</h3>
+                            <textarea placeholder="Output 3" name="output3" id="solutie" cols="50" rows="3" required></textarea>
+                        </div> <br>
+
+                        
+                    <!--                        
+                        <h3 class="text">Input 1: </h3>
+                        <textarea placeholder="Input 1" name="input1" id="solutie" cols="50" rows="1" required></textarea>
+                        <h3 class="text">Output 1: </h3>
+                        <textarea placeholder="Output 1" name="output1" id="solutie" cols="50" rows="1" required></textarea>
+                        <h3 class="text">Input 2: </h3>
+                        <textarea placeholder="Input 2" name="input2" id="solutie" cols="50" rows="1" required></textarea>
+                        <h3 class="text">Output 2: </h3>
+                        <textarea placeholder="Output 2" name="output2" id="solutie" cols="50" rows="1" required></textarea>
+                        <h3 class="text">Input 3: </h3>
+                        <textarea placeholder="Input 3" name="input3" id="solutie" cols="50" rows="1" required></textarea>
+                        <h3 class="text">Output 3: </h3>
+                        <textarea placeholder="Output 3" name="output3" id="solutie" cols="50" rows="1" required></textarea>
+                    -->
+
+                        <input type="button" value="Adauga inca o pereche input/output" onClick="addInput('Input/Output pair');">
+
+                    <!--
+                        <h3 class="text">Restrictii 1: </h3>
+                        <textarea placeholder="Restrictii 1" name="restrictie1" id="solutie" cols="50"
+                            rows="1"></textarea>
+                        <h3 class="text">Restrictii 2: </h3>
+                        <textarea placeholder="Restrictii 2" name="restrictie" id="solutie" cols="50"
+                            rows="1"></textarea>
+                    -->
+
+                    </div>
+                </div>
+            </div>
+            <div class="rightSide">
+                <div class="choose">
+                    <h3 class="text">Nivel dificultate:</h3>
+                    <div class="radioChoose">
+                        <input type="radio" name="nivel" value="9"> Clasa IX<br>
+                        <input type="radio" name="nivel" value="10"> Clasa X<br>
+                        <input type="radio" name="nivel" value="11"> Clasa XI
+                    </div>
+                </div>
+                <div class="upload">
+                    <label class="text">Fisier solutie:</label><br><br>
+                    <input class="codeUpload" type="file" id="addCode" name="addCode">
+                </div>
+                <input class="send" type="submit" onclick="sendAjax()" value="Send">
+            </div>
+        </div>
+    </form>
+</body>
+
+</html>
