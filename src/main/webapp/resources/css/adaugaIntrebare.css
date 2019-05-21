@@ -35,7 +35,7 @@ body {
 .send {
     position: relative;
     top: 160px;
-    background-color: #FF685A;
+    background-color: grey;
     border-radius: 4px;
     border: none;
     color: white;
