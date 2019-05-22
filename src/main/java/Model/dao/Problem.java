@@ -3,7 +3,6 @@ package Model.dao;
 import java.sql.ResultSet;
 import java.sql.*;
 
-import com.mysql.cj.xdevapi.JsonArray;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import Model.dao.storage.Database;
@@ -11,21 +10,15 @@ import Model.dao.storage.Database;
 
 public class Problem {
 
-    /**
-     * Aceasta functie este folosita pentru a insera in baza de date o problema si testele pentru aceasta
-     * @param problem este un obiect JSON ce contrine 5 campuri: "title", "statement", "solution", "category", "difficulty"
-     * @param tests este un obiect JSON ce contine 3 campuri "test_in", "test_out"m "percentage"
-     */
-
     public static void addProblem(JSONObject problem, JSONObject tests) {
         int idProblema = 0;
-        String query = "INSERT INTO problem(title, statement, solution, category, created_at, difficulty) VALUES (?,?,?,?,?,?)";
+        String query = "INSERT INTO `problem`(`title`, `requirement`, `solution`, `category`, `created_at`, `difficulty`) VALUES (?,?,?,?,?,?)";
 
         try (Connection myConn = Database.getConnection();
              PreparedStatement statement = myConn.prepareStatement(query)) {
 
-            statement.setString(1, problem.getString("title"));
-            statement.setString(2, problem.getString("statement"));
+            statement.setString(1, problem.getString("tilte"));
+            statement.setString(2, problem.getString("requiremets"));
             statement.setString(3, problem.getString("solution"));
             statement.setString(4, problem.getString("category"));
             statement.setString(5, "sysdate()");
@@ -36,7 +29,23 @@ public class Problem {
             e.printStackTrace();
         }
 
-        if (getProblemId(problem.getString("title")) != -1) {// daca am gasit problema incepem sa punem testele
+        query = "SELECT `id` FROM `problem` WHERE `title` = ? AND `requirement` = ? AND `solution` = ? AND `category` = ? AND `difficulty` = ?";
+        try (Connection myConn = Database.getConnection();
+             PreparedStatement statement = myConn.prepareStatement(query)) {
+            statement.setString(1, problem.getString("tilte"));
+            statement.setString(2, problem.getString("requiremets"));
+            statement.setString(3, problem.getString("solution"));
+            statement.setString(4, problem.getString("category"));
+            statement.setString(5, problem.getString("difficulty"));
+
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) idProblema = resultSet.getInt("id");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        if (idProblema > 0) {// daca am gasit problema incepem sa punem testele
             JSONArray testsArray = tests.getJSONArray("test");
             JSONObject test;
 
@@ -53,7 +62,7 @@ public class Problem {
      * @param title este titlul problemei pentru care se va cauta id-ul
      * @return problemId . Acesta este id-ul problemei
      */
-    public static int getProblemId(String title) {
+    public  int getProblemId(String title) {
         int problemId = -1;
         String query = "select id from problem where title=? ";
         try (Connection myConn = Database.getConnection();
@@ -131,7 +140,4 @@ public class Problem {
 
         return problem;
     }
-
-
-
 }

@@ -2,126 +2,183 @@
 <html lang="en">
 
 <head>
+    <script src="codemirror/lib/codemirror.js"></script>
+    <script src="codemirror/addon/edit/matchbrackets.js"></script>
+    <script src="codemirror/addon/edit/closebrackets.js"></script>
+    <link href="codemirror/lib/codemirror.css" rel="stylesheet">
+    <link href="codemirror/theme/dracula.css" rel="stylesheet">
+    <script src="codemirror/mode/clike/clike.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="../resources/css/navbar.css">
-    <link rel="stylesheet" href="../resources/css/adaugaIntrebare.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!---<link rel="stylesheet" href="resources/css/adaugaIntrebare.css">--->
     <title>PbInfo</title>
-
-    <!--
-        <script src="js/adaugaIntrebare.js"></script>
-    -->
-
-    <script src="/home/eludium/Faculty/Programming Engineering/Project/ProiectIP-master/src/main/webapp/js/adaugaInput.js" language="Javascript" type="text/javascript"></script>
-
 </head>
 
-<body>
-    <div class="navbar">
-        <a href="../index.html" id="logo">LOGO</a>
-        <div class="dropdown">
-            <button class="dropbtn" onclick="#">PROBLEME
-                <i class="fa fa-caret-down"></i>
-            </button>
-            <div class="dropdown-content">
-                <a href="problema.html">Clasa a IX-a</a>
-                <a href="problema.html">Clasa a X-a</a>
-                <a href="problema.html">Clasa a XI-a</a>
-            </div>
-        </div>
-        <div class="dropdown">
-            <button class="dropbtn">RESURSE
-                <i class="fa fa-caret-down"></i>
-            </button>
-            <div class="dropdown-content">
-                <a href="ResurseIX.html">Clasa a IX-a</a>
-                <a href="ResurseX.html">Clasa a X-a</a>
-                <a href="ResurseXI.html">Clasa a XI-a</a>
+<body style="color: #290404; font-family: 'Raleway',sans-serif; font-size: 18px; font-weight: 5;">
+<div class="navbar">
+    <a href="GetProblems?grade=9" class="dropbtn">Probleme</a>
+    <a href="adaugaIntrebare.html" id="logo">Adauga Problema</a>
+    <a href="../index.html" id="logo">My Account</a>
+    <a href="login.html" id="logo">Log Out</a>
+</div>
 
-            </div>
-        </div>
-        <a href="adaugaIntrebare.html" id="logo">Adauga Problema</a>
-        <a href="../index.html" id="logo">My Account</a>
-        <a href="login.html" id="logo">Log Out</a>
-    </div>
-    <form action="HelloWorld?a=1" method="post">
-        <div class="container">
-            <div class="leftSide">
-                <h3 class="title">Adauga o problema: </h3>
-                <div class=area>
-                    <h3 class="text">Nume enunt: </h3>
-                    <textarea placeholder="Nume cerinta" name="titlu" id="enunt" cols="50" rows="1" required></textarea>
-                    <h3 class="text">Text enunt: </h3>
-                    <textarea placeholder="Cerinta" name="enunt" id="enunt" cols="50" rows="5" required></textarea>
-                    <h3 class="text">Text solutie: </h3>
-                    <div class="midleSide">
-                        <textarea placeholder="Cod" name="rezolvare" id="solutie" cols="50" rows="5" required></textarea>
 
-                            <h3 class="text">Input 1:</h3>
-                            <textarea placeholder="Input 1" name="input1" id="solutie" cols="50" rows="10" required></textarea>
-                            <h3 class="text">Output 1:</h3>
-                            <textarea placeholder="Output 1" name="output1" id="solutie" cols="50" rows="3" required></textarea>
+<form action="ServletTest" method="post">
 
-                            <h3 class="text">Input 2:</h3>
-                            <textarea placeholder="Input 2" name="input2" id="solutie" cols="50" rows="10" required></textarea>
-                            <h3 class="text">Output 2:</h3>
-                            <textarea placeholder="Output 2" name="output2" id="solutie" cols="50" rows="3" required></textarea>
+    <div class="container">
+        <div class="leftSide">
+            <h3 class="display-4"
+                style="  color: black;
+            -webkit-text-fill-color: rgb(253, 176, 176);
+            -webkit-text-stroke-width: 1px;
+            -webkit-text-stroke-color: black;
+            font-style: italic" >Adauga o problema: </h3><br>
+            <div class=area>
+                <h4 >Nume enunt: </h4>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="1" placeholder="Nume cerinta" name="titlu" id="enunt" cols="50" rows="2" required></textarea><br>
+                <h4>Text enunt: </h4>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" placeholder="Cerinta" name="enunt" id="enunt" cols="50" rows="5" required></textarea><br>
+                <h4 name="rezolvare" id="solutie">Text solutie: </h4>
 
-                        <div id="Input/Output pair">
-                            <h3 class="text">Input 3:</h3>
-                            <textarea placeholder="Input 3" name="input3" id="solutie" cols="50" rows="10" required></textarea>
-                            <h3 class="text">Output 3:</h3>
-                            <textarea placeholder="Output 3" name="output3" id="solutie" cols="50" rows="3" required></textarea>
-                        </div> <br>
+                <textarea class="text" id="editor">#include<iostream>
+using namespace std;
 
-                        
-                    <!--                        
-                        <h3 class="text">Input 1: </h3>
-                        <textarea placeholder="Input 1" name="input1" id="solutie" cols="50" rows="1" required></textarea>
-                        <h3 class="text">Output 1: </h3>
-                        <textarea placeholder="Output 1" name="output1" id="solutie" cols="50" rows="1" required></textarea>
-                        <h3 class="text">Input 2: </h3>
-                        <textarea placeholder="Input 2" name="input2" id="solutie" cols="50" rows="1" required></textarea>
-                        <h3 class="text">Output 2: </h3>
-                        <textarea placeholder="Output 2" name="output2" id="solutie" cols="50" rows="1" required></textarea>
-                        <h3 class="text">Input 3: </h3>
-                        <textarea placeholder="Input 3" name="input3" id="solutie" cols="50" rows="1" required></textarea>
-                        <h3 class="text">Output 3: </h3>
-                        <textarea placeholder="Output 3" name="output3" id="solutie" cols="50" rows="1" required></textarea>
-                    -->
+int main ()
+{
 
-                        <input type="button" value="Adauga inca o pereche input/output" onClick="addInput('Input/Output pair');">
 
-                    <!--
-                        <h3 class="text">Restrictii 1: </h3>
-                        <textarea placeholder="Restrictii 1" name="restrictie1" id="solutie" cols="50"
-                            rows="1"></textarea>
-                        <h3 class="text">Restrictii 2: </h3>
-                        <textarea placeholder="Restrictii 2" name="restrictie" id="solutie" cols="50"
-                            rows="1"></textarea>
-                    -->
+    return 0;
+}</textarea>
+                <script>
+                    var editor= CodeMirror.fromTextArea
+                    (document.getElementById('editor'),{
+                        mode: "clike",
+                        theme: "dracula",
+                        lineNumbers: true,
+                        autoCloseBrackets: true
+                    });
+                </script>
 
+                <div class="midleSide">
+
+                    <label class="label"> <strong> Input <strong> </label>
+                    <div class="table-responsive">
+                        <table id="form_table" class="table table-bordered">
+                            <tr>
+                                <th></th>
+                                <th>Input</th>
+                                <th>Output</th>
+                            </tr>
+                            <tr class='case'>
+                                <td><span id='snum'>1.</span></td>
+                                <td><input id="inputForm" class="form-control" type='text' name='input[]' rows="5" cols="10" required/></td>
+                                <td><input id="inputForm" class="form-control" type='text' name='output[]' required/></td>
+                            </tr>
+                            <tr class='case'>
+                                <td><span id='snum'>2.</span></td>
+                                <td><input id="inputForm" class="form-control" type='text' name='input[]' rows="5" cols="10" required/></td>
+                                <td><input id="inputForm" class="form-control" type='text' name='output[]' required/></td>
+                            </tr>
+                            <tr class='case'>
+                                <td><span id='snum'>3.</span></td>
+                                <td><input id="inputForm" class="form-control" type='text' name='input[]' rows="5" cols="10" required/></td>
+                                <td><input id="inputForm" class="form-control" type='text' name='output[]' required/></td>
+                            </tr>
+                        </table>
+                        <button type="button" class='btn btn-success addmore'>+ add new </button> <br>
                     </div>
+                    <script> var area = document.getElementById('area');
+
+                    document.getElementById('inputForm').addEventListener('keydown', function (e) {
+                        if (e.keyCode === 13 && e.target !== area) {
+                            e.preventDefault();
+                        }
+                    });</script>
+
+                    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+                    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+                    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+                    <script>
+                        $(document).ready(function(){
+                            $(".addmore").on('click', function () {
+                                var count = $('table tr').length;
+                                var data = "<tr class='case'><td><span id='snum" + count + "'>" + count + ".</span></td>";
+                                data += "<td><input class='form-control' type='text' name='input[]'  /></td> <td><input class='form-control' type='text' name='output[]' /></td></tr>";
+                                $('#form_table').append(data);
+                                count++;
+                            });
+                        });
+
+                    </script>
+
                 </div>
             </div>
-            <div class="rightSide">
-                <div class="choose">
-                    <h3 class="text">Nivel dificultate:</h3>
-                    <div class="radioChoose">
-                        <input type="radio" name="nivel" value="9"> Clasa IX<br>
-                        <input type="radio" name="nivel" value="10"> Clasa X<br>
-                        <input type="radio" name="nivel" value="11"> Clasa XI
-                    </div>
+        </div><br>
+        <div class="rightSide">
+            <div class="choose">
+                <h3 class="text">Nivel dificultate:</h3>
+                <br>
+
+                <div class="card" style="width: 20rem; float: left;  text-shadow: 3px 3px 0px #99cc99;">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <div class="form-check form-check-inline" >
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" value="9">
+                                <label class="form-check-label" for="inlineRadio1">  Clasa a IX - a</label>
+                            </div></li>
+                        <li class="list-group-item">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" value="10">
+                                <label class="form-check-label" for="inlineRadio2">  Clasa a X- a</label>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" value="11">
+                                <label class="form-check-label" for="inlineRadio3">  Clasa a XI- a</label>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
-                <div class="upload">
-                    <label class="text">Fisier solutie:</label><br><br>
-                    <input class="codeUpload" type="file" id="addCode" name="addCode">
+
+
+                <div class="card"
+                     style="width: 20rem;
+                  float: left; margin-top: 0;
+                  margin-left: 10%;
+                  text-shadow: 3px 3px 0px #99cc99;">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions1" value="usor">
+                                <label class="form-check-label" for="inlineRadio1">  Usor</label>
+                            </div></li>
+                        <li class="list-group-item">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions1" value="mediu">
+                                <label class="form-check-label" for="inlineRadio2">  Mediu</label>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions1" value="greu">
+                                <label class="form-check-label" for="inlineRadio3">  Greu</label>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
-                <input class="send" type="submit" onclick="sendAjax()" value="Send">
+                <input  style="width: 20rem; padding: 10px; float: left; margin-top: 10%; margin-left: 15%";
+                        class="btn btn-success" type="submit" name="button" value="Submit"><br><br>
             </div>
+
         </div>
-    </form>
+
+
+</form>
 </body>
 
 </html>

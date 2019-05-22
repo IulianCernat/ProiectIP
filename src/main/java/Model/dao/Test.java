@@ -69,9 +69,8 @@ public  class Test {
             statement.setInt(1, problemId);
             try (ResultSet rs = statement.executeQuery();) {
 
-
-                while (rs.next()) {
-                    HashMap<String, String> inputOutputValues = new HashMap<>();
+                HashMap<String, String> inputOutputValues = new HashMap<>();
+                if (rs.next()) {
                     inputOutputValues.put("input", rs.getString("input"));
                     inputOutputValues.put("output", rs.getString("output"));
                     tests.put(rs.getInt("id"), inputOutputValues);
