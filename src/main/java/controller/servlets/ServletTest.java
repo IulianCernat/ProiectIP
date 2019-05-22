@@ -1,4 +1,4 @@
-package controller.servlets;
+/*package controller.servlets;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet(name = "ServletTest")
 public class ServletTest extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int number = Integer.parseInt(request.getParameter("grade"));
@@ -21,3 +20,4 @@ public class ServletTest extends HttpServlet {
 
 
 }
+*/

@@ -1,7 +1,6 @@
-package controller.servlets;
+/*package controller.servlets;
 
 import Model.dao.Problem;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javax.servlet.RequestDispatcher;
@@ -12,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "GetProblem")
 public class GetProblem extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Problem pr = new Problem();
@@ -25,3 +23,4 @@ public class GetProblem extends HttpServlet {
 
     }
 }
+*/
