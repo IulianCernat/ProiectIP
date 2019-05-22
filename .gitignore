@@ -1,3 +1,7 @@
 .idea
-proiectare_API
-java
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
