@@ -1,8 +1,9 @@
+controller\servlets\SendSolution.class
+Model\dao\Problem.class
+Model\dao\Test.class
 Main.class
-Model/dao/storage/Database.class
-controller/servlets/GetProblems.class
-Model/dao/User.class
-controller/servlets/GetProblem.class
-controller/servlets/ServletTest.class
-Model/dao/Test.class
-Model/dao/Problem.class
+Model\dao\storage\Database.class
+Model\dao\User.class
+controller\servlets\ServletTest.class
+controller\servlets\GetProblem.class
+controller\servlets\GetProblems.class

@@ -17,7 +17,7 @@
 <div class="navbar">
     <a href="GetProblems?grade=9" class="DROPBTN">Probleme</a>
     <a href="html/adaugaIntrebare.html" id="logo">Adauga Problema</a>
-    <a href="index.html" id="logo">My Account</a>
+    <a href="html/index.html" id="logo">My Account</a>
     <a href="html/login.html" id="logo">Log Out</a>
 </div>
 
@@ -46,13 +46,10 @@
     <br>
     <h3>Enunt: ${problem.getString("statement")} </h3> <br> <br>
     <h3>Scrie solutie mai jos:</h3><br>
-    <textarea class="text" id="editor">#include<iostream>
+    <textarea class="text" id="editor" name="solutionText">#include<iostream>
         using namespace std;
-
         int main ()
         {
-
-
             return 0;
         }
     </textarea>
@@ -66,7 +63,7 @@
         });
     </script>
     <br>
-    <button formaction = "getSolution_action" type="submit" class="register">Trimite
+    <button formaction = "SendSolution" type="submit" class="register">Trimite
     </button>
 
 </form>
