@@ -12,36 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public  class Test {
-
-
-    /*
-       /**
-        * Aceasta functie este folosita pentru a obtine testele unei anumite probleme cu un anumit id
-        *
-        * @param problemId Id-ul problemei dupa care se cauta in baza de date
-        * @return ArrayList de TestDataModel contine toate testele problemei
-        */
-    public ArrayList<TestDataModel> getTests(int problemId) {
-        String query = "select id, test_in as input, test_out as output from problem_test where id_problem = ?";
-        ArrayList<TestDataModel> tests = new ArrayList<>();
-        try {
-            Connection myConn = Database.getConnection();
-             PreparedStatement statement = myConn.prepareStatement(query);
-            statement.setInt(1, problemId);
-
-            try (ResultSet rs = statement.executeQuery();) {
-                while(rs.next()) {
-                    TestDataModel test = new TestDataModel(rs.getInt("id") ,
-                            rs.getString("input"), rs.getString("output"));
-                    tests.add(test);
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return tests;
-    }
-
+    
     public static int getTestPercentage(int testId) {
         try {
             Connection myConn = Database.getConnection();
@@ -87,27 +58,4 @@ public  class Test {
 
     }
 
-    /*
-    public static HashMap<Integer, HashMap<String, String>> getProblemTests(int problemId) {
-        String query = "select id, test_in as input, test_out as output from problem_test where id_problem = ?";
-        HashMap<Integer, HashMap<String, String>> tests = new HashMap<>();
-        try (Connection myConn = Database.getConnection();
-             PreparedStatement statement = myConn.prepareStatement(query);) {
-            statement.setInt(1, problemId);
-            try (ResultSet rs = statement.executeQuery();) {
-
-                
-                while(rs.next()) {
-                    HashMap<String, String> inputOutputValues = new HashMap<>();
-                    inputOutputValues.put("input", rs.getString("input"));
-                    inputOutputValues.put("output", rs.getString("output"));
-                    tests.put(rs.getInt("id"), inputOutputValues);
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return tests;
-    }
-    */
 }
