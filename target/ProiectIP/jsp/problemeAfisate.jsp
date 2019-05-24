@@ -1,11 +1,5 @@
 <%@ page import="org.json.JSONArray" %>
-<%@ page import="org.json.JSONObject" %><%--
-  Created by IntelliJ IDEA.
-  User: Iulian
-  Date: 19.05.2019
-  Time: 10:10
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="org.json.JSONObject" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 

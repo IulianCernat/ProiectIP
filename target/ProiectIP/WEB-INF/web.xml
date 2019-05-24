@@ -17,21 +17,23 @@
         <servlet-name>GetProblem</servlet-name>
         <servlet-class>controller.servlets.GetProblem</servlet-class>
     </servlet>
-    
+
     <servlet>
         <servlet-name>SendSolution</servlet-name>
         <servlet-class>controller.servlets.SendSolution</servlet-class>
     </servlet>
-    
+
+
     <servlet-mapping>
         <servlet-name>SendSolution</servlet-name>
         <url-pattern>/SendSolution</url-pattern>
     </servlet-mapping>
-
     <servlet-mapping>
         <servlet-name>ServletTest</servlet-name>
         <url-pattern>/HelloWorld</url-pattern>
     </servlet-mapping>
+
+
 
     <servlet-mapping>
         <servlet-name>GetProblems</servlet-name>

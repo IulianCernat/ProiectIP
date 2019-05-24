@@ -1,7 +1,6 @@
 package Model.dao;
-
+import Model.dao.storage.testCaseList;
 import Model.dao.storage.Database;
-import Model.dao.storage.TestDataModel;
 import org.json.JSONObject;
 
 import java.sql.Connection;
@@ -12,6 +11,25 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public  class Test {
+
+    public static testCaseList getProblemTests(int problemId){
+            String query = "select id, test_in as input, test_out as output from problem_test where id_problem = ?";
+            testCaseList testList = new testCaseList();
+            try {Connection myConn = Database.getConnection();
+                 PreparedStatement statement = myConn.prepareStatement(query);
+                statement.setInt(1, problemId);
+                try (ResultSet rs = statement.executeQuery();) {
+                    while(rs.next()) {
+                        testList.addTestCase(rs.getInt("id"),
+                                rs.getString("input"),
+                                rs.getString("output") );
+                    }
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return testList;
+        }
     
     public static int getTestPercentage(int testId) {
         try {

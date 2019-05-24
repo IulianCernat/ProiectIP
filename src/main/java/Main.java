@@ -1,7 +1,7 @@
 import Model.dao.Problem;
 import Model.dao.Test;
 import Model.dao.User;
-import Model.dao.storage.TestDataModel;
+import Model.dao.storage.testCaseList;
 import com.mysql.cj.xdevapi.JsonArray;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -16,18 +16,12 @@ import java.util.HashMap;
 public class Main {
 
     public static void main(String[] args) throws SQLException {
-        Test test = new Test();
-        ArrayList<TestDataModel> tests = test.getTests(1);
+        testCaseList tests = Test.getProblemTests(1);
+        System.out.println(tests.getTestInput(1));
+        System.out.println(tests.getTestOutput(1));
 
-        for (TestDataModel testModel : tests)
-        {
-            System.out.println(testModel.getId());
-            System.out.println(testModel.getInput());
-            System.out.println(testModel.getOutput());
-            System.out.println("\n");
+        System.out.println(tests.getTestInput(2));
+        System.out.println(tests.getTestOutput(2));
         }
-
-
-    }
 
 }
