@@ -17,7 +17,7 @@
 <div class="navbar">
     <a href="GetProblems?grade=9" class="DROPBTN">Probleme</a>
     <a href="html/adaugaIntrebare.html" id="logo">Adauga Problema</a>
-    <a href="html/index.html" id="logo">My Account</a>
+    <a href="./index.html" id="logo">My Account</a>
     <a href="html/login.html" id="logo">Log Out</a>
 </div>
 
