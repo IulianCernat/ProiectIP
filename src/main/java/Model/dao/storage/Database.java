@@ -18,7 +18,7 @@ public class Database {
     public static Connection databaseConnect() {
         try {
             //am scris dedesupt ce inseamna fiecare
-            DriverManager.registerDriver(new com.mysql.jdbc.Driver ());
+            DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver ());
             connection = DriverManager.getConnection(URL, USER, PASSWORD);
 
         } catch (Exception exc) {
