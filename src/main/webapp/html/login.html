@@ -1,39 +1,49 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title>PBInfo</title>
-    <link rel="stylesheet" type="text/css" href="../resources/css/login.css">
-    <link rel="stylesheet" type="text/css" href="../resources/css/navbar.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../resources/css/navbar.css">
+    <link rel="stylesheet" href="../resources/css/adaugaIntrebare.css">
+    <title>PbInfo</title>
 </head>
 
-<body style="width: 50%; margin-top: 4%; margin-left: 25%;">
-<form class="text-center border border-light p-5">
+<body>
 
-    <p class="h4 mb-4">Sign in</p>
 
-    <input type="email" id="defaultLoginFormEmail" class="form-control mb-4" name='uname' placeholder=" User">
-
-    <input type="password" id="defaultLoginFormPassword" class="form-control mb-4" name='psw' placeholder="Password">
-
+<div class="navbar">
+  <div class="dropdown">
+    <button class="dropbtn" onclick="#"> PROBLEMEE
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href=".././GetProblems?grade=9" >Clasa a IX-a</a>
+      <a href=".././GetProblems?grade=10">Clasa a X-a</a>
+      <a href=".././GetProblems?grade=11">Clasa a XI-a</a>
+    </div>
+  </div>
+  <div class="dropdown">
+   
    
 
-    <button class="btn btn-info btn-block my-4" type="submit">  <a href="../index.html" style="color:white">Submit</a></button>
-
-    <p>Not a member?
-        <a href="signUp.html">Register</a>
-    </p>
-
-
-</form>
-
-
+  </div>
+    <a href="adaugaIntrebare.html" id="logo">ADAUGA PROBLEMA</a>
+    <a  href="cont.html" id="logo">CONTUL MEU</a>
+    <a href="../index.html" id="logo">DECONECTARE</a>
+</div>
+    <p>pagina de profil - trebuie sa afiseze nr de puncte, solutii trimise, rata succes</p>
 </body>
+<!--
+<script>
+  function getCategoryProblems(category) {
+  var xmhr = new XMLHttpRequest();
+  xmhr.onreadystatechange = function() {
 
-
+  }
+  xhr.open('GET', 'GetProblems', true);
+  xhr.send("grade=" + category);}
+</script>
+-->
 </html>
-
