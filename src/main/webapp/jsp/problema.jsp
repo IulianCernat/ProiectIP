@@ -1,86 +1,89 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<html>
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-    <title>Problema</title>
-    <link rel="stylesheet" href="resources/css/navbar.css">
-    <link rel="stylesheet" href="resources/css/ListaProbleme.css">
-    <link rel="stylesheet" href="test.css">
-    <script src="codemirror/lib/codemirror.js"></script>
-    <script src="codemirror/addon/edit/matchbrackets.js"></script>
-    <script src="codemirror/addon/edit/closebrackets.js"></script>
-    <link href="codemirror/lib/codemirror.css" rel="stylesheet">
-    <link href="codemirror/theme/dracula.css" rel="stylesheet">
-    <script src="codemirror/mode/clike/clike.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../resources/css/navbar.css">
+    <link rel="stylesheet" href="../resources/css/adaugaIntrebare.css">
+    <link rel="stylesheet" href="../resources/css/ListaProbleme.css">
+    <title>PbInfo</title>
 </head>
+
 <body>
 
 
 <div class="navbar">
-    <div class="dropdown">
-      <button class="dropbtn" onclick="#"> PROBLEMEE
-        <i class="fa fa-caret-down"></i>
-      </button>
-      <div class="dropdown-content">
-        <a href="GetProblems?grade=9" >Clasa a IX-a</a>
-        <a href="GetProblems?grade=10">Clasa a X-a</a>
-        <a href="GetProblems?grade=11">Clasa a XI-a</a>
-      </div>
-    </div>
-    <div class="dropdown">
-     
-     
-  
-    </div>
-      <a href="html/adaugaIntrebare.html" id="logo">ADAUGA PROBLEMA</a>
-      <a href="html/cont.html" id="logo">CONTUL MEU</a>
-      <a href="./index.html" id="logo">DECONECTARE</a>
-  </div>
-<jsp:useBean id="problem" scope="request" type="org.json.JSONObject"/>
-
-<form method = "POST">
-    <br>
-    <table class="problemStyle">
-        <tr>
-            <th>Numar Problema</th>
-            <th>Nume Problema</th>
-            <th>Dificultate</th>
-            <th>Categorie</th>
-            <th>Input</th>
-            <th>Output</th>
-        </tr>
-        <tr>
-            <td> ${problem.getInt("id")}</td>
-            <td> ${problem.getString("title")}</td>
-            <td> ${problem.getString("difficulty")}</td>
-            <td>${problem.getInt("category")}</td>
-            <td>${problem.getString("test_in")}</td>
-            <td>${problem.getString("test_out")}</td>
-        </tr>
-    </table>
-    <br>
-    <h3>Enunt: ${problem.getString("statement")} </h3> <br> <br>
-    <h3>Scrie solutie mai jos:</h3><br>
-    <textarea class="text" id="editor" name="solutionText">#include<iostream>
-        using namespace std;
-        int main ()
-        {
-            return 0;
-        }
-    </textarea>
-    <script>
-        var editor= CodeMirror.fromTextArea
-        (document.getElementById('editor'),{
-            mode: "clike",
-            theme: "dracula",
-            lineNumbers: true,
-            autoCloseBrackets: true
-        });
-    </script>
-    <br>
-    <button formaction = "SendSolution" type="submit" class="register">Trimite
+  <div class="dropdown">
+    <button class="dropbtn" onclick="#"> PROBLEMEE
+      <i class="fa fa-caret-down"></i>
     </button>
+    <div class="dropdown-content">
+      <a href=".././GetProblems?grade=9" >Clasa a IX-a</a>
+      <a href=".././GetProblems?grade=10">Clasa a X-a</a>
+      <a href=".././GetProblems?grade=11">Clasa a XI-a</a>
+    </div>
+  </div>
+  <div class="dropdown">
+   
+   
 
-</form>
+  </div>
+    <a href="adaugaIntrebare.html" id="logo">ADAUGA PROBLEMA</a>
+    <a  href="cont.html" id="logo">CONTUL MEU</a>
+    <a href="../index.html" id="logo">DECONECTARE</a>
+</div>
+<form method = "POST">   
+<table class="problemStyle" style="margin: auto;width: 60%;border: 3px solid #73AD21;padding: 10px;">
+  <tr>
+      <th>Username</th>
+      <th>Email</th>
+      <th>Nr. probleme rezolvate</th>
+      <th>Nr. probleme adaugate</th>
+      <th>Punctaj total</th>
+  </tr>
+<c:forEach var="i" begin="0" end="${problemList.length() - 1}">
+
+
+      <tr>
+          <td> #${problemList.getJSONObject(i).getJSONObject("").getInt("")}</td>
+          <td></td> 
+          <td></td>
+          <td></td>
+          <td></td>
+      </tr>
+  <br><br>
+</c:forEach>
+</table>
+
+   
+<table class="problemStyle" style="margin: auto;width: 60%;border: 3px solid #73AD21;padding: 10px;">
+  <tr>
+      <th>Titlu probleme rezolvate</th>
+      <th>Punctaj problema</th>
+  </tr>
+<c:forEach var="i" begin="0" end="${problemList.length() - 1}">
+
+
+      <tr>
+          <td></td>
+          <td></td>
+      </tr>
+  <br><br>
+</c:forEach>
+</table>
+</form> 
 </body>
+<!--
+<script>
+  function getCategoryProblems(category) {
+  var xmhr = new XMLHttpRequest();
+  xmhr.onreadystatechange = function() {
+
+  }
+  xhr.open('GET', 'GetProblems', true);
+  xhr.send("grade=" + category);}
+</script>
+-->
 </html>
