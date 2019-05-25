@@ -182,7 +182,7 @@ public HashMap<Integer,Boolean> rezultateTestCaseuri (String filename , testCase
 
    //int val = generareScor("suma.in");
 
-   HashMap<Integer, Boolean> result = rezultateTestCaseuri("suma.in", testCases);
+   HashMap<Integer, Boolean> result = rezultateTestCaseuri("input.txt", testCases);
 
 
    String stringResult = "";
