@@ -5,35 +5,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="resources/css/navbar.css">
-    <link rel="stylesheet" href="resources/css/adaugaIntrebare.css">
+    <link rel="stylesheet" type="text/css" href="../resources/css/login.css">
+    <link rel="stylesheet" type="text/css" href="../resources/css/navbar.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
     <title>PbInfo</title>
 </head>
 
-<body>
+<body style="width: 50%; margin-top: 4%; margin-left: 25%;">
+  <form class="text-center border border-light p-5">
+  
+      <p class="h4 mb-4">Log in</p>
+  
+      <input type="email" id="defaultLoginFormEmail" class="form-control mb-4" name='uname' placeholder=" User">
+  
+      <input type="password" id="defaultLoginFormPassword" class="form-control mb-4" name='psw' placeholder="Password">
+  
+     
+  
+      <button class="btn btn-info btn-block my-4" style="background-color:black" type="submit">  <a href="html/cont.html" style="color:white">Log In</a></button>
+  
+      <p>Not a member?
+          <a href="html/signUp.html">Register</a>
+      </p>
+  
+  
+  </form>
+  
 
-
-<div class="navbar">
-  <div class="dropdown">
-    <button class="dropbtn" onclick="#"> PROBLEMEE
-      <i class="fa fa-caret-down"></i>
-    </button>
-    <div class="dropdown-content">
-      <a href="GetProblems?grade=9" >Clasa a IX-a</a>
-      <a href="GetProblems?grade=10">Clasa a X-a</a>
-      <a href="GetProblems?grade=11">Clasa a XI-a</a>
-    </div>
-  </div>
-  <div class="dropdown">
-   
-   
-
-  </div>
-    <a href="html/adaugaIntrebare.html" id="logo">ADAUGA PROBLEMA</a>
-    <a id="logo">CONTUL MEU</a>
-    <a href="html/login.html" id="logo">DECONECTARE</a>
-</div>
-    <p>pagina de profil - trebuie sa afiseze nr de puncte, solutii trimise, rata succes</p>
 </body>
 <!--
 <script>
