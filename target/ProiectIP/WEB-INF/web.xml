@@ -23,17 +23,21 @@
         <servlet-class>controller.servlets.SendSolution</servlet-class>
     </servlet>
 
+    <servlet>
+        <servlet-name>Register</servlet-name>
+        <servlet-class>controller.servlets.Register</servlet-class>
+    </servlet>
+
 
     <servlet-mapping>
         <servlet-name>SendSolution</servlet-name>
         <url-pattern>/SendSolution</url-pattern>
     </servlet-mapping>
+
     <servlet-mapping>
         <servlet-name>ServletTest</servlet-name>
         <url-pattern>/HelloWorld</url-pattern>
     </servlet-mapping>
-
-
 
     <servlet-mapping>
         <servlet-name>GetProblems</servlet-name>
@@ -45,4 +49,8 @@
         <url-pattern>/GetProblem</url-pattern>
     </servlet-mapping>
 
+    <servlet-mapping>
+        <servlet-name>Register</servlet-name>
+        <url-pattern>/Register</url-pattern>
+    </servlet-mapping>
 </web-app>
