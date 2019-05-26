@@ -8,3 +8,4 @@ controller/servlets/GetProblem.class
 controller/servlets/ServletTest.class
 Model/dao/Test.class
 Model/dao/Problem.class
+Model/dao/storage/TestSituation.class
