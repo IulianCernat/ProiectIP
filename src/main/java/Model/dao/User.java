@@ -368,4 +368,41 @@ public class User {
         JSONArray jsArray = new JSONArray(arr);
         return jsArray;
     }
+	
+	
+	/**
+     * Aceasta functie actualizeaza punctajul utilizatorului
+     *
+     * @param userId reprezinta id-ul utilizatorului pentru care se va face actualizarea
+     * @param newPoints reprezinta punctele acumulate in urma unei probleme adaugate.
+     */
+    public void obtainedPoints(int userId, int newPoints) throws SQLException {
+
+        PreparedStatement statement = null;
+		String query = "update users set points_no = points_no + ? where id=?  ";
+		try {
+			Connection myConn = Database.getConnection();
+			statement = myConn.prepareStatement(query);
+			statement.setInt(1, newPoints);
+			statement.setInt(2, userId);
+			statement.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (statement != null) {
+				try {
+					statement.close();
+
+				} catch (SQLException ex) {
+					System.out.println(ex);
+
+				}
+			}
+		}
+    }
+
+	
+	
+	
 }
