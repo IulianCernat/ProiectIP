@@ -9,6 +9,7 @@ import java.io.IOException;
 
 
 // Import required java libraries
+import Model.dao.Test;
 import Model.dao.storage.testCaseList;
 
 import java.io.*;
@@ -18,6 +19,7 @@ import javax.tools.*;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.io.*;
@@ -34,14 +36,25 @@ import java.util.ArrayList;
 @WebServlet(name = "getSolution")
 public class SendSolution extends HttpServlet {
 
+    //gasirea path-ului arhivei war
+    public String getPath(String directoryname, String fileName) throws UnsupportedEncodingException {
+        String path = this.getClass().getClassLoader().getResource("").getPath();
+        String fullPath = URLDecoder.decode(path, "UTF-8");
+        //String pathArr[] = fullPath.split("/classes/" + "");
+        String pathArr[] = fullPath.split("/WEB-INF/classes/");
+        System.out.println(fullPath);
+        System.out.println(pathArr[0]);
+        fullPath = pathArr[0];
+        String reponsePath = "";
+// to read a file from webcontent
+        reponsePath = new File(fullPath).getPath() + File.separatorChar + directoryname + "/" + fileName;
+        return reponsePath;
+    }
+
     private String message;
 
-    //private HashMap<String, String> testInput;
-
-
-    private HashMap<Integer,HashMap<String, String>> testInput;
-    private HashMap<String, String> variabil  ;
-
+    private HashMap<Integer,Boolean> rezultat = new HashMap<Integer,Boolean>();
+    private String eroareCompilare;
 
     testCaseList testCases = new testCaseList();
 
@@ -50,51 +63,36 @@ public class SendSolution extends HttpServlet {
 
     }
 
-
-
-
-
-    public void initializarePerechiIO(){
-
-        testCases.flush();
-
-        testCases.addTestCase(1, "5 3","8");
-        testCases.addTestCase(2, "-1 7","6");
-        testCases.addTestCase(3, "7 13","20");
-        testCases.addTestCase(4, "0 0","12");
-
-
-    }
-
-
-    public boolean compareOutput(String s1, String s2){
+    private boolean compareOutput(String s1, String s2){
         return s1.trim().equals(s2.trim());
     }
 
 
-    public  HashMap<Integer,Boolean> rezultateTestCaseuri (String filename , testCaseList testCases) throws IOException{
 
-        String path = "./Docker/" + filename;
+
+    public HashMap<Integer,Boolean> rezultateTestCaseuri (String filename , testCaseList testCases) throws IOException{
+
+        String path= getPath("compilerScripts", "Docker") + "/" + filename;
         // Use relative path for Unix systems
         File f = new File(path);
 
-        HashMap<Integer,Boolean> rezultat = new HashMap<Integer,Boolean>();
+        rezultat = new HashMap<Integer,Boolean>();
 
         f.getParentFile().mkdirs();
         f.createNewFile();
 
-        // initializarePerechiIO();
 
         FileWriter fileWriter;
         PrintWriter printWriter;
-
-        for(int i = 1 ; i <= testCases.getTestCount() ; i++){
+        System.out.println("teste : " + testCases.getTestCount());
+        for(int i = 0 ; i < testCases.getTestCount(); i++){
             fileWriter = new FileWriter(f);
             printWriter = new PrintWriter(fileWriter);
             printWriter.print(testCases.getTestInput(i));
             printWriter.close();
 
-            Process tempProcess = Runtime.getRuntime().exec("./sandbox.sh");
+            Process tempProcess = Runtime.getRuntime().exec("bash " + getPath("compilerScripts", "sandbox.sh" ) + " " +
+                    getPath("compilerScripts", ""));
 
 
             String compilerOutput = "";
@@ -119,23 +117,23 @@ public class SendSolution extends HttpServlet {
             stdout.close();
 
 
+            if(compilerOutput.contains("error")==true){ //daca a fost eroare la compilare
+                eroareCompilare = compilerOutput.substring(compilerOutput.indexOf("main.cpp"),compilerOutput.lastIndexOf((int)'^')+1);
 
-
-            if(compilerOutput.contains("error")==true){//daca a fost eroare la compilare
                 rezultat.put(-1,false);
                 return rezultat;
             }
 
 
-
-
-            BufferedReader br = new BufferedReader(new FileReader("./Docker/sandbox/output.txt"));
+            BufferedReader br = new BufferedReader(new FileReader(getPath("compilerScripts","Docker") + "/sandbox/" + "output.txt"));
             String st =  br.readLine();
+            System.out.println("OutputFromSabdbox : " + st + " " + st.length());
+            System.out.println("OutputFromTestList : " + testCases.getTestOutput(i) + " " + testCases.getTestOutput(i).length());
+
             br.close();
 
-            if(compareOutput(st, testCases.getTestOutput(i) ) == true ) rezultat.put(i,true) ;
-            else rezultat.put(i,false);
-
+            if(compareOutput(st, testCases.getTestOutput(i) ) == true ) rezultat.put(testCases.getTestId(i),true) ;
+            else rezultat.put(testCases.getTestId(i),false);
         }
 
         return rezultat;
@@ -147,22 +145,29 @@ public class SendSolution extends HttpServlet {
 
 
 
+    public String getEroareCompilare(){
+
+        return eroareCompilare;
+
+    }
+
 
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-
-        initializarePerechiIO();
+          int problemId = Integer.parseInt(request.getParameter("solvedProblemId"));
+        System.out.println("am primit id-ul" + problemId);
+          testCases= Test.getProblemTests(problemId);
 
         // Set response content type
         response.setContentType("text/html");
 
         PrintWriter out = response.getWriter();
-        String cod= request.getParameter("sol");
+        String cod= request.getParameter("solutionText");
 
-        // punem codul din textbox in fisierul main.c
+        // punem codul din textbox in fisierul main.cpp
 
-        PrintWriter scriitor = new PrintWriter("Docker/main.c");
+        PrintWriter scriitor = new PrintWriter(getPath("compilerScripts", "Docker") + "/" + "main.cpp");
 
         scriitor.println(cod);
 
@@ -176,7 +181,7 @@ public class SendSolution extends HttpServlet {
 
         //int val = generareScor("suma.in");
 
-        HashMap<Integer, Boolean> result = rezultateTestCaseuri("suma.in", testCases);
+        HashMap<Integer, Boolean> result = rezultateTestCaseuri("input.txt", testCases);
 
 
         String stringResult = "";
@@ -204,7 +209,7 @@ public class SendSolution extends HttpServlet {
             out.println(docType +
                     "<html>\n" +
                     "<body>\n" +
-                    "<p>" + "Eroare compilare " + "</p>" + "\n" +
+                    "<p>" + "Eroare compilare <br>" + eroareCompilare + "</p>" + "\n" +
                     "</body>" +
                     "</html>"
             );

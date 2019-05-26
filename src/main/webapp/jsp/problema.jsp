@@ -70,10 +70,12 @@
     </table>
     <br> <br> 
     <h3>Scrie solutie mai jos:</h3><br>
-    <textarea class="text" id="editor" name="solutionText">#include<iostream>
+    <textarea class="text" id="editor" name="solutionText">
+        #include <iostream>
         using namespace std;
         int main ()
         {
+            cout<<"Hello World!";
             return 0;
         }
     </textarea>
@@ -87,9 +89,10 @@
         });
     </script>
     <br>
-    <button formaction = "SendSolution" type="submit" class="register">Trimite
+    <button formaction = "SendSolution?solvedProblemId=${problem.getInt("id")}" type="submit" class="register">Trimite
     </button>
 
 </form>
 </body>
 </html>
+

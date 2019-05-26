@@ -16,12 +16,12 @@ import java.util.HashMap;
 public class Main {
 
     public static void main(String[] args) throws SQLException {
-        testCaseList tests = Test.getProblemTests(1);
-        System.out.println(tests.getTestInput(1));
-        System.out.println(tests.getTestOutput(1));
+        testCaseList tests = Test.getProblemTests(5);
+        System.out.println(tests.getTestInput(0));
+        System.out.println(tests.getTestOutput(0));
+        System.out.println(tests.getTestId(0));
 
-        System.out.println(tests.getTestInput(2));
-        System.out.println(tests.getTestOutput(2));
-        }
+
+    }
 
 }

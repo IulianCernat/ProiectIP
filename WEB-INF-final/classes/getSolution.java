@@ -109,7 +109,7 @@ public HashMap<Integer,Boolean> rezultateTestCaseuri (String filename , testCase
 
    
             if(compilerOutput.contains("error")==true){ //daca a fost eroare la compilare
-               eroareCompilare = compilerOutput.substring(compilerOutput.indexOf("main.c"),compilerOutput.lastIndexOf((int)'^')+1);
+               eroareCompilare = compilerOutput.substring(compilerOutput.indexOf("main.cpp"),compilerOutput.lastIndexOf((int)'^')+1);
 
                rezultat.put(-1,false);
                return rezultat;
@@ -166,9 +166,9 @@ public HashMap<Integer,Boolean> rezultateTestCaseuri (String filename , testCase
       PrintWriter out = response.getWriter();
       String cod= request.getParameter("sol");
 
-      // punem codul din textbox in fisierul main.c
+      // punem codul din textbox in fisierul main.cpp
 
-      PrintWriter scriitor = new PrintWriter("Docker/main.c");
+      PrintWriter scriitor = new PrintWriter("Docker/main.cpp");
 
       scriitor.println(cod);
 
