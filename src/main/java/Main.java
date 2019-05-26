@@ -23,8 +23,11 @@ public class Main {
 
         Problem pr= new Problem();
         System.out.println(pr.calculateScore(map));
-        
-         */
-    }
+
+
+
+
+        Problem pr= new Problem();
+        pr.obtainedPoints(1,20);*/
 
 }
