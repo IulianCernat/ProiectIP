@@ -1,0 +1,47 @@
+1.Va rulati o masina virtuala cu ubuntu(ubuntu mate, xubuntu, lubuntu etc.) folosing virtualbox sau vmware(il luati de la pirati).
+Mie personal imi place mai mult vmware.
+Probabil ca merge pe orice distributie, n-am incercat.
+
+2.Instalati JDK 8 (Eu folosesc JDK 8, daca folositi o versiune mai noua trebuie sa va clonati master-ul de pe git si sa faceti pachetul din nou folosind un IDE si schimband in pom.xml 
+cofiguratia care e la sfarsitul documentului, din 1.8 in altceva)
+sudo apt update
+sudo apt install openjdk-8-jdk
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk
+export PATH=$PATH:$JAVA_HOME/bin
+java -version (asta ca sa vedeti versiunea de java)
+
+3.Descarcati apache-tomcat de pe site-ul oficial https://tomcat.apache.org/download-90.cgi in format zip (core).
+Dezarhivati in directorul home
+
+4. Luati ProiectIP_war si puneti-l in apache-tomcat/webapps (unde aveti tomcat, in home). Daca ati reusit sa rulati cu intellij, pe windows, e deja in tomcat/webapps.
+
+5.Instalati docker.
+# Cum se instaleaza docker:
+
+sudo apt-get install docker.io
+
+# Trebuie sa rulam urmatoarele comenzi pentru a putea sa pornim 
+# containere fara drept de root:
+
+sudo groupadd docker
+sudo gpasswd -a $USER docker
+newgrp docker
+
+# se da restart la PC
+
+7.Va duceti in bin la tomcat si executati:
+sudo chmod +x catalina.sh (dati drepturi de executare asupra scriptului). Script-ul asta va ofera si feedback. Se poate folosi si startup.sh
+
+8.Porniti server-ul : sudo ./catalina.sh run .  In momentul asta server-ul merge pe portul 8080
+
+9.Deschideti browser-ul si scrieti http://localhost:8080/ProiectIP_war (asta e proiectul pe care l-ati pus in webapps).
+
+10. Trebuie dat click exact pe textul de login
+
+
+
+
+
+
+
+
