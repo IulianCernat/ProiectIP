@@ -146,7 +146,7 @@ public class Problem {
      * @param map Un HashMap care contine elemente de tipul [id_test ->boolean]
      * @return int care reprezinta scorul calculat pentru testele trecute (care au true) .
      */
-    public int calculateScore(HashMap<Integer, Boolean> map) throws SQLException {
+    public int calculateScore(HashMap<Integer, Boolean> map)  {
 
         PreparedStatement statement = null;
         int score = 0, percentage = 0;

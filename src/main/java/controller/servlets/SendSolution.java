@@ -9,8 +9,11 @@ import java.io.IOException;
 
 
 // Import required java libraries
+import Model.dao.Problem;
 import Model.dao.Test;
+import Model.dao.storage.TestSituation;
 import Model.dao.storage.testCaseList;
+import org.json.JSONObject;
 
 import java.io.*;
 import javax.servlet.annotation.WebServlet;
@@ -54,7 +57,7 @@ public class SendSolution extends HttpServlet {
     private String message;
 
     private HashMap<Integer,Boolean> rezultat = new HashMap<Integer,Boolean>();
-    private String eroareCompilare;
+    public String eroareCompilare;
 
     testCaseList testCases = new testCaseList();
 
@@ -141,10 +144,6 @@ public class SendSolution extends HttpServlet {
     }
 
 
-
-
-
-
     public String getEroareCompilare(){
 
         return eroareCompilare;
@@ -162,7 +161,6 @@ public class SendSolution extends HttpServlet {
         // Set response content type
         response.setContentType("text/html");
 
-        PrintWriter out = response.getWriter();
         String cod= request.getParameter("solutionText");
 
         // punem codul din textbox in fisierul main.cpp
@@ -176,9 +174,6 @@ public class SendSolution extends HttpServlet {
 
 
 
-        String docType =
-                "<!doctype html public \"-//w3c//dtd html 4.0 " + "transitional//en\">\n";
-
         //int val = generareScor("suma.in");
 
         HashMap<Integer, Boolean> result = rezultateTestCaseuri("input.txt", testCases);
@@ -186,38 +181,45 @@ public class SendSolution extends HttpServlet {
 
         String stringResult = "";
 
+
+        //Scor total
+        Problem pr = new Problem();
+        int totalScore = pr.calculateScore(result);
+
+        //Teste si situatia lor
+        int index;
+        int databaseId;
+        String evaluationMessage;
+        int originalScore;
+        int obtainedScore;
+        ArrayList<TestSituation> problemSituation = new ArrayList<>();
         for (Integer i : result.keySet()) {
-            stringResult = stringResult + "key: " + i + " value: " + result.get(i) + "<br>";
+            index = i;
+            if (result.get(i)) {
+                evaluationMessage = "OK";
+                obtainedScore = Test.getTestPercentage(i);
+            }
+            else {
+
+                evaluationMessage = "Raspuns gresit";
+                obtainedScore = 0;
+            }
+            originalScore = Test.getTestPercentage(i);
+            TestSituation testSituation = new TestSituation(index,evaluationMessage, originalScore, obtainedScore);
+            problemSituation.add(testSituation);
         }
 
 
+        request.setAttribute("problemSituation", problemSituation);
+        request.setAttribute("errors", eroareCompilare);
+        request.setAttribute("totalScore", totalScore);
 
-
-
-        if(result.get(-1)==null)
-            out.println(docType +
-                    "<html>\n" +
-                    "<body>\n" +
-                    "<p>" + "Fisier compilat cu succes. " + "<br>" + stringResult + "</p>"  +
-                    "</body>" +
-                    "</html>"
-            );
-
-
-        else
-
-            out.println(docType +
-                    "<html>\n" +
-                    "<body>\n" +
-                    "<p>" + "Eroare compilare <br>" + eroareCompilare + "</p>" + "\n" +
-                    "</body>" +
-                    "</html>"
-            );
-
-
-        out.close();
+        RequestDispatcher rd = request.getRequestDispatcher("jsp/scor.jsp");
+        rd.forward(request, response);
 
     }
+
+
 
 
     public void destroy() {
