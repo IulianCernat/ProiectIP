@@ -179,7 +179,7 @@ public class Problem {
 
                         } catch (SQLException ex) {
                             System.out.println(ex);
-                            
+
                         }
                     }
                 }
@@ -189,6 +189,10 @@ public class Problem {
 
         return score;
     }
+
+
+
+
 
 
 }
