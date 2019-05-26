@@ -1,4 +1,4 @@
-/*package controller.servlets;
+package controller.servlets;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,4 +20,3 @@ public class ServletTest extends HttpServlet {
 
 
 }
-*/
