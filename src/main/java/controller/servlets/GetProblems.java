@@ -1,4 +1,4 @@
-/*package controller.servlets;
+package controller.servlets;
 
 import Model.dao.Problem;
 import org.json.JSONArray;
@@ -25,4 +25,3 @@ public class GetProblems extends HttpServlet {
     }
 
 }
-*/
