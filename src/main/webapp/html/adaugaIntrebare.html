@@ -55,7 +55,7 @@
                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" placeholder="Cerinta" name="enunt" id="enunt" cols="50" rows="5" required></textarea><br>
                 <h4 name="rezolvare" id="solutie">Text solutie: </h4>
 
-                <textarea class="text" id="editor">#include<iostream>
+                <textarea class="text" id="editor" name="solutie">#include<iostream>
 using namespace std;
 
 int main ()
@@ -87,21 +87,21 @@ int main ()
                             </tr>
                             <tr class='case'>
                                 <td><span id='snum'>1.</span></td>
-                                <td><textarea class="form-control" id="exampleFormControlTextarea1" placeholder="add an input" name="input[]" rows="1" required></textarea></td>
-                                <td><textarea class="form-control" id="exampleFormControlTextarea1" name="output[]" rows="1" required></textarea></td>
-                                <td><input  class="form-control pondere" min='0' max="100" type="number" name="qty1" id="qty" required/></td>
+                                <td><textarea class="form-control" id="exampleFormControlTextarea1" placeholder="add an input" name="input1" rows="1" required></textarea></td>
+                                <td><textarea class="form-control" id="exampleFormControlTextarea1" name="output1" rows="1" required></textarea></td>
+                                <td><input  class="form-control pondere" min='0' max="100" type="number" name="pondere1" id="qty" required/></td>
                             </tr>
                             <tr class='case'>
                               <td><span id='snum'>2.</span></td>
-                              <td><textarea class="form-control" id="exampleFormControlTextarea1" name="input[]" rows="1" required></textarea></td>
-                              <td><textarea class="form-control" id="exampleFormControlTextarea1" name="output[]" rows="1" required></textarea></td>
-                              <td><input   class="form-control pondere" min='0' max="100" type="number" name="qty1" id="qty" required/></td>
+                              <td><textarea class="form-control" id="exampleFormControlTextarea1" name="input2" rows="1" required></textarea></td>
+                              <td><textarea class="form-control" id="exampleFormControlTextarea1" name="output2" rows="1" required></textarea></td>
+                              <td><input   class="form-control pondere" min='0' max="100" type="number" name="pondere2" id="qty" required/></td>
                             </tr>
                             <tr class='case'>
                               <td><span id='snum'>3.</span></td>
-                              <td><textarea class="form-control" id="exampleFormControlTextarea1" name="input[]" rows="1" required></textarea></td>
-                              <td><textarea class="form-control" id="exampleFormControlTextarea1" name="output[]" rows="1" required></textarea></td>
-                              <td><input   class="form-control pondere" min='0' max="100" type="number" name="qty1" id="qty" required/></td>
+                              <td><textarea class="form-control" id="exampleFormControlTextarea1" name="input3" rows="1" required></textarea></td>
+                              <td><textarea class="form-control" id="exampleFormControlTextarea1" name="output3" rows="1" required></textarea></td>
+                              <td><input   class="form-control pondere" min='0' max="100" type="number" name="pondere3" id="qty" required/></td>
                           </tr>
                         </table>
                         <p id="message"></p> <br>
@@ -123,12 +123,12 @@ int main ()
                 $(".addmore").on('click', function () {
                     sumInputs();
                     var count = $('table tr').length;
-                    var data = "<tr class='case'><td><span id='snum" + count + "'>" + count + ".</span></td>";
-                    data += "<td><textarea class='form-control' id='exampleFormControlTextarea1' name='input[]' rows='1' required></textarea></td>\
-                    <td><textarea class='form-control' id='exampleFormControlTextarea1' name='output[]' rows='1' required></textarea></td>\
-                    <td><input  class='form-control pondere' min='0' max='100' type='number' name='qty1' id='qty'/></td></tr>";
-                    $('#form_table').append(data);
                     count++;
+                    var data = "<tr class='case'><td><span id='snum" + count + "'>" + count + ".</span></td>";
+                    data += "<td><textarea class='form-control' id='exampleFormControlTextarea1' name='input" + count  + "'" + "rows='1' required></textarea></td>\
+                    <td><textarea class='form-control' id='exampleFormControlTextarea1' name='output" + count + "'" + "rows='1' required></textarea></td>\
+                    <td><input  class='form-control pondere' min='0' max='100' type='number' name='pondere" + count + "'" + " id='qty'/></td></tr>";
+                    $('#form_table').append(data);
                 });
             });
             
@@ -163,18 +163,18 @@ int main ()
                     <ul class="list-group list-group-flush">
                       <li class="list-group-item">
                         <div class="form-check form-check-inline" > 
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" value="9">
+                        <input class="form-check-input" type="radio" name="clasa" value="9">
                         <label class="form-check-label" for="inlineRadio1">  Clasa a IX - a</label>
                       </div></li>
                       <li class="list-group-item">
                         <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" value="10">
+                        <input class="form-check-input" type="radio" name="clasa" value="10">
                         <label class="form-check-label" for="inlineRadio2">  Clasa a X- a</label>
                         </div>
                       </li>
                       <li class="list-group-item">
                         <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" value="11">
+                        <input class="form-check-input" type="radio" name="clasa" value="11">
                         <label class="form-check-label" for="inlineRadio3">  Clasa a XI- a</label>
                         </div> 
                       </li>
@@ -190,18 +190,18 @@ int main ()
                         <ul class="list-group list-group-flush">
                           <li class="list-group-item">
                             <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions1" value="usor">
+                            <input class="form-check-input" type="radio" name="dificultate" value="usor">
                             <label class="form-check-label" for="inlineRadio1">  Usor</label>
                           </div></li>
                           <li class="list-group-item">
                             <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions1" value="mediu">
+                            <input class="form-check-input" type="radio" name="dificultate" value="mediu">
                             <label class="form-check-label" for="inlineRadio2">  Mediu</label>
                             </div>
                           </li>
                           <li class="list-group-item">
                             <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions1" value="greu">
+                            <input class="form-check-input" type="radio" name="dificultate" value="greu">
                             <label class="form-check-label" for="inlineRadio3">  Greu</label>
                             </div> 
                           </li>
