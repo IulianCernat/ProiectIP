@@ -5,7 +5,9 @@ import com.mysql.cj.xdevapi.JsonArray;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.sql.Connection;
@@ -20,13 +22,6 @@ import static com.sun.org.apache.bcel.internal.classfile.Utility.toHexString;
 
 
 public class User {
-
-    private static final int SALT_BYTES = 24;
-    private static final int HASH_BYTES = 24;
-    private static final int PBKDF2_ITERATIONS = 1000;
-    private static final String PBKDF2_ALGORITHM = "PBKDF2WithHmacSHA1";
-
-
 
     public static boolean checkIfUserExists(String username) {
         boolean exist = false;
@@ -45,14 +40,6 @@ public class User {
         return exist;
     }
 
-    public static int getHashBytes() {
-        return HASH_BYTES;
-    }
-
-    public static int getPbkdf2Iterations() {
-        return PBKDF2_ITERATIONS;
-    }
-
     /**
      * Aceasta funtie adauga in baza de date utilizatorul inregistrat
      *
@@ -66,46 +53,49 @@ public class User {
         try (Connection myConn = new Database().getConnection();
              PreparedStatement statement = myConn.prepareStatement(query);) {
 
-            SecureRandom random = new SecureRandom();
-            byte[] salt = new byte[SALT_BYTES];
-            random.nextBytes(salt);
-            byte[] hash = pbkdf2(password.toCharArray(), salt, PBKDF2_ITERATIONS, HASH_BYTES);
-
-            String stringSalt = toHexString(salt);
-            String passwordHash = toHexString(hash);
+            String salt = getSalt();
+            String passwordHash = md5Hash(password, salt);
 
             statement.setString(1, username);
             statement.setString(2, passwordHash);
             statement.setString(3, email);
-            statement.setString(4, stringSalt);
+            statement.setString(4, salt);
             statement.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
-        } catch (InvalidKeySpecException e) {
+        } catch (NoSuchProviderException e) {
             e.printStackTrace();
         }
     }
 
-    /**
-     * Aceasta functie genereaza un hash pe baza parolei si a saltului (este apelata de addUser)
-     *
-     * @param password   parola sub forma de char[]
-     * @param salt       un sir de biti pentru criptare
-     * @param iterations
-     * @param bytes      numarul de biti al hashului final
-     * @return
-     * @throws NoSuchAlgorithmException
-     * @throws InvalidKeySpecException
-     */
+    public static String md5Hash(String password, String salt) {
+        byte[] saltByt = salt.getBytes();
+        String passwordHash = null;
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            md.update(saltByt);
+            byte[] bytes = md.digest(password.getBytes());
+            StringBuilder passBuilder = new StringBuilder();
 
-    public static byte[] pbkdf2(char[] password, byte[] salt, int iterations, int bytes)
-            throws NoSuchAlgorithmException, InvalidKeySpecException {
-        PBEKeySpec spec = new PBEKeySpec(password, salt, iterations, bytes * 8);
-        SecretKeyFactory skf = SecretKeyFactory.getInstance(PBKDF2_ALGORITHM);
-        return skf.generateSecret(spec).getEncoded();
+            for(int i=0; i< bytes.length ;i++)
+            {
+                passBuilder.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            passwordHash = passBuilder.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return passwordHash;
+    }
+
+    protected static String getSalt() throws NoSuchAlgorithmException, NoSuchProviderException {
+        SecureRandom sr = SecureRandom.getInstance("SHA1PRNG", "SUN");
+        byte[] salt = new byte[16];
+        sr.nextBytes(salt);
+        return salt.toString();
     }
 
     /**

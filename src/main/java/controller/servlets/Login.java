@@ -22,31 +22,23 @@ public class Login extends HttpServlet {
         String typedUsername = request.getParameter("username");
         String typedPassword = request.getParameter("password");
         boolean loginflag = false;
-        try {
-            if (User.checkIfUserExists(typedUsername)) {
-                String salt = User.getUserSalt(typedUsername);
-                //String stringSalt = toHexString(salt.getBytes());
-                byte[] passwordHash = User.pbkdf2(typedPassword.toCharArray(), salt.getBytes(), User.getPbkdf2Iterations(), User.getHashBytes());
-                String passwordHex = toHexString(passwordHash);
-                String  databasePassword = User.getPassword(typedUsername);//.getBytes();
-                System.out.println(passwordHex);
-                System.out.println(databasePassword);
+        if (User.checkIfUserExists(typedUsername)) {
+            String salt = User.getUserSalt(typedUsername);
+            String passwordHash = User.md5Hash(typedPassword, salt);
+            String  databasePassword = User.getPassword(typedUsername);//.getBytes();
+            System.out.println(passwordHash);
+            System.out.println(databasePassword);
 
-                if(databasePassword.equals(passwordHex))
-                {
-                    loginflag = true;
-                    response.sendRedirect("./html/cont.html");
-                }
-                else
-                    response.sendRedirect("index.html");
+            if(databasePassword.equals(passwordHash))
+            {
+                loginflag = true;
+                response.sendRedirect("./html/cont.html");
             }
             else
                 response.sendRedirect("index.html");
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (InvalidKeySpecException e) {
-            e.printStackTrace();
         }
+        else
+            response.sendRedirect("index.html");
 
     }
 
