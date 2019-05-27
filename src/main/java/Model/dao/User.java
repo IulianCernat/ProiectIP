@@ -453,5 +453,36 @@ public class User {
             e.printStackTrace();
         }
     }
+	
+	* Aceasta functie actualizeaza punctajul unui utilizator pentru o anumita problema
+     *
+     * @param userId    reprezinta id-ul utilizatorului pentru care se va face actualizarea
+     * @param problemId reprezinta id-ul problemei
+     * @param newPoints reprezinta punctele acumulate in urma rezolvarii problemei.
+     */
+    public static void updateProblemScore(int userId, int problemId, int newPoints){
+        try
+        {
+
+            Connection conn = new Database().getConnection();
+
+            // create the java mysql update preparedstatement
+            String query = "update points set points = ? where id_user = ? and id_problem = ?";
+            PreparedStatement preparedStmt = conn.prepareStatement(query);
+            preparedStmt.setInt   (1, newPoints);
+            preparedStmt.setInt(2, userId);
+            preparedStmt.setInt(3, problemId);
+            // execute the java preparedstatement
+            preparedStmt.executeUpdate();
+
+            conn.close();
+        }
+        catch (Exception e)
+        {
+            System.err.println("Got an exception! ");
+            System.err.println(e.getMessage());
+
+        }
+    }
 
 }
