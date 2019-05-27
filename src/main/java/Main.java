@@ -20,6 +20,7 @@ public class Main {
         //System.out.println(User.getUserPublicData(13));
         //User.updateNrOfUploads(13);
         Problem.deleteProblem(11);
+
         User.updateNrOfSolvedProblmes(13);
 
     }

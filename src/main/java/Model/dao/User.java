@@ -432,7 +432,8 @@ public class User {
     }
 
     /**
-     *Aceasat functie incrementeaza numarul de probleme rezolvate de user
+
+     *Aceasta functie incrementeaza numarul de probleme rezolvate de user
      * @param userId este id-ul user-ului pentru care se va face actualizarea
      *
      */
@@ -464,8 +465,8 @@ public class User {
 
 
     /**
+
      * Aceasat functie incrementeaza numarul de probleme uploadate de user
-     *
      * @param userId int
      */
 
@@ -476,15 +477,15 @@ public class User {
         String query = "UPDATE `users` SET `solved_problems_no`= ? WHERE `id` = ?";
         try (Connection myConn = new Database().getConnection();
              PreparedStatement statement = myConn.prepareStatement(query)) {
-            statement.setInt(1, numberOfUploads);
-            statement.setInt(2, userId);
-
+            statement.setInt(1,numberOfUploads);
+            statement.setInt(2,userId);
             statement.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
 
 	/** Aceasta functie actualizeaza punctajul unui utilizator pentru o anumita problema
      *
@@ -502,17 +503,23 @@ public class User {
             String query = "update points set points = ? where id_user = ? and id_problem = ?";
             PreparedStatement preparedStmt = conn.prepareStatement(query);
             preparedStmt.setInt(1, newPoints);
+
             preparedStmt.setInt(2, userId);
             preparedStmt.setInt(3, problemId);
             // execute the java preparedstatement
             preparedStmt.executeUpdate();
 
             conn.close();
-        } catch (Exception e) {
+
+        }
+        catch (Exception e)
+        {
+
             System.err.println("Got an exception! ");
             System.err.println(e.getMessage());
 
         }
     }
+
 
 }
