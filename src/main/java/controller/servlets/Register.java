@@ -15,7 +15,7 @@ public class Register extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("fullname");
         String email = request.getParameter("email");
-        String password = request.getParameter("Password");
+        String password = request.getParameter("password");
         String repeatPass = request.getParameter("repeat");
 
         if(!password.equals(repeatPass)) response.sendRedirect("./html/signUp.html");

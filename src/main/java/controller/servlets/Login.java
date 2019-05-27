@@ -25,13 +25,14 @@ public class Login extends HttpServlet {
         try {
             if (User.checkIfUserExists(typedUsername)) {
                 String salt = User.getUserSalt(typedUsername);
-                String stringSalt = toHexString(salt.getBytes());
+                //String stringSalt = toHexString(salt.getBytes());
                 byte[] passwordHash = User.pbkdf2(typedPassword.toCharArray(), salt.getBytes(), User.getPbkdf2Iterations(), User.getHashBytes());
-                byte[] databasePassword = User.getPassword(typedUsername).getBytes();
-                System.out.println(passwordHash.toString());
-                System.out.println(databasePassword.toString());
+                String passwordHex = toHexString(passwordHash);
+                String  databasePassword = User.getPassword(typedUsername);//.getBytes();
+                System.out.println(passwordHex);
+                System.out.println(databasePassword);
 
-                if(Arrays.equals(passwordHash, databasePassword))
+                if(databasePassword.equals(passwordHex))
                 {
                     loginflag = true;
                     response.sendRedirect("./html/cont.html");
