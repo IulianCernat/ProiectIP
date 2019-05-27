@@ -125,7 +125,7 @@ public class User {
             statement.setInt(1, userId);
             statement.setInt(2, problemId);
             try (ResultSet rs = statement.executeQuery();) {
-                if (rs.next()) return rs.getInt("score");
+                if (rs.next()) return rs.getInt(1);
             }
         } catch (SQLException e) {
             e.printStackTrace();

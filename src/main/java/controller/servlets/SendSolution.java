@@ -203,14 +203,18 @@ public class SendSolution extends HttpServlet {
         //Actualizare scor user
         int userProblemScore = User.getUserProblemScore(userId, problemId);
         try {
-            if (userProblemScore < totalScore && userProblemScore != -1) {
+            if (userProblemScore < totalScore && userProblemScore != -1 && totalScore !=0) {
                 User.addObtainedPoints(userId, User.getPoints(userId) - userProblemScore + totalScore);
                 User.updateProblemScore(userId, problemId, totalScore);
                 if (totalScore == 100)
                     User.updateNrOfSolvedProblmes(userId);
             } else {
-                User.setPoints(userId, problemId, totalScore);
-                User.addObtainedPoints(userId, totalScore);
+                if (userProblemScore == -1) {
+                    User.setPoints(userId, problemId, totalScore);
+                    User.addObtainedPoints(userId, totalScore);
+                    if (totalScore == 100)
+                        User.updateNrOfSolvedProblmes(userId);
+                }
             }
         }catch (SQLException e) {
             e.printStackTrace();

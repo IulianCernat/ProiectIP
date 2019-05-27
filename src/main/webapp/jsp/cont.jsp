@@ -51,7 +51,7 @@
 
 <table class="problemStyle" style="margin: auto;width: 60%;border: 3px solid #73AD21;padding: 10px;">
     <tr>
-        <th></th>
+        <th>Username</th>
         <th>Email</th>
         <th>Nr. probleme rezolvate</th>
         <th>Nr. probleme adaugate</th>
@@ -64,9 +64,8 @@
         <td>${userProfile.get("uploaded_problems_no")}</td>
         <td>${userProfile.get("points_no")}</td>
     </tr>
-    <br><br>
 </table>
-<br><br>
+<br>
 
 
 <table class="problemStyle" style="margin: auto;width: 60%;border: 3px solid #73AD21;padding: 10px;">
@@ -87,7 +86,7 @@
     </c:choose>
 </table>
 
-<br><br>
+<br>
 <table class="problemStyle" style="margin: auto;width: 60%;border: 3px solid #73AD21;padding: 10px;">
     <tr>
         <th>Titlu probleme incercate</th>
@@ -95,10 +94,10 @@
     </tr>
     <c:choose>
         <c:when test="${triedProblems.length() != 0}">
-            <c:forEach var="i" begin="0" end="${solvedProblems.length() - 1}">
+            <c:forEach var="i" begin="0" end="${triedProblems.length() - 1}">
                 <tr>
-                    <td>${solvedProblems.getJSONObject(i).getJSONObject("problem").get("title")}</td>
-                    <td>${solvedProblems.getJSONObject(i).getJSONObject("problem").get("points")}</td>
+                    <td>${triedProblems.getJSONObject(i).getJSONObject("problem").get("title")}</td>
+                    <td>${triedProblems.getJSONObject(i).getJSONObject("problem").get("points")}</td>
                 </tr>
                 <br><br>
             </c:forEach>
