@@ -44,9 +44,9 @@
 
 
     </div>
-    <a href="html/adaugaIntrebare.html" id="logo">ADAUGA PROBLEMA</a>
-    <a href="GetUserProfile"  id="logo">CONTUL MEU</a>
-    <a href="logout.jsp" id="logo">DECONECTARE</a>
+    <a href="./html/adaugaIntrebare.html" id="logo">ADAUGA PROBLEMA</a>
+    <a href="./GetUserProfile"  id="logo">CONTUL MEU</a>
+    <a href="./jsp/logout.jsp" id="logo">DECONECTARE</a>
 </div>
 
 <table class="problemStyle" style="margin: auto;width: 60%;border: 3px solid #73AD21;padding: 10px;">

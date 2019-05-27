@@ -32,9 +32,9 @@
 
 
     </div>
-    <a href="html/adaugaIntrebare.html" id="logo">ADAUGA PROBLEMA</a>
+    <a href="./html/adaugaIntrebare.html" id="logo">ADAUGA PROBLEMA</a>
     <a href="GetUserProfile" id="logo">CONTUL MEU</a>
-    <a href="./index.html" id="logo">DECONECTARE</a>
+    <a href="./jsp/logout.jsp" id="logo">DECONECTARE</a>
 </div>
 <jsp:useBean id="problem" scope="request" type="org.json.JSONObject"/>
 
