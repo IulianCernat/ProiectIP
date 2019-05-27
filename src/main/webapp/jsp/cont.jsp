@@ -1,4 +1,3 @@
-
 <%@ page import="org.json.JSONArray" %>
 <%@ page import="org.json.JSONObject" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
@@ -19,7 +18,7 @@
     <link rel="stylesheet" href="resources/css/navbar.css">
     <link rel="stylesheet" href="resources/css/adaugaIntrebare.css">
     <link rel="stylesheet" href="resources/css/ListaProbleme.css">
-    <title>PbInfo</title>
+    <title>PbInfo?</title>
 </head>
 
 <body>
@@ -58,14 +57,14 @@
         <th>Nr. probleme adaugate</th>
         <th>Punctaj total</th>
     </tr>
-        <tr>
-            <td>${userProfile.get("username")}</td>
-            <td>${userProfile.get("email")}</td>
-            <td>${userProfile.get("solved_problems_no")}</td>
-            <td>${userProfile.get("uploaded_problems_no")}</td>
-            <td>${userProfile.get("points_no")}</td>
-        </tr>
-        <br><br>
+    <tr>
+        <td>${userProfile.get("username")}</td>
+        <td>${userProfile.get("email")}</td>
+        <td>${userProfile.get("solved_problems_no")}</td>
+        <td>${userProfile.get("uploaded_problems_no")}</td>
+        <td>${userProfile.get("points_no")}</td>
+    </tr>
+    <br><br>
 </table>
 <br><br>
 
