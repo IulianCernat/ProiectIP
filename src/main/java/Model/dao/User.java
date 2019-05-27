@@ -73,8 +73,9 @@ public class User {
 
     /**
      * Aceasta functie face un hash din parola primita ca argument pe baza unui salt tot primit ca argument
+     *
      * @param password - parola sub forma de string
-     * @param salt - saltul sub forma de string
+     * @param salt     - saltul sub forma de string
      * @return un hash returnat ca string
      */
 
@@ -87,8 +88,7 @@ public class User {
             byte[] bytes = md.digest(password.getBytes());
             StringBuilder passBuilder = new StringBuilder();
 
-            for(int i=0; i< bytes.length ;i++)
-            {
+            for (int i = 0; i < bytes.length; i++) {
                 passBuilder.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
             }
             passwordHash = passBuilder.toString();
@@ -99,7 +99,6 @@ public class User {
     }
 
     /**
-     *
      * @return Returneaza un string de control pentru criptarea parolei
      * @throws NoSuchAlgorithmException
      * @throws NoSuchProviderException
@@ -368,12 +367,12 @@ public class User {
      * @param userId este  id-ul utilizatorului
      * @return JSONArray [{id}]
      */
-    public static JSONArray getSolvedOrTriedProblems(int userId,  boolean fullScoreFlag) {
+    public static JSONArray getSolvedOrTriedProblems(int userId, boolean fullScoreFlag) {
         JSONArray jsonArray = new JSONArray();
         String query;
         if (fullScoreFlag)
-        query = "select id_problem, points, title from points join problem " +
-                "on points.id_problem = problem.id and id_user = ? and points = ?";
+            query = "select id_problem, points, title from points join problem " +
+                    "on points.id_problem = problem.id and id_user = ? and points = ?";
         else
             query = "select id_problem, points, title from points join problem " +
                     "on points.id_problem = problem.id and id_user = ? and points < ?";
@@ -429,6 +428,90 @@ public class User {
 
                 }
             }
+        }
+    }
+
+    /**
+     *Aceasat functie incrementeaza numarul de probleme rezolvate de user
+     * @param userId este id-ul user-ului pentru care se va face actualizarea
+     *
+     */
+        public static void updateNrOfSolvedProblmes(int userId) throws SQLException {
+
+            PreparedStatement statement = null;
+            String query = "update users set solved_problems_no = solved_problems_no + 1 where id=?  ";
+            try {
+                Connection myConn = new Database().getConnection();
+                statement = myConn.prepareStatement(query);
+                statement.setInt(1, userId);
+                statement.executeUpdate();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                if (statement != null) {
+                    try {
+                        statement.close();
+
+                    } catch (SQLException ex) {
+                        System.out.println(ex);
+
+                    }
+                }
+            }
+        }
+
+
+
+    /**
+     * Aceasat functie incrementeaza numarul de probleme uploadate de user
+     *
+     * @param userId int
+     */
+
+    public static void updateNrOfUploads(int userId) {
+
+        int numberOfUploads = getNrOfUploadedProblems(userId);
+        numberOfUploads++;
+        String query = "UPDATE `users` SET `solved_problems_no`= ? WHERE `id` = ?";
+        try (Connection myConn = new Database().getConnection();
+             PreparedStatement statement = myConn.prepareStatement(query)) {
+            statement.setInt(1, numberOfUploads);
+            statement.setInt(2, userId);
+
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+	/** Aceasta functie actualizeaza punctajul unui utilizator pentru o anumita problema
+     *
+             * @param userId    reprezinta id-ul utilizatorului pentru care se va face actualizarea
+     * @param problemId reprezinta id-ul problemei
+     * @param newPoints reprezinta punctele acumulate in urma rezolvarii problemei.
+            */
+
+    public static void updateProblemScore(int userId, int problemId, int newPoints) {
+        try {
+
+            Connection conn = new Database().getConnection();
+
+            // create the java mysql update preparedstatement
+            String query = "update points set points = ? where id_user = ? and id_problem = ?";
+            PreparedStatement preparedStmt = conn.prepareStatement(query);
+            preparedStmt.setInt(1, newPoints);
+            preparedStmt.setInt(2, userId);
+            preparedStmt.setInt(3, problemId);
+            // execute the java preparedstatement
+            preparedStmt.executeUpdate();
+
+            conn.close();
+        } catch (Exception e) {
+            System.err.println("Got an exception! ");
+            System.err.println(e.getMessage());
+
         }
     }
 
