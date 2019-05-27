@@ -405,7 +405,7 @@ public class User {
      * @param userId    reprezinta id-ul utilizatorului pentru care se va face actualizarea
      * @param newPoints reprezinta punctele acumulate in urma unei probleme adaugate.
      */
-    public static void obtainedPoints(int userId, int newPoints) throws SQLException {
+    public static void addObtainedPoints(int userId, int newPoints) throws SQLException {
 
         PreparedStatement statement = null;
         String query = "update users set points_no = points_no + ? where id=?  ";
@@ -511,14 +511,10 @@ public class User {
 
             conn.close();
 
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        catch (Exception e)
-        {
 
-            System.err.println("Got an exception! ");
-            System.err.println(e.getMessage());
-
-        }
     }
 
 

@@ -19,9 +19,6 @@ public class GetUserProfile extends HttpServlet {
         request.setAttribute("triedProblems", User.getSolvedOrTriedProblems(userId,false));
         RequestDispatcher dispatcher = request.getRequestDispatcher("./jsp/cont.jsp");
         dispatcher.forward(request, response);
-
-
-
     }
 
 }

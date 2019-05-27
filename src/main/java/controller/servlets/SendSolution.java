@@ -11,6 +11,7 @@ import java.io.IOException;
 // Import required java libraries
 import Model.dao.Problem;
 import Model.dao.Test;
+import Model.dao.User;
 import Model.dao.storage.TestSituation;
 import Model.dao.storage.testCaseList;
 import org.json.JSONObject;
@@ -23,6 +24,7 @@ import javax.tools.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import java.net.URLDecoder;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.io.*;
@@ -195,13 +197,32 @@ public class SendSolution extends HttpServlet {
         request.setAttribute("errors", eroareCompilare);
         request.setAttribute("totalScore", totalScore);
 
-        RequestDispatcher rd = request.getRequestDispatcher("jsp/scor.jsp");
-        rd.forward(request, response);
+        //Id-ul user-ului din sesiune
+        Integer userId = (Integer) request.getSession(false).getAttribute("userId");
 
+        //Actualizare scor user
+        int userProblemScore = User.getUserProblemScore(userId, problemId);
+        try {
+            if (userProblemScore < totalScore && userProblemScore != -1) {
+                User.addObtainedPoints(userId, User.getPoints(userId) - userProblemScore + totalScore);
+                User.updateProblemScore(userId, problemId, totalScore);
+                if (totalScore == 100)
+                    User.updateNrOfSolvedProblmes(userId);
+            } else {
+                User.setPoints(userId, problemId, totalScore);
+                User.addObtainedPoints(userId, totalScore);
+            }
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+            RequestDispatcher rd = request.getRequestDispatcher("jsp/scor.jsp");
+            rd.forward(request, response);
+
+        }
+
+
+        public void destroy () {
+            // do nothing.
+        }
     }
-
-
-    public void destroy() {
-        // do nothing.
-    }
-}
