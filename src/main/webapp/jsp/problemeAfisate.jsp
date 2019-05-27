@@ -27,9 +27,9 @@
 
 
     </div>
-    <a href="html/adaugaIntrebare.html" id="logo">ADAUGA PROBLEMA</a>
-    <a href="GetUserProfile" id="logo">CONTUL MEU</a>
-    <a href="./index.html" id="logo">DECONECTARE</a>
+    <a href="./html/adaugaIntrebare.html" id="logo">ADAUGA PROBLEMA</a>
+    <a href="./GetUserProfile" id="logo">CONTUL MEU</a>
+    <a href="./jsp/logout.jsp" id="logo">DECONECTARE</a>
 </div>
 <br><br><br>
 <jsp:useBean id="problemList" scope="request" type="org.json.JSONArray"/>
@@ -39,8 +39,8 @@
             <tr>
                 <th>Numar Problema</th>
                 <th>Nume Problema</th>
-                <th>Dificultate</th>
                 <th>Categorie</th>
+                <th>Dificultate</th>
                 <th>Data Adaugarii</th>
                 <th>Rezolva</th>
             </tr>
