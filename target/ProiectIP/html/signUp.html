@@ -26,7 +26,7 @@
     <button class="btn btn-info btn-block my-4" style="background-color:black" type="submit"  onclick="check()">Register</button>
 
     <p>Already have an acount?
-        <a href="../index.html">Login</a>
+        <a href="../index.html" style="color: green";>Login</a>
     </p>
 
 
@@ -36,7 +36,6 @@
     function checkPassword(form) { 
         password1 = form.password.value; 
         password2 = form.repeat.value; 
-
         if (password1 == '') 
             alert ("Please enter Password"); 
               
@@ -47,7 +46,6 @@
             alert ("\nPassword did not match: Please try again...") 
             return false; 
         } 
-
         
     } 
 </script> 
