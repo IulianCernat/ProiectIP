@@ -10,7 +10,7 @@
 
 </head>
 <body style="width: 50%; margin-top: 4%; margin-left: 25%;">
-<form class="text-center border border-light p-5" action=".././Register" method="post">
+<form onSubmit = "return checkPassword(this)" class="text-center border border-light p-5" action=".././Register" method="post">
 
     <p class="h4 mb-4">Register</p>
 
@@ -18,9 +18,9 @@
 
     <input type="email" class="form-control mb-4" name='email' placeholder="Email" required>
 
-    <input type="password" class="form-control mb-4" name='Password' placeholder="Password" required>
+    <input type="password" class="form-control mb-4" name='password' id="password" placeholder="Password" required>
 
-    <input type="password" class="form-control mb-4" name='repeat' placeholder="Repeat password" required>
+    <input type="password" class="form-control mb-4" name='repeat' id="confirm_password" placeholder="Repeat password" required>
     <div class="form-group">
         <div class="form-check">
             <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
@@ -31,7 +31,7 @@
 
     </div>
 
-    <button class="btn btn-info btn-block my-4" style="background-color:black" type="submit">Register</button>
+    <button class="btn btn-info btn-block my-4" style="background-color:black" type="submit"  onclick="check()">Register</button>
 
     <p>Already have an acount?
         <a href="../index.html">Login</a>
@@ -39,8 +39,26 @@
 
 
 </form>
+<script> 
+          
+    function checkPassword(form) { 
+        password1 = form.password.value; 
+        password2 = form.repeat.value; 
 
+        if (password1 == '') 
+            alert ("Please enter Password"); 
+              
+        else if (password2 == '') 
+            alert ("Please enter confirm password"); 
+              
+        else if (password1 != password2) { 
+            alert ("\nPassword did not match: Please try again...") 
+            return false; 
+        } 
+
+        
+    } 
+</script> 
 
 </body>
 </html>
-
