@@ -33,7 +33,7 @@
 
     </div>
     <a href="html/adaugaIntrebare.html" id="logo">ADAUGA PROBLEMA</a>
-    <a href="html/cont.html" id="logo">CONTUL MEU</a>
+    <a href="GetUserProfile" id="logo">CONTUL MEU</a>
     <a href="./index.html" id="logo">DECONECTARE</a>
 </div>
 <jsp:useBean id="problem" scope="request" type="org.json.JSONObject"/>

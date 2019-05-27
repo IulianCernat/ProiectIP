@@ -38,6 +38,16 @@
         <servlet-class>controller.servlets.AddProblem</servlet-class>
     </servlet>
 
+    <servlet>
+        <servlet-name>GetUserProfile</servlet-name>
+        <servlet-class>controller.servlets.GetUserProfile</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>GetUserProfile</servlet-name>
+        <url-pattern>/GetUserProfile</url-pattern>
+    </servlet-mapping>
+
     <servlet-mapping>
         <servlet-name>AddProblem</servlet-name>
         <url-pattern>/AddProblem</url-pattern>

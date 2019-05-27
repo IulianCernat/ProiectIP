@@ -8,6 +8,7 @@ public class Database {
     private static final String URL = "jdbc:mysql://db4free.net:3306/proiectip12345";
     private static final String USER = "amrus12345";
     private static final String PASSWORD = "databaseacces";
+
     private Connection connection = null;
 
     public Connection getConnection() {

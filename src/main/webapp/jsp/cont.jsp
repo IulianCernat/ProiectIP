@@ -35,18 +35,18 @@
             <i class="fa fa-caret-down"></i>
         </button>
         <div class="dropdown-content">
-            <a href=".././GetProblems?grade=9">Clasa a IX-a</a>
-            <a href=".././GetProblems?grade=10">Clasa a X-a</a>
-            <a href=".././GetProblems?grade=11">Clasa a XI-a</a>
+            <a href="GetProblems?grade=9">Clasa a IX-a</a>
+            <a href="GetProblems?grade=10">Clasa a X-a</a>
+            <a href="GetProblems?grade=11">Clasa a XI-a</a>
         </div>
     </div>
     <div class="dropdown">
 
 
     </div>
-    <a href="adaugaIntrebare.html" id="logo">ADAUGA PROBLEMA</a>
-    <a href="cont.html" id="logo">CONTUL MEU</a>
-    <a href="../jsp/logout.jsp" id="logo">DECONECTARE</a>
+    <a href="html/adaugaIntrebare.html" id="logo">ADAUGA PROBLEMA</a>
+    <a href="GetUserProfile"  id="logo">CONTUL MEU</a>
+    <a href="logout.jsp" id="logo">DECONECTARE</a>
 </div>
 
 <table class="problemStyle" style="margin: auto;width: 60%;border: 3px solid #73AD21;padding: 10px;">
