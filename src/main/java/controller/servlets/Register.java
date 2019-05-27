@@ -12,7 +12,7 @@ import java.io.PrintWriter;
 
 @WebServlet(name = "Register")
 public class Register extends HttpServlet {
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("fullname");
         String email = request.getParameter("email");
         String password = request.getParameter("Password");
