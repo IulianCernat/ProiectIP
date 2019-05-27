@@ -22,7 +22,8 @@
     <c:otherwise>
         <div class="bottom" style="width:70%; 
         margin-left:15%; 
-        margin-right:15%;">
+        margin-right:15%;
+        margin-top:10%;">
             <table id="customers" class="rezultate">
                 <tr>
                     <th>Id-ul testului</th>
@@ -52,11 +53,11 @@
                 for ( i = 0; i < mesaj.length; i ++ ) {
                     console.log(mesaj.length)
                     if (mesaj[i].innerText === "OK") {
-                        linie[i].style.backgroundColor = "green"
+                        linie[i].style.backgroundColor = "#BDFF89"
                     }
                     else
                     {
-                        linie[i].style.backgroundColor = "red"
+                        linie[i].style.backgroundColor = "#FB7474"
                     }
                 }
             </script>
