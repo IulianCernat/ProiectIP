@@ -221,7 +221,6 @@ public class SendSolution extends HttpServlet {
 
         }
 
-
         public void destroy () {
             // do nothing.
         }
