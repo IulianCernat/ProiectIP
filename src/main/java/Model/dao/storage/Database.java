@@ -5,9 +5,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Database {
-    private static final String URL = "jdbc:mysql://db4free.net:3306/proiectip12345";
-    private static final String USER = "amrus12345";
-    private static final String PASSWORD = "databaseacces";
+    private static final String URL = "jdbc:mysql://remotemysql.com:3306/XPZ9FZTUMY?autoReconnect=true&useSSL=false&relaxAutoCommit=true";
+    private static final String USER = "XPZ9FZTUMY";
+    private static final String PASSWORD = "c758XcEaIu";
 
     private Connection connection = null;
 

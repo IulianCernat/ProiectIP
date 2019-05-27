@@ -119,7 +119,7 @@ public class User {
      * @return int Numarul de puncte ale utilizatorului pentru problema
      */
     public static int getUserProblemScore(int userId, int problemId) {
-        String query = "select score from points WHERE id_user = ? and id_problem = ?";
+        String query = "select points from points WHERE id_user = ? and id_problem = ?";
         try (Connection myConn = new Database().getConnection();
              PreparedStatement statement = myConn.prepareStatement(query);) {
             statement.setInt(1, userId);

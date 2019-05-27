@@ -220,7 +220,7 @@ public class SendSolution extends HttpServlet {
             e.printStackTrace();
         }
 
-            RequestDispatcher rd = request.getRequestDispatcher("jsp/scor.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("./jsp/scor.jsp");
             rd.forward(request, response);
 
         }
