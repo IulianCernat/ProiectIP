@@ -368,26 +368,37 @@ public class User {
      * @param userId este  id-ul utilizatorului
      * @return JSONArray [{id}]
      */
-    public static JSONArray getSolvedProblems(int userId) {
-        ArrayList<Integer> arr = new ArrayList<Integer>();
-        String query = "select id_problem from points where id_user = ? and points=?";
+    public static JSONArray getSolvedOrTriedProblems(int userId,  boolean fullScoreFlag) {
+        JSONArray jsonArray = new JSONArray();
+        String query;
+        if (fullScoreFlag)
+        query = "select id_problem, points, title from points join problem " +
+                "on points.id_problem = problem.id and id_user = ? and points = ?";
+        else
+            query = "select id_problem, points, title from points join problem " +
+                    "on points.id_problem = problem.id and id_user = ? and points < ?";
+
         try (Connection myConn = new Database().getConnection();
              PreparedStatement statement = myConn.prepareStatement(query)) {
             statement.setInt(1, userId);
             statement.setInt(2, 100);
-            try (ResultSet rs = statement.executeQuery()) {
-                while (rs.next()) {
-                    arr.add(rs.getInt("id_problem"));
+            try (ResultSet resultSet = statement.executeQuery();) {
+                while (resultSet.next()) {
+                    int total_rows = resultSet.getMetaData().getColumnCount();
+                    JSONObject mainObj = new JSONObject();
+                    JSONObject obj = new JSONObject();
+                    for (int i = 0; i < total_rows; i++) {
+                        obj.put(resultSet.getMetaData().getColumnLabel(i + 1).toLowerCase(), resultSet.getObject(i + 1));
+                    }
+                    mainObj.put("problem", obj);
+                    jsonArray.put(mainObj);
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        JSONArray jsArray = new JSONArray(arr);
-        return jsArray;
+        return jsonArray;
     }
-
 
     /**
      * Aceasta functie actualizeaza punctajul utilizatorului

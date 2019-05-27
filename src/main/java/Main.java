@@ -16,7 +16,8 @@ import java.util.HashMap;
 public class Main {
 
     public static void main(String[] args) throws SQLException {
-
+        System.out.println(User.getSolvedOrTriedProblems(1, false));
+        System.out.println(User.getUserPublicData(1));
     }
 
 }

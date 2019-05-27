@@ -3,6 +3,7 @@ package controller.servlets;
 import Model.dao.User;
 
 import javax.jws.soap.SOAPBinding;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,6 +25,7 @@ public class Login extends HttpServlet {
         String typedPassword = request.getParameter("password");
         boolean loginflag = false;
         if (User.checkIfUserExists(typedUsername)) {
+            int userId = User.getId(typedUsername);
             String salt = User.getUserSalt(typedUsername);
             String passwordHash = User.md5Hash(typedPassword, salt);
             String  databasePassword = User.getPassword(typedUsername);//.getBytes();
@@ -37,8 +39,15 @@ public class Login extends HttpServlet {
                 //if(session.isNew()) session.setAttribute("username", typedUsername);
                 //else System.out.println("Din sesiune : " + session.getAttribute("username"));
                 session.setAttribute("username", typedUsername); // salvez in sesiune usernameul celui ce s-a conectat
+                session.setAttribute("userId", userId); //salvez si username-ul
 
-                response.sendRedirect("./jsp/cont.jsp");
+                //trimit datele profilului
+                request.setAttribute("userProfile", User.getUserPublicData(userId));
+                request.setAttribute("solvedProblems", User.getSolvedOrTriedProblems(userId, true));
+                request.setAttribute("triedProblems", User.getSolvedOrTriedProblems(userId,false));
+                RequestDispatcher dispatcher = request.getRequestDispatcher("./jsp/cont.jsp");
+                dispatcher.forward(request, response);
+                //response.sendRedirect("./jsp/cont.jsp");
             }
             else
                 response.sendRedirect("index.html");
