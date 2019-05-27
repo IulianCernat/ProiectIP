@@ -190,5 +190,17 @@ public class Problem {
         return score;
     }
 
+    public static void deleteProblem(int problemId) {
+        String query = "DELETE FROM `problem` WHERE `id` = ?";
+        try (Connection myConn = new Database().getConnection();
+             PreparedStatement statement = myConn.prepareStatement(query)) {
+            statement.setInt(1,problemId);
+
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
