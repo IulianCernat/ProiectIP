@@ -6,7 +6,7 @@
 <html>
 <head>
 
-    <link rel="stylesheet" type="text/css" href="index.css">
+    <link rel="stylesheet" type="text/css" href="resources/css/scor.css">
     <title>Scor</title>
 </head>
 <body>
@@ -20,8 +20,10 @@
         <div id="compilerErrors"> ${errors}</div><br>
     </c:when>
     <c:otherwise>
-        <div class="bottom">
-            <table class="rezultate">
+        <div class="bottom" style="width:70%; 
+        margin-left:15%; 
+        margin-right:15%;">
+            <table id="customers" class="rezultate">
                 <tr>
                     <th>Id-ul testului</th>
                     <th>Mesaj evaluare </th>
@@ -39,7 +41,7 @@
 
 
                 </c:forEach>
-            </table>
+            </table><br>
             <div class='rezfin' id="totalScore">
                 Rezultat final : <b> ${totalScore} </b>
             </div>
@@ -61,6 +63,5 @@
         </div>
     </c:otherwise>
 </c:choose><br><br>
-<button a href="">Inapoi la cerinta</button>
 </body>
 </html>
