@@ -47,6 +47,8 @@ public class AddProblem extends HttpServlet {
         Problem.addProblem(problem, testList);
         User.updateNrOfUploads(userId);
 
+        response.sendRedirect("GetUserProfile");
+
     }
 
 }

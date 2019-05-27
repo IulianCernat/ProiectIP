@@ -474,7 +474,7 @@ public class User {
 
         int numberOfUploads = getNrOfUploadedProblems(userId);
         numberOfUploads++;
-        String query = "UPDATE `users` SET `solved_problems_no`= ? WHERE `id` = ?";
+        String query = "UPDATE `users` SET `uploaded_problems_no`= ? WHERE `id` = ?";
         try (Connection myConn = new Database().getConnection();
              PreparedStatement statement = myConn.prepareStatement(query)) {
             statement.setInt(1,numberOfUploads);

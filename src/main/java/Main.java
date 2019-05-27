@@ -19,9 +19,9 @@ public class Main {
         //System.out.println(User.getSolvedOrTriedProblems(13, false));
         //System.out.println(User.getUserPublicData(13));
         //User.updateNrOfUploads(13);
-        Problem.deleteProblem(11);
+        Problem.deleteProblem(15);
 
-        User.updateNrOfSolvedProblmes(13);
+        //User.updateNrOfSolvedProblmes(13);
 
     }
 
