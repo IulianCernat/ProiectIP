@@ -1,12 +1,13 @@
-C:\Users\Empir\Documents\Info 2\IP\ProiectIP\src\main\java\controller\servlets\Register.java
-C:\Users\Empir\Documents\Info 2\IP\ProiectIP\src\main\java\controller\servlets\SendSolution.java
-C:\Users\Empir\Documents\Info 2\IP\ProiectIP\src\main\java\Main.java
-C:\Users\Empir\Documents\Info 2\IP\ProiectIP\src\main\java\Model\dao\storage\Database.java
-C:\Users\Empir\Documents\Info 2\IP\ProiectIP\src\main\java\Model\dao\storage\TestSituation.java
-C:\Users\Empir\Documents\Info 2\IP\ProiectIP\src\main\java\Model\dao\User.java
-C:\Users\Empir\Documents\Info 2\IP\ProiectIP\src\main\java\controller\servlets\ServletTest.java
-C:\Users\Empir\Documents\Info 2\IP\ProiectIP\src\main\java\Model\dao\storage\testCaseList.java
-C:\Users\Empir\Documents\Info 2\IP\ProiectIP\src\main\java\controller\servlets\GetProblem.java
-C:\Users\Empir\Documents\Info 2\IP\ProiectIP\src\main\java\controller\servlets\GetProblems.java
-C:\Users\Empir\Documents\Info 2\IP\ProiectIP\src\main\java\Model\dao\Problem.java
-C:\Users\Empir\Documents\Info 2\IP\ProiectIP\src\main\java\Model\dao\Test.java
+E:\ProiectIPmain\ProiectIP\src\main\java\Model\dao\User.java
+E:\ProiectIPmain\ProiectIP\src\main\java\controller\servlets\ServletTest.java
+E:\ProiectIPmain\ProiectIP\src\main\java\controller\servlets\Login.java
+E:\ProiectIPmain\ProiectIP\src\main\java\Model\dao\Test.java
+E:\ProiectIPmain\ProiectIP\src\main\java\controller\servlets\GetProblems.java
+E:\ProiectIPmain\ProiectIP\src\main\java\controller\servlets\SendSolution.java
+E:\ProiectIPmain\ProiectIP\src\main\java\Model\dao\storage\TestSituation.java
+E:\ProiectIPmain\ProiectIP\src\main\java\Main.java
+E:\ProiectIPmain\ProiectIP\src\main\java\Model\dao\storage\testCaseList.java
+E:\ProiectIPmain\ProiectIP\src\main\java\controller\servlets\Register.java
+E:\ProiectIPmain\ProiectIP\src\main\java\Model\dao\storage\Database.java
+E:\ProiectIPmain\ProiectIP\src\main\java\Model\dao\Problem.java
+E:\ProiectIPmain\ProiectIP\src\main\java\controller\servlets\GetProblem.java

@@ -26,6 +26,8 @@ public class User {
     private static final int PBKDF2_ITERATIONS = 1000;
     private static final String PBKDF2_ALGORITHM = "PBKDF2WithHmacSHA1";
 
+
+
     public static boolean checkIfUserExists(String username) {
         boolean exist = false;
         String query = "select * from users where username=? ";
@@ -41,6 +43,14 @@ public class User {
             e.printStackTrace();
         }
         return exist;
+    }
+
+    public static int getHashBytes() {
+        return HASH_BYTES;
+    }
+
+    public static int getPbkdf2Iterations() {
+        return PBKDF2_ITERATIONS;
     }
 
     /**
@@ -91,7 +101,7 @@ public class User {
      * @throws InvalidKeySpecException
      */
 
-    private static byte[] pbkdf2(char[] password, byte[] salt, int iterations, int bytes)
+    public static byte[] pbkdf2(char[] password, byte[] salt, int iterations, int bytes)
             throws NoSuchAlgorithmException, InvalidKeySpecException {
         PBEKeySpec spec = new PBEKeySpec(password, salt, iterations, bytes * 8);
         SecretKeyFactory skf = SecretKeyFactory.getInstance(PBKDF2_ALGORITHM);

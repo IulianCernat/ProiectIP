@@ -13,51 +13,49 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="../resources/css/navbarCSS.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <title>PbInfo</title>
 </head>
 
 <body style="color: #290404; font-family: 'Raleway',sans-serif; font-size: 1vw;">
 
-<div class="navbarCss">
-    <div class="dropdownCss">
-        <button class="dropbtn" onclick="#"> PROBLEMEE
-            <i class="fa fa-caret-down"></i>
-        </button>
-        <div class="dropdown-contentCss">
-            <a href=".././GetProblems?grade=9" id="logo">Clasa a IX-a</a>
-            <a href=".././GetProblems?grade=10" id="logo">Clasa a X-a</a>
-            <a href=".././GetProblems?grade=11" id="logo">Clasa a XI-a</a>
-        </div>
+  <div class="navbarCss">
+  <div class="dropdownCss">
+    <button class="dropbtn" onclick="#"> PROBLEMEE
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-contentCss">
+      <a href=".././GetProblems?grade=9"  id="logo">Clasa a IX-a</a>
+      <a href=".././GetProblems?grade=10" id="logo">Clasa a X-a</a>
+      <a href=".././GetProblems?grade=11" id="logo">Clasa a XI-a</a>
     </div>
-    <div class="dropdownCss">
+  </div>
+  <div class="dropdownCss">
 
-    </div>
+  </div>
     <a href="adaugaIntrebare.html" id="logo">ADAUGA PROBLEMA</a>
     <a href="cont.html" id="logo">CONTUL MEU</a>
     <a href="../index.html" id="logo">DECONECTARE</a>
 </div>
 
 <form action="ServletTest" method="/post">
-    <form>
+  <form>
 
-        <div class="container">
-            <div class="leftSide">
-                <h3 class="display-4"
-                    style="  color: black;
+    <div class="container">
+        <div class="leftSide">
+            <h3 class="display-4"
+            style="  color: black;
             -webkit-text-stroke-width: 1px;
-            -webkit-text-stroke-color: black;">Adauga o problema: </h3><br>
-                <div class=area>
-                    <h4>Nume enunt: </h4>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="1" placeholder="Nume cerinta"
-                              name="titlu" id="enunt" cols="50" rows="2" required></textarea><br>
-                    <h4>Text enunt: </h4>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" placeholder="Cerinta"
-                              name="enunt" id="enunt" cols="50" rows="5" required></textarea><br>
-                    <h4 name="rezolvare" id="solutie">Text solutie: </h4>
+            -webkit-text-stroke-color: black;" >Adauga o problema: </h3><br>
+            <div class=area>
+                <h4 >Nume enunt: </h4>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="1" placeholder="Nume cerinta" name="titlu" id="enunt" cols="50" rows="2" required></textarea><br>
+                <h4>Text enunt: </h4>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" placeholder="Cerinta" name="enunt" id="enunt" cols="50" rows="5" required></textarea><br>
+                <h4 name="rezolvare" id="solutie">Text solutie: </h4>
 
-                    <textarea class="text" id="editor" name="solutie">#include<iostream>
+                <textarea class="text" id="editor" name="solutie">#include<iostream>
 using namespace std;
 
 int main ()
@@ -66,176 +64,158 @@ int main ()
 
     return 0;
 }</textarea>
-                    <script>
-                        var editor = CodeMirror.fromTextArea
-                        (document.getElementById('editor'), {
-                            mode: "clike",
-                            theme: "dracula",
-                            lineNumbers: true,
-                            autoCloseBrackets: true
-                        });
-                    </script>
+                <script>
+                    var editor= CodeMirror.fromTextArea
+                    (document.getElementById('editor'),{
+                        mode: "clike",
+                        theme: "dracula",
+                        lineNumbers: true,
+                        autoCloseBrackets: true
+                    });
+                </script>
 
-                    <div class="midleSide">
+                <div class="midleSide">
 
-                        <label class="label"> <strong> Input <strong> </label>
-                        <div class="table-responsive">
-                            <table id="form_table" class="table table-bordered">
-                                <tr>
-                                    <th></th>
-                                    <th>Input</th>
-                                    <th>Output</th>
-                                    <th>Pondere(suma lor trebuie sa fie 100)</th>
-                                </tr>
-                                <tr class='case'>
-                                    <td><span id='snum'>1.</span></td>
-                                    <td><textarea class="form-control" id="exampleFormControlTextarea1"
-                                                  placeholder="add an input" name="input1" rows="1" required></textarea>
-                                    </td>
-                                    <td><textarea class="form-control" id="exampleFormControlTextarea1" name="output1"
-                                                  rows="1" required></textarea></td>
-                                    <td><input class="form-control pondere" min='0' max="100" type="number"
-                                               name="pondere1" id="qty" required/></td>
-                                </tr>
-                                <tr class='case'>
-                                    <td><span id='snum'>2.</span></td>
-                                    <td><textarea class="form-control" id="exampleFormControlTextarea1" name="input2"
-                                                  rows="1" required></textarea></td>
-                                    <td><textarea class="form-control" id="exampleFormControlTextarea1" name="output2"
-                                                  rows="1" required></textarea></td>
-                                    <td><input class="form-control pondere" min='0' max="100" type="number"
-                                               name="pondere2" id="qty" required/></td>
-                                </tr>
-                                <tr class='case'>
-                                    <td><span id='snum'>3.</span></td>
-                                    <td><textarea class="form-control" id="exampleFormControlTextarea1" name="input3"
-                                                  rows="1" required></textarea></td>
-                                    <td><textarea class="form-control" id="exampleFormControlTextarea1" name="output3"
-                                                  rows="1" required></textarea></td>
-                                    <td><input class="form-control pondere" min='0' max="100" type="number"
-                                               name="pondere3" id="qty" required/></td>
-                                </tr>
-                            </table>
-                            <p id="message"></p> <br>
-                            <button type="button" class='btn btn-success addmore'>+ add new</button>
-                            <br>
-                        </div>
-                        <script> var area = document.getElementById('area');
+                    <label class="label"> <strong> Input <strong> </label>
+                    <div class="table-responsive">
+                        <table id="form_table" class="table table-bordered">
+                            <tr>
+                                <th></th>
+                                <th>Input</th>
+                                <th>Output</th>
+                                <th>Pondere(suma lor trebuie sa fie 100)</th>
+                            </tr>
+                            <tr class='case'>
+                                <td><span id='snum'>1.</span></td>
+                                <td><textarea class="form-control" id="exampleFormControlTextarea1" placeholder="add an input" name="input1" rows="1" required></textarea></td>
+                                <td><textarea class="form-control" id="exampleFormControlTextarea1" name="output1" rows="1" required></textarea></td>
+                                <td><input  class="form-control pondere" min='0' max="100" type="number" name="pondere1" id="qty" required/></td>
+                            </tr>
+                            <tr class='case'>
+                              <td><span id='snum'>2.</span></td>
+                              <td><textarea class="form-control" id="exampleFormControlTextarea1" name="input2" rows="1" required></textarea></td>
+                              <td><textarea class="form-control" id="exampleFormControlTextarea1" name="output2" rows="1" required></textarea></td>
+                              <td><input   class="form-control pondere" min='0' max="100" type="number" name="pondere2" id="qty" required/></td>
+                            </tr>
+                            <tr class='case'>
+                              <td><span id='snum'>3.</span></td>
+                              <td><textarea class="form-control" id="exampleFormControlTextarea1" name="input3" rows="1" required></textarea></td>
+                              <td><textarea class="form-control" id="exampleFormControlTextarea1" name="output3" rows="1" required></textarea></td>
+                              <td><input   class="form-control pondere" min='0' max="100" type="number" name="pondere3" id="qty" required/></td>
+                          </tr>
+                        </table>
+                        <p id="message"></p> <br>
+                        <button type="button" class='btn btn-success addmore'>+ add new </button> <br>
+                    </div>
+<script> var area = document.getElementById('area');
 
-                        document.getElementById('exampleFormControlTextarea1').addEventListener('keydown', function (e) {
-                            if (e.keyCode === 13 && e.target !== area) {
-                                e.preventDefault();
-                            }
-                        });</script>
+    document.getElementById('exampleFormControlTextarea1').addEventListener('keydown', function (e) {
+      if (e.keyCode === 13 && e.target !== area) {
+        e.preventDefault();
+      }
+    });</script>
 
-                        <link rel="stylesheet"
-                              href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-                        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-                        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-                        <script>
-                            $(document).ready(function () {
-                                $(".addmore").on('click', function () {
-                                    sumInputs();
-                                    var count = $('table tr').length;
-                                    count++;
-                                    var data = "<tr class='case'><td><span id='snum" + count + "'>" + count + ".</span></td>";
-                                    data += "<td><textarea class='form-control' id='exampleFormControlTextarea1' name='input" + count + "'" + "rows='1' required></textarea></td>\
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                $(".addmore").on('click', function () {
+                    sumInputs();
+                    var count = $('table tr').length;
+                    count++;
+                    var data = "<tr class='case'><td><span id='snum" + count + "'>" + count + ".</span></td>";
+                    data += "<td><textarea class='form-control' id='exampleFormControlTextarea1' name='input" + count  + "'" + "rows='1' required></textarea></td>\
                     <td><textarea class='form-control' id='exampleFormControlTextarea1' name='output" + count + "'" + "rows='1' required></textarea></td>\
                     <td><input  class='form-control pondere' min='0' max='100' type='number' name='pondere" + count + "'" + " id='qty'/></td></tr>";
-                                    $('#form_table').append(data);
-                                });
-                            });
+                    $('#form_table').append(data);
+                });
+            });
 
-                            const sumInputs = () =
-                            >
-                            {
-                                var inputs = document.getElementsByClassName('pondere'),
-                                    result = document.getElementById('total'),
-                                    sum = 0;
+  const sumInputs = () => {
+    var inputs = document.getElementsByClassName('pondere'),
+        result = document.getElementById('total'),
+        sum = 0;
 
-                                for (var i = 0; i < inputs.length; i++) {
-                                    var ip = inputs[i];
-                                    console.log(inputs[i])
-                                    if (ip.name && ip.name.indexOf("total") < 0) {
-                                        sum += parseInt(ip.value) || 0;
-                                    }
-                                }
-                                // result.value = sum;
-                                if (sum !== 100)
+    for(var i=0; i<inputs.length; i++) {
+        var ip = inputs[i];
+        console.log(inputs[i])
+        if (ip.name && ip.name.indexOf("total") < 0) {
+            sum += parseInt(ip.value) || 0;
+        }
+    }
+    // result.value = sum;
+    if(sum !== 100)
 
-                                    document.getElementById("message").innerHTML = "SUMA PONDERILOR ESTE DIFERITA DE 100!";
+    document.getElementById("message").innerHTML = "SUMA PONDERILOR ESTE DIFERITA DE 100!";
 
-                            }
-                        </script>
-                    </div>
+}
+</script>
                 </div>
             </div>
-            <br>
-            <div class="rightSide">
-                <div class="choose">
-                    <h3 class="text">Nivel dificultate:</h3>
-                    <br>
+        </div><br>
+        <div class="rightSide">
+            <div class="choose">
+                <h3 class="text">Nivel dificultate:</h3>
+                <br>
 
-                    <div class="card" style="width: 25%; float: left;  ">
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="clasa" value="9">
-                                    <label class="form-check-label" for="inlineRadio1"> Clasa a IX - a</label>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="clasa" value="10">
-                                    <label class="form-check-label" for="inlineRadio2"> Clasa a X- a</label>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="clasa" value="11">
-                                    <label class="form-check-label" for="inlineRadio3"> Clasa a XI- a</label>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
+                  <div class="card" style="width: 25%; float: left;  ">
+                    <ul class="list-group list-group-flush">
+                      <li class="list-group-item">
+                        <div class="form-check form-check-inline" >
+                        <input class="form-check-input" type="radio" name="clasa" value="9">
+                        <label class="form-check-label" for="inlineRadio1">  Clasa a IX - a</label>
+                      </div></li>
+                      <li class="list-group-item">
+                        <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="clasa" value="10">
+                        <label class="form-check-label" for="inlineRadio2">  Clasa a X- a</label>
+                        </div>
+                      </li>
+                      <li class="list-group-item">
+                        <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="clasa" value="11">
+                        <label class="form-check-label" for="inlineRadio3">  Clasa a XI- a</label>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
 
 
-                    <div class="card"
-                         style="width: 20%;
+                  <div class="card"
+                  style="width: 20%;
                   float: left; 
                   margin-top: 0; 
                   margin-left: 10%; ">
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="dificultate" value="usor">
-                                    <label class="form-check-label" for="inlineRadio1"> Usor</label>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="dificultate" value="mediu">
-                                    <label class="form-check-label" for="inlineRadio2"> Mediu</label>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="dificultate" value="greu">
-                                    <label class="form-check-label" for="inlineRadio3"> Greu</label>
-                                </div>
-                            </li>
+                          <li class="list-group-item">
+                            <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="dificultate" value="usor">
+                            <label class="form-check-label" for="inlineRadio1">  Usor</label>
+                          </div></li>
+                          <li class="list-group-item">
+                            <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="dificultate" value="mediu">
+                            <label class="form-check-label" for="inlineRadio2">  Mediu</label>
+                            </div>
+                          </li>
+                          <li class="list-group-item">
+                            <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="dificultate" value="greu">
+                            <label class="form-check-label" for="inlineRadio3">  Greu</label>
+                            </div>
+                          </li>
                         </ul>
-                    </div>
-                    <br><br><br><br>
-                    <button style="width: 20%; padding: 10px; float: left; margin-top: 10%; margin-left: 15%"
-                            class="btn btn-success" type="submit" value="Submit">Submit
-                    </button>
-                </div>
+                      </div>
+                      <br><br><br><br>
+            <button style="width: 20%; padding: 10px; float: left; margin-top: 10%; margin-left: 15%"
+            class="btn btn-success" type="submit"  value="Submit">Submit</button>
+        </div>
 
-            </div>
+    </div>
 
 
-    </form>
+</form>
 </body>
 
 </html>

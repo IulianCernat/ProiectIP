@@ -19,29 +19,28 @@
 
 <div class="navbar">
     <div class="dropdown">
-      <button class="dropbtn" onclick="#"> PROBLEMEE
-        <i class="fa fa-caret-down"></i>
-      </button>
-      <div class="dropdown-content">
-        <a href="GetProblems?grade=9" >Clasa a IX-a</a>
-        <a href="GetProblems?grade=10">Clasa a X-a</a>
-        <a href="GetProblems?grade=11">Clasa a XI-a</a>
-      </div>
+        <button class="dropbtn" onclick="#"> PROBLEMEE
+            <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+            <a href="GetProblems?grade=9">Clasa a IX-a</a>
+            <a href="GetProblems?grade=10">Clasa a X-a</a>
+            <a href="GetProblems?grade=11">Clasa a XI-a</a>
+        </div>
     </div>
     <div class="dropdown">
-     
-     
-  
+
+
     </div>
-      <a href="html/adaugaIntrebare.html" id="logo">ADAUGA PROBLEMA</a>
-      <a href="html/cont.html" id="logo">CONTUL MEU</a>
-      <a href="./index.html" id="logo">DECONECTARE</a>
-  </div>
+    <a href="html/adaugaIntrebare.html" id="logo">ADAUGA PROBLEMA</a>
+    <a href="html/cont.html" id="logo">CONTUL MEU</a>
+    <a href="./index.html" id="logo">DECONECTARE</a>
+</div>
 <jsp:useBean id="problem" scope="request" type="org.json.JSONObject"/>
 
-<form method = "POST" style=" padding-left: 200px ; padding-right: 200px">
+<form method="POST" style=" padding-left: 200px ; padding-right: 200px">
     <br> <br>
-        <h3 style="font-family: Ubuntu;" >Enunt: ${problem.getString("statement")} </h3><br>
+    <h3 style="font-family: Ubuntu;">Enunt: ${problem.getString("statement")} </h3><br>
     <br>
     <table class="problemStyle">
         <tr>
@@ -56,7 +55,8 @@
             <td> ${problem.getString("difficulty")}</td>
             <td>${problem.getInt("category")}</td>
         </tr>
-    </table><br>
+    </table>
+    <br>
     <h3 style="font-family: Ubuntu;">Exemple: </h3><br>
     <table class="problemStyle">
         <tr>
@@ -68,7 +68,7 @@
             <td>${problem.getString("test_out")}</td>
         </tr>
     </table>
-    <br> <br> 
+    <br> <br>
     <h3>Scrie solutie mai jos:</h3><br>
     <textarea class="text" id="editor" name="solutionText">
         #include <iostream>
@@ -80,8 +80,8 @@
         }
     </textarea>
     <script>
-        var editor= CodeMirror.fromTextArea
-        (document.getElementById('editor'),{
+        var editor = CodeMirror.fromTextArea
+        (document.getElementById('editor'), {
             mode: "clike",
             theme: "dracula",
             lineNumbers: true,
@@ -89,7 +89,7 @@
         });
     </script>
     <br>
-    <button formaction = "SendSolution?solvedProblemId=${problem.getInt("id")}" type="submit" class="register">Trimite
+    <button formaction="SendSolution?solvedProblemId=${problem.getInt("id")}" type="submit" class="register">Trimite
     </button>
 
 </form>
