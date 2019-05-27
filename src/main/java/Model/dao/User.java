@@ -432,4 +432,26 @@ public class User {
         }
     }
 
+    /**
+     * Aceasat functie incrementeaza numarul de probleme uploadate de user
+     * @param userId int
+     */
+
+    public static void updateNrOfUploads(int userId) {
+
+        int numberOfUploads = getNrOfUploadedProblems(userId);
+        numberOfUploads++;
+        String query = "UPDATE `users` SET `solved_problems_no`= ? WHERE `id` = ?";
+        try (Connection myConn = new Database().getConnection();
+             PreparedStatement statement = myConn.prepareStatement(query)) {
+            statement.setInt(1,numberOfUploads);
+            statement.setInt(2,userId);
+
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
