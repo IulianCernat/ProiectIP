@@ -20,6 +20,8 @@ public class GetUserProfile extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("./jsp/cont.jsp");
         dispatcher.forward(request, response);
 
+
+
     }
 
 }
