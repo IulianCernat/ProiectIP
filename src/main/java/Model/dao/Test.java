@@ -60,9 +60,9 @@ public class Test {
      * @param obj       este obiectul de tip JSON care contine testele input, output si procentajul
      */
     public static void addTestToProblem(JSONObject obj, int problemId) {
-        String test_in = (String) obj.get("test_in");
-        String test_out = (String) obj.get("test_out");
-        Double percentage = (Double) obj.get("percentage");
+        String test_in = (String) obj.get("input");
+        String test_out = (String) obj.get("output");
+        Double percentage = Double.parseDouble( (String)obj.get("pondere"));
 
         String query = "insert into problem_test (id_problem , test_in, test_out, percentage) values(?,?,?,?)";
         try (Connection myConn = new Database().getConnection();

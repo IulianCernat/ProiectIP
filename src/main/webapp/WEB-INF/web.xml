@@ -32,7 +32,17 @@
         <servlet-name>Login</servlet-name>
         <servlet-class>controller.servlets.Login</servlet-class>
     </servlet>
+    
+    <servlet>
+        <servlet-name>AddProblem</servlet-name>
+        <servlet-class>controller.servlets.AddProblem</servlet-class>
+    </servlet>
 
+    <servlet-mapping>
+        <servlet-name>AddProblem</servlet-name>
+        <url-pattern>/AddProblem</url-pattern>
+    </servlet-mapping>
+    
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>

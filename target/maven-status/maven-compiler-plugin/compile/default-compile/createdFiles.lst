@@ -8,5 +8,6 @@ controller\servlets\SendSolution.class
 Model\dao\Problem.class
 Model\dao\Test.class
 Main.class
+controller\servlets\AddProblem.class
 Model\dao\storage\testCaseList.class
 Model\dao\storage\TestSituation.class

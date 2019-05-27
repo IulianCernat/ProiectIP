@@ -21,31 +21,33 @@ public class Problem {
      * @param tests   este un obiect JSON ce contine 3 campuri "test_in", "test_out"m "percentage"
      */
 
-    public static void addProblem(JSONObject problem, JSONObject tests) {
+    public static void addProblem(JSONObject problem, JSONArray tests) {
         int idProblema = 0;
         String query = "INSERT INTO problem(title, statement, solution, category, created_at, difficulty) VALUES (?,?,?,?,?,?)";
-
+        java.sql.Timestamp date = new java.sql.Timestamp(new java.util.Date().getTime());
         try (Connection myConn = new Database().getConnection();
              PreparedStatement statement = myConn.prepareStatement(query)) {
 
             statement.setString(1, problem.getString("title"));
             statement.setString(2, problem.getString("statement"));
             statement.setString(3, problem.getString("solution"));
-            statement.setString(4, problem.getString("category"));
-            statement.setString(5, "sysdate()");
+            statement.setInt(4, problem.getInt("category"));
+
+
+            statement.setTimestamp(5, date);
             statement.setString(6, problem.getString("difficulty"));
 
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        idProblema = getProblemId(problem.getString("title"));
+        if (idProblema != -1) {// daca am gasit problema incepem sa punem testele
 
-        if (getProblemId(problem.getString("title")) != -1) {// daca am gasit problema incepem sa punem testele
-            JSONArray testsArray = tests.getJSONArray("test");
             JSONObject test;
 
-            for (int testNr = 0; testNr < testsArray.length(); testNr++) {
-                test = testsArray.getJSONObject(testNr);
+            for (int testNr = 0; testNr < tests.length(); testNr++) {
+                test = tests.getJSONObject(testNr);
                 Test.addTestToProblem(test, idProblema);
             }
         } else System.out.println("Eroare la inserarea problemei in tabela");

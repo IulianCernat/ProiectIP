@@ -39,7 +39,7 @@
     <a href="../index.html" id="logo">DECONECTARE</a>
 </div>
 
-<form action="ServletTest" method="/post">
+<form action=".././AddProblem" method="post">
   <form>
 
     <div class="container">
@@ -123,12 +123,12 @@ int main ()
                 $(".addmore").on('click', function () {
                     sumInputs();
                     var count = $('table tr').length;
-                    count++;
                     var data = "<tr class='case'><td><span id='snum" + count + "'>" + count + ".</span></td>";
                     data += "<td><textarea class='form-control' id='exampleFormControlTextarea1' name='input" + count  + "'" + "rows='1' required></textarea></td>\
                     <td><textarea class='form-control' id='exampleFormControlTextarea1' name='output" + count + "'" + "rows='1' required></textarea></td>\
                     <td><input  class='form-control pondere' min='0' max='100' type='number' name='pondere" + count + "'" + " id='qty'/></td></tr>";
                     $('#form_table').append(data);
+                    count++;
                 });
             });
 
