@@ -14,9 +14,9 @@
 <jsp:useBean id="errors" scope="request" class="java.lang.String"/>
 
 <c:choose>
-    <c:when test = "${problemSituation.get(0).getIndex() < 0}">
-    <!-- Erori de compilare -->
-    <div id="compilerErrors"> ${errors}</div>
+    <c:when test="${problemSituation.get(0).getIndex() < 0}">
+        <!-- Erori de compilare -->
+        <div id="compilerErrors"> ${errors}</div>
     </c:when>
     <c:otherwise>
         <div id="problemSituation">

@@ -29,7 +29,7 @@ public class User {
     public static boolean checkIfUserExists(String username) {
         boolean exist = false;
         String query = "select * from users where username=? ";
-        try (Connection myConn = Database.getConnection();
+        try (Connection myConn = new Database().getConnection();
              PreparedStatement statement = myConn.prepareStatement(query);) {
             statement.setString(1, username);
             statement.executeQuery();
@@ -45,14 +45,15 @@ public class User {
 
     /**
      * Aceasta funtie adauga in baza de date utilizatorul inregistrat
+     *
      * @param username sub forma de string
      * @param password sub forma de string
-     * @param email sub forma de string
+     * @param email    sub forma de string
      */
 
     public static void addUser(String username, String password, String email) {
         String query = "INSERT INTO users(username, password, email, salt, solved_problems_no, uploaded_problems_no, points_no) VALUES (?,?,?,?,0,0,0) ";
-        try (Connection myConn = Database.getConnection();
+        try (Connection myConn = new Database().getConnection();
              PreparedStatement statement = myConn.prepareStatement(query);) {
 
             SecureRandom random = new SecureRandom();
@@ -67,7 +68,6 @@ public class User {
             statement.setString(2, passwordHash);
             statement.setString(3, email);
             statement.setString(4, stringSalt);
-
             statement.executeUpdate();
 
         } catch (SQLException e) {
@@ -81,18 +81,18 @@ public class User {
 
     /**
      * Aceasta functie genereaza un hash pe baza parolei si a saltului (este apelata de addUser)
-     * @param password parola sub forma de char[]
-     * @param salt un sir de biti pentru criptare
+     *
+     * @param password   parola sub forma de char[]
+     * @param salt       un sir de biti pentru criptare
      * @param iterations
-     * @param bytes numarul de biti al hashului final
+     * @param bytes      numarul de biti al hashului final
      * @return
      * @throws NoSuchAlgorithmException
      * @throws InvalidKeySpecException
      */
 
     private static byte[] pbkdf2(char[] password, byte[] salt, int iterations, int bytes)
-            throws NoSuchAlgorithmException, InvalidKeySpecException
-    {
+            throws NoSuchAlgorithmException, InvalidKeySpecException {
         PBEKeySpec spec = new PBEKeySpec(password, salt, iterations, bytes * 8);
         SecretKeyFactory skf = SecretKeyFactory.getInstance(PBKDF2_ALGORITHM);
         return skf.generateSecret(spec).getEncoded();
@@ -107,7 +107,7 @@ public class User {
      */
     public static int getUserProblemScore(int userId, int problemId) {
         String query = "select score from points WHERE id_user = ? and id_problem = ?";
-        try (Connection myConn = Database.getConnection();
+        try (Connection myConn = new Database().getConnection();
              PreparedStatement statement = myConn.prepareStatement(query);) {
             statement.setInt(1, userId);
             statement.setInt(2, problemId);
@@ -126,14 +126,11 @@ public class User {
      * @param userId    utilizatorul care a rezolvat problema
      * @param problemId Id-ul problemei la care se va adauga punctajul
      * @param points    punctajul obtinut de utilizator
-     * @return
      */
     public static void setPoints(int userId, int problemId, int points) {
 
-        try {
-
-            Connection myConn = Database.getConnection();
-            PreparedStatement statement = myConn.prepareStatement("insert into points (id_user,id_problem,points) values (?,?,?)");
+        try (Connection myConn = new Database().getConnection();
+             PreparedStatement statement = myConn.prepareStatement("insert into points (id_user,id_problem,points) values (?,?,?)");) {
             statement.setInt(1, userId);
             statement.setInt(2, problemId);
             statement.setInt(3, points);
@@ -152,10 +149,10 @@ public class User {
      * @param userId este id-ul user-ului pentru care se va cauta email-ul
      * @return email Acesta este email-ul user-ului.    Returneaza null in cazul in care id-ul nu exista in baza de date
      */
-    public String getEmail(int userId) {
+    public static String getEmail(int userId) {
         String email = null;
         String query = "select email from users where id=? ";
-        try (Connection myConn = Database.getConnection();
+        try (Connection myConn = new Database().getConnection();
              PreparedStatement statement = myConn.prepareStatement(query)) {
             statement.setInt(1, userId);
             try (ResultSet rs = statement.executeQuery()) {
@@ -164,7 +161,7 @@ public class User {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return  email;
+        return email;
     }
 
     /**
@@ -173,10 +170,10 @@ public class User {
      * @param username este username-ul user-ului pentru care se va cauta parola
      * @return password Aceasta este parola user-ului.    Returneaza null in cazul in care id-ul nu exista in baza de date
      */
-    public String getPassword(String username) {
+    public static String getPassword(String username) {
         String password = null;
         String query = "select password from users where username=? ";
-        try (Connection myConn = Database.getConnection();
+        try (Connection myConn = new Database().getConnection();
              PreparedStatement statement = myConn.prepareStatement(query)) {
             statement.setString(1, username);
             try (ResultSet rs = statement.executeQuery()) {
@@ -195,10 +192,10 @@ public class User {
      * @param userId este id-ul user-ului pentru care se va cauta punctajul
      * @return points Acesta este punctajul user-ului.   Returneaza -1 in cazul in care id-ul nu exista in baza de date
      */
-    public int getPoints(int userId) {
+    public static int getPoints(int userId) {
         int points = -1;
         String query = "select points_no from users where id=? ";
-        try (Connection myConn = Database.getConnection();
+        try (Connection myConn = new Database().getConnection();
              PreparedStatement statement = myConn.prepareStatement(query)) {
             statement.setInt(1, userId);
             try (ResultSet rs = statement.executeQuery()) {
@@ -212,19 +209,20 @@ public class User {
 
     /**
      * Aceasta functie este folosita pentru a returna id-ul unui utilizator
+     *
      * @param username este username-ul user-ului pentru care se va cauta id-ul
      * @return id Acesta este id-ul user-ului.    Returneaza -1 in cazul in care username-ul nu exista in baza de date
      */
-    public int getId(String username){
-        int id = -1 ;
-        String query="select id from users where username=?";
-        try (Connection myConn = Database.getConnection();
-             PreparedStatement statement = myConn.prepareStatement(query)){
-            statement.setString(1,username);
-            try (ResultSet rs = statement.executeQuery()){
-                if(rs.next())  id= rs.getInt("id");
+    public static int getId(String username) {
+        int id = -1;
+        String query = "select id from users where username=?";
+        try (Connection myConn = new Database().getConnection();
+             PreparedStatement statement = myConn.prepareStatement(query)) {
+            statement.setString(1, username);
+            try (ResultSet rs = statement.executeQuery()) {
+                if (rs.next()) id = rs.getInt("id");
             }
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return id;
@@ -232,19 +230,20 @@ public class User {
 
     /**
      * Aceasta functie este folosita pentru a returna numarul de probleme incarcate de utilizator
+     *
      * @param userId este id-ul user-ului pentru care se va cauta numarul de probleme incarcate
      * @return count Acesta este numarul de probleme incarcate.    Returneaza 0 in cazul in care user-ul nu are nicio problema incarcata
      */
-    public int getNrOfUploadedProblems(int userId){
+    public static int getNrOfUploadedProblems(int userId) {
         int count = 0;
-        String query="select uploaded_problems_no from users where id = ?";
-        try (Connection myConn = Database.getConnection();
-             PreparedStatement statement = myConn.prepareStatement(query)){
-            statement.setInt(1,userId);
-            try (ResultSet rs = statement.executeQuery()){
-                if(rs.next())  count= rs.getInt("uploaded_problems_no");
+        String query = "select uploaded_problems_no from users where id = ?";
+        try (Connection myConn = new Database().getConnection();
+             PreparedStatement statement = myConn.prepareStatement(query)) {
+            statement.setInt(1, userId);
+            try (ResultSet rs = statement.executeQuery()) {
+                if (rs.next()) count = rs.getInt("uploaded_problems_no");
             }
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return count;
@@ -253,13 +252,14 @@ public class User {
 
     /**
      * Aceasta functie returneaza un JSONObject care contine toate detaliile despre user
+     *
      * @param userId este id-ul utilizatorului
      * @return JSONObject ce reprezinta user-ul si contine(id, username, email, nr. de probleme rezolvate, nr. de probleme incarcate si numarul de puncte)
      */
-    public JSONObject getUserPublicData(int userId){
+    public static JSONObject getUserPublicData(int userId) {
         JSONObject user = new JSONObject();
-        String query ="SELECT id,username,email,solved_problems_no,uploaded_problems_no,points_no from users where id=?";
-        try (Connection myConn = Database.getConnection();
+        String query = "SELECT id,username,email,solved_problems_no,uploaded_problems_no,points_no from users where id=?";
+        try (Connection myConn = new Database().getConnection();
              PreparedStatement statement = myConn.prepareStatement(query)) {
             statement.setInt(1, userId);
             ResultSet resultSet = statement.executeQuery();
@@ -272,7 +272,7 @@ public class User {
                 user.put("points_no", resultSet.getInt("points_no"));
 
             }
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
@@ -281,12 +281,13 @@ public class User {
 
     /**
      * Aceasta functie returneaza un JSONArray cu toti utilizatorii in ordinea punctajelor
+     *
      * @return JSONArray ce contine utilizatorii fiecare element dinarray avand id-ul, username-ul si numarul de puncte al fiecarui utilizator
      */
-    public JSONArray getUsersOrderedByScore(){
+    public static JSONArray getUsersOrderedByScore() {
         JSONArray array = new JSONArray();
-        String query ="SELECT id,username,points_no from users order by points_no desc";
-        try (Connection myConn = Database.getConnection();
+        String query = "SELECT id,username,points_no from users order by points_no desc";
+        try (Connection myConn = new Database().getConnection();
              PreparedStatement statement = myConn.prepareStatement(query)) {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -296,26 +297,28 @@ public class User {
                 user.put("points_no", resultSet.getInt("points_no"));
                 array.put(user);
             }
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return array;
     }
+
     /**
      * Aceasta functie este folosita pentru a returna numarul de probleme rezolvate de un anumit utilizator
+     *
      * @param userId este id-ul user-ului pentru care se va cauta numarul de probleme rezolvate
      * @return count Acesta este numarul de probleme rezolvate.    Returneaza 0 in cazul in care user-ul nu are nicio problema rezolvata
      */
-    public int getSolvedProblemsNr(int userId){
+    public static int getSolvedProblemsNr(int userId) {
         int count = 0;
-        String query="select solved_problems_no from users where id = ?";
-        try (Connection myConn = Database.getConnection();
-             PreparedStatement statement = myConn.prepareStatement(query)){
-            statement.setInt(1,userId);
-            try (ResultSet rs = statement.executeQuery()){
-                if(rs.next())  count= rs.getInt("solved_problems_no ");
+        String query = "select solved_problems_no from users where id = ?";
+        try (Connection myConn = new Database().getConnection();
+             PreparedStatement statement = myConn.prepareStatement(query)) {
+            statement.setInt(1, userId);
+            try (ResultSet rs = statement.executeQuery()) {
+                if (rs.next()) count = rs.getInt("solved_problems_no ");
             }
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return count;
@@ -324,85 +327,84 @@ public class User {
 
     /**
      * Aceasta functie este folosita pentru obtinerea salt-ului unui utilizator
+     *
      * @param userName este numele de utilizator al user-ului
      * @return salt
      */
-    public String getUserSalt(String userName)
-    {
+    public static String getUserSalt(String userName) {
         String userSalt = null;
-        String query="select salt from users where username = ?";
-        try (Connection myConn = Database.getConnection();
-             PreparedStatement statement = myConn.prepareStatement(query)){
-            statement.setString(1,userName);
-            try (ResultSet rs = statement.executeQuery()){
-                if(rs.next())  userSalt= rs.getString("salt");
+        String query = "select salt from users where username = ?";
+        try (Connection myConn = new Database().getConnection();
+             PreparedStatement statement = myConn.prepareStatement(query)) {
+            statement.setString(1, userName);
+            try (ResultSet rs = statement.executeQuery()) {
+                if (rs.next()) userSalt = rs.getString("salt");
             }
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return userSalt;
 
     }
+
     /**
      * Aceasta functie este folosita pentru a returna id ul problemelor care
      * au fost rezolvate de catre un utilizator primind puntaj maxim
+     *
      * @param userId este  id-ul utilizatorului
      * @return JSONArray [{id}]
      */
-    public JSONArray getSolvedProblems(int userId){
+    public static JSONArray getSolvedProblems(int userId) {
         ArrayList<Integer> arr = new ArrayList<Integer>();
-        String query="select id_problem from points where id_user = ? and points=?";
-        try (Connection myConn = Database.getConnection();
-             PreparedStatement statement = myConn.prepareStatement(query)){
-            statement.setInt(1,userId);
-            statement.setInt(2,100);
-            try (ResultSet rs = statement.executeQuery()){
-                while(rs.next()){
+        String query = "select id_problem from points where id_user = ? and points=?";
+        try (Connection myConn = new Database().getConnection();
+             PreparedStatement statement = myConn.prepareStatement(query)) {
+            statement.setInt(1, userId);
+            statement.setInt(2, 100);
+            try (ResultSet rs = statement.executeQuery()) {
+                while (rs.next()) {
                     arr.add(rs.getInt("id_problem"));
                 }
             }
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
         JSONArray jsArray = new JSONArray(arr);
         return jsArray;
     }
-	
-	
-	/**
+
+
+    /**
      * Aceasta functie actualizeaza punctajul utilizatorului
      *
-     * @param userId reprezinta id-ul utilizatorului pentru care se va face actualizarea
+     * @param userId    reprezinta id-ul utilizatorului pentru care se va face actualizarea
      * @param newPoints reprezinta punctele acumulate in urma unei probleme adaugate.
      */
-    public void obtainedPoints(int userId, int newPoints) throws SQLException {
+    public static void obtainedPoints(int userId, int newPoints) throws SQLException {
 
         PreparedStatement statement = null;
-		String query = "update users set points_no = points_no + ? where id=?  ";
-		try {
-			Connection myConn = Database.getConnection();
-			statement = myConn.prepareStatement(query);
-			statement.setInt(1, newPoints);
-			statement.setInt(2, userId);
-			statement.executeUpdate();
+        String query = "update users set points_no = points_no + ? where id=?  ";
+        try {
+            Connection myConn = new Database().getConnection();
+            statement = myConn.prepareStatement(query);
+            statement.setInt(1, newPoints);
+            statement.setInt(2, userId);
+            statement.executeUpdate();
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			if (statement != null) {
-				try {
-					statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
 
-				} catch (SQLException ex) {
-					System.out.println(ex);
+                } catch (SQLException ex) {
+                    System.out.println(ex);
 
-				}
-			}
-		}
+                }
+            }
+        }
     }
 
-	
-	
-	
 }

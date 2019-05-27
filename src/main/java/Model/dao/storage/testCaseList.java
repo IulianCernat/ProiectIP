@@ -2,7 +2,7 @@ package Model.dao.storage;
 
 import java.util.ArrayList;
 
-public class testCaseList{
+public class testCaseList {
 
 
     private ArrayList<String> input = new ArrayList<>();
@@ -10,14 +10,14 @@ public class testCaseList{
     private ArrayList<Integer> testsId = new ArrayList<>();
     private int testCount;
 
-    public testCaseList(){
+    public testCaseList() {
 
-        testCount=0;
+        testCount = 0;
 
     }
 
 
-    public void addTestCase(Integer id, String input_str, String output_str){
+    public void addTestCase(Integer id, String input_str, String output_str) {
 
         testsId.add(id);
         input.add(input_str);
@@ -28,7 +28,7 @@ public class testCaseList{
     }
 
 
-    public String getTestInput(Integer testIndex){
+    public String getTestInput(Integer testIndex) {
 
         //int i = id_test.indexOf(id);
         //return input.get(i);
@@ -37,7 +37,7 @@ public class testCaseList{
     }
 
 
-    public String getTestOutput(Integer testIndex){
+    public String getTestOutput(Integer testIndex) {
 
         //int i = id_test.indexOf(id);
         //return output.get(i);
@@ -46,22 +46,22 @@ public class testCaseList{
 
     }
 
-    public int getTestId(Integer testIndex){
+    public int getTestId(Integer testIndex) {
         return testsId.get(testIndex);
     }
 
-    public int getTestCount(){
+    public int getTestCount() {
 
         return testCount;
 
     }
 
-    public void flush(){
+    public void flush() {
 
         input.clear();
         output.clear();
         testsId.clear();
-        testCount=0;
+        testCount = 0;
 
     }
 

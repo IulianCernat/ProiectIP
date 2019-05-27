@@ -25,7 +25,7 @@ public class Problem {
         int idProblema = 0;
         String query = "INSERT INTO problem(title, statement, solution, category, created_at, difficulty) VALUES (?,?,?,?,?,?)";
 
-        try (Connection myConn = Database.getConnection();
+        try (Connection myConn = new Database().getConnection();
              PreparedStatement statement = myConn.prepareStatement(query)) {
 
             statement.setString(1, problem.getString("title"));
@@ -61,7 +61,7 @@ public class Problem {
     public static int getProblemId(String title) {
         int problemId = -1;
         String query = "select id from problem where title=? ";
-        try (Connection myConn = Database.getConnection();
+        try (Connection myConn = new Database().getConnection();
              PreparedStatement statement = myConn.prepareStatement(query)) {
             statement.setString(1, title);
             try (ResultSet rs = statement.executeQuery()) {
@@ -82,9 +82,8 @@ public class Problem {
     public JSONArray getProblemsByGrade(int grade) {
         JSONArray jsonArray = new JSONArray();
         String query = "select id,title,created_at,difficulty,category from problem where category=? ";
-        try {
-            Connection myConn = Database.getConnection();
-            PreparedStatement statement = myConn.prepareStatement(query);
+        try (Connection myConn = new Database().getConnection();
+             PreparedStatement statement = myConn.prepareStatement(query)) {
             statement.setInt(1, grade);
 
             ResultSet resultSet = statement.executeQuery();
@@ -115,9 +114,8 @@ public class Problem {
         JSONObject problem = new JSONObject();
         String query = "select p.id, p.title,p.statement,p.category,p.difficulty,t.test_in,t.test_out from problem p inner join problem_test t on p.id = t.id_problem where p.title=? limit 1";
 
-        try {
-            Connection myConn = Database.getConnection();
-            PreparedStatement statement = myConn.prepareStatement(query);
+        try (Connection myConn = new Database().getConnection();
+             PreparedStatement statement = myConn.prepareStatement(query);) {
             statement.setString(1, title);
 
             ResultSet resultSet = statement.executeQuery();
@@ -143,10 +141,10 @@ public class Problem {
     /**
      * Aceasta functie returneaza un int care reprezinta scorul unei probleme.
      *
-     * @param map Un HashMap care contine elemente de tipul [id_test ->boolean]
+     * @param map Un HashMap care contine elemente de tipul [id_test - boolean]
      * @return int care reprezinta scorul calculat pentru testele trecute (care au true) .
      */
-    public int calculateScore(HashMap<Integer, Boolean> map)  {
+    public int calculateScore(HashMap<Integer, Boolean> map) {
 
         PreparedStatement statement = null;
         int score = 0, percentage = 0;
@@ -158,8 +156,7 @@ public class Problem {
 
             if (value) {
                 String query = "select percentage from problem_test where id=? ";
-                try {
-                    Connection myConn = Database.getConnection();
+                try (Connection myConn = new Database().getConnection();) {
                     statement = myConn.prepareStatement(query);
                     statement.setInt(1, key);
                     statement.executeQuery();
@@ -178,8 +175,9 @@ public class Problem {
                             statement.close();
 
                         } catch (SQLException ex) {
-                            System.out.println(ex);
-                            
+                            ex.printStackTrace();
+
+
                         }
                     }
                 }
