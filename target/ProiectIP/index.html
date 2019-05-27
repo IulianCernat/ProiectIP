@@ -13,9 +13,9 @@
     <title>PbInfo</title>
 </head>
 
-<body style="width: 50%; margin-top: 4%; margin-left: 25%;">
+<body style=" width: 50%; margin-top: 4%; margin-left: 25%;">
   <form class="text-center border border-light p-5" method="post" action="Login" >
-  
+    <img style="padding-left: 20px;" src="group.png" alt="logo">
       <p class="h4 mb-4">Log in</p>
   
       <input  id="defaultLoginFormEmail" class="form-control mb-4" name="username" placeholder=" User">
@@ -27,7 +27,7 @@
       <button class="btn btn-info btn-block my-4" style="background-color:black" type="submit">Log In</button>
   
       <p>Not a member?
-          <a href="html/signUp.html">Register</a>
+          <a href="html/signUp.html"  style=" color: green";>Register</a>
       </p>
   
   
@@ -40,10 +40,9 @@
   function getCategoryProblems(category) {
   var xmhr = new XMLHttpRequest();
   xmhr.onreadystatechange = function() {
-
   }
   xhr.open('GET', 'GetProblems', true);
   xhr.send("grade=" + category);}
 </script>
 -->
-</html>
+</html

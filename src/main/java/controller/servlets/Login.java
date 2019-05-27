@@ -38,7 +38,7 @@ public class Login extends HttpServlet {
                 //else System.out.println("Din sesiune : " + session.getAttribute("username"));
                 session.setAttribute("username", typedUsername); // salvez in sesiune usernameul celui ce s-a conectat
 
-                response.sendRedirect("./html/cont.html");
+                response.sendRedirect("./jsp/cont.jsp");
             }
             else
                 response.sendRedirect("index.html");

@@ -71,6 +71,13 @@ public class User {
         }
     }
 
+    /**
+     * Aceasta functie face un hash din parola primita ca argument pe baza unui salt tot primit ca argument
+     * @param password - parola sub forma de string
+     * @param salt - saltul sub forma de string
+     * @return un hash returnat ca string
+     */
+
     public static String md5Hash(String password, String salt) {
         byte[] saltByt = salt.getBytes();
         String passwordHash = null;
@@ -90,6 +97,13 @@ public class User {
         }
         return passwordHash;
     }
+
+    /**
+     *
+     * @return Returneaza un string de control pentru criptarea parolei
+     * @throws NoSuchAlgorithmException
+     * @throws NoSuchProviderException
+     */
 
     protected static String getSalt() throws NoSuchAlgorithmException, NoSuchProviderException {
         SecureRandom sr = SecureRandom.getInstance("SHA1PRNG", "SUN");
