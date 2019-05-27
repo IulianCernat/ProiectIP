@@ -21,6 +21,8 @@ public class Main {
         //User.updateNrOfUploads(13);
         Problem.deleteProblem(11);
 
+        User.updateNrOfSolvedProblmes(13);
+
     }
 
 }
