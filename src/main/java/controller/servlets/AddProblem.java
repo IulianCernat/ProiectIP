@@ -3,6 +3,7 @@ package controller.servlets;
 import Model.dao.Problem;
 import Model.dao.User;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import javax.servlet.ServletException;
@@ -18,6 +19,7 @@ public class AddProblem extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        final int MAX_TEST_NUMBER = 100;
         HttpSession session = request.getSession(false);
         int userId = (int)session.getAttribute("userId");
         JSONObject problem = new JSONObject();
@@ -29,19 +31,28 @@ public class AddProblem extends HttpServlet {
 
         JSONArray testList = new JSONArray();
 
-        for (int i = 1; i <= 3; i++) {
-            String output = "output";
-            String input = "input";
-            String pondere = "pondere";
+        try {
+            for (int i = 1; i <= MAX_TEST_NUMBER; i++) {
+                String output = "output";
+                String input = "input";
+                String pondere = "pondere";
 
-            JSONObject test = new JSONObject();
-            input += i;
-            output += i;
-            pondere += i;
-            test.put("input", request.getParameter(input));
-            test.put("output", request.getParameter(output));
-            test.put("pondere", request.getParameter(pondere));
-            testList.put(test);
+                JSONObject test = new JSONObject();
+                input += i;
+                output += i;
+                pondere += i;
+                String stringIn = request.getParameter(input);
+                String stringOut = request.getParameter(output);
+                String stringPr = request.getParameter(pondere);
+
+                if(stringIn == null || stringOut ==null || stringPr == null) break;
+                test.put("input", stringIn);
+                test.put("output", stringOut);
+                test.put("pondere", stringPr);
+                testList.put(test);
+            }
+        } catch (JSONException e) {
+            System.out.println("JSONException in AddProblem!");;
         }
 
         Problem.addProblem(problem, testList);
