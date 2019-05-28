@@ -193,9 +193,7 @@ public class SendSolution extends HttpServlet {
         }
 
 
-        request.setAttribute("problemSituation", problemSituation);
-        request.setAttribute("errors", eroareCompilare);
-        request.setAttribute("totalScore", totalScore);
+
 
         //Id-ul user-ului din sesiune
         Integer userId = (Integer) request.getSession(false).getAttribute("userId");
@@ -204,7 +202,7 @@ public class SendSolution extends HttpServlet {
         int userProblemScore = User.getUserProblemScore(userId, problemId);
         try {
             if (userProblemScore < totalScore && userProblemScore != -1 && totalScore !=0) {
-                User.addObtainedPoints(userId, User.getPoints(userId) - userProblemScore + totalScore);
+                User.addObtainedPoints(userId,totalScore - userProblemScore);
                 User.updateProblemScore(userId, problemId, totalScore);
                 if (totalScore == 100)
                     User.updateNrOfSolvedProblmes(userId);
@@ -219,7 +217,9 @@ public class SendSolution extends HttpServlet {
         }catch (SQLException e) {
             e.printStackTrace();
         }
-
+            request.setAttribute("problemSituation", problemSituation);
+            request.setAttribute("errors", eroareCompilare);
+            request.setAttribute("totalScore", totalScore);
             RequestDispatcher rd = request.getRequestDispatcher("./jsp/scor.jsp");
             rd.forward(request, response);
 
